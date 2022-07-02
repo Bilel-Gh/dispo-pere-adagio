@@ -23,6 +23,21 @@ const NewsLett = styled.section`
     p{
         font-family: "Poppins-Regular";
     }
+
+    @media (max-width: 750px) {
+        div{
+            flex-direction: column;
+            justify-content: center;
+            gap: 15px;
+            align-items: center;
+            input{
+                width: 60%!important
+            }
+        }
+        button{
+            padding: 10px;
+        }
+    
 ` 
 
 export default function Newsletter() {

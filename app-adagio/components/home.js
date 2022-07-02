@@ -66,6 +66,74 @@ const Pink = styled.article`
         background-size: 355px 285px;
         background-repeat: no-repeat;
     }
+
+
+    @media (max-width: 1060px) {
+        .title-container{
+            background-size: 280px 88px;
+            .title{
+                font-size: 63px;
+            }
+        }
+        .description-container{
+            font-size: 15px;
+        }
+        .orange-puzzle{
+            bottom: -52px;
+            height: 205px;
+            width: 256px ;
+            background-size: 256px  205px;
+        }
+    }
+
+    @media (max-width: 860px) {
+        .title-container{
+            .title{
+                font-size: 43px;
+            }
+        }
+        .description-container{
+            font-size: 13px;
+        }
+        .orange-puzzle{
+            bottom: -47px;
+            height: 185px;
+            width: 230px ;
+            background-size: 230px 185px;
+        }
+    }
+
+    @media (max-width: 650px) {
+        .title-container{
+            background: none;
+            .title{
+                align-items: center;
+                span{
+                    color: #333333!important;
+                    text-align: center;
+
+                    &:nth-child(2) {
+                        padding-left: 0%;
+                        white-space: initial;
+                        span {
+                            border-bottom: 2px solid #333333;
+                        }
+                    }
+                }
+                
+            }
+        }
+        .description-container{
+            color: #333333!important;
+
+            width: 100%;
+            text-align: center;
+        }
+        
+        .orange-puzzle{
+            background: none;
+        }
+    }
     
 `
 
@@ -92,8 +160,33 @@ const Spots = styled.article`
         background-repeat: no-repeat;
     }
     .btn-more-spot{
-        width: 500px;
+        // width: 35%;
     }
+
+    @media (max-width: 1060px) {
+        .pink-puzzle{
+            left: 50px;
+            height: 153px;
+            width: 307px;
+            background-size:307px 153px;
+        }
+    }
+
+    @media (max-width: 860px) {
+        .pink-puzzle{
+            left: 50px;
+            height: 137px;
+            width: 276px;
+            background-size:276px 137px;
+        }
+    }
+
+    @media (max-width: 650px) {
+        .pink-puzzle{
+            background: none;
+        }
+    }
+    
     
 
 `
