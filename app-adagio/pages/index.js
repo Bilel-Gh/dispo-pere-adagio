@@ -13,7 +13,8 @@ export default function Main() {
         <meta property="og:description" content="La première plateforme  qui rassemble des acteurs de l'artisanat culinaire autour d'un projet commun, la création d'espaces culinaires partagés, pour la valorisation du secteur."/>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Header/>
+      
+      <Header style={{position:"fixed"}}/>
 
 
       <main className='main'>

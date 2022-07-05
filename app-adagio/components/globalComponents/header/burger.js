@@ -2,33 +2,57 @@ import React, {useState, useEffect} from 'react'
 import styled from 'styled-components'
 
 
-const NavDesktop = styled.nav`
-    padding: 30px 30px 0px 30px;
-    background-color: #F195BA;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-image: url('/img/myprofil.webp');
-    background-size: 150px 100px;
-    background-repeat: no-repeat;
-    background-position: 90% 30%;
-    ul{
-        list-style-type: none;
-        width: 100%;
-        padding-left: 0;
-        display: flex;
-        gap: 5%;
-        align-items: center;
-        justify-content: center;
-        li{
-            font-family: 'Poppins-Regular';
-            font-size: 15px;
-            line-height: 32px;
-            color: #FDFCF3;
-            text-transform: uppercase;
-            cursor: pointer;
-        }
 
+const NavDesktop = styled.div`
+    .desktopNavContainer {
+        transition: 1s;
+        padding: 30px 30px 0px 30px;
+        background-color: #F195BA;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-image: url('/img/myprofil.webp');
+        background-size: 150px 100px;
+        background-repeat: no-repeat;
+        background-position: 90% 30%;
+        figure{
+            margin: 0 ;
+        }
+        ul{
+            list-style-type: none;
+            width: 100%;
+            padding-left: 0;
+            display: flex;
+            gap: 5%;
+            align-items: center;
+            justify-content: center;
+            li{
+                font-family: 'Poppins-Regular';
+                font-size: 15px;
+                line-height: 32px;
+                color: #FDFCF3;
+                text-transform: uppercase;
+                cursor: pointer;
+            }
+
+        }
+    }
+    .desktopNavScrolled{
+        padding: 30px 30px 0px 30px;
+        background-color: #FDFCF3;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        ul li{
+            color: #333333;
+        }
+    }
+    .desktopNavNotScrolled{
+        padding: 30px 30px 0px 30px;
+        background-color: #F195BA;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 `
 const NavMobile = styled.nav`
@@ -312,6 +336,33 @@ const Burger = ({isOpen, setIsOpen}) => {
     const [isMobile, setIsMobile] = useState(false)
     const [width, setWidth] = useState();
 
+    const [isScrolled, setIsScrolled] = useState(false)
+
+
+    useEffect(() => {
+        let nav = document.querySelector('.desktopNavContainer')
+        // let sticky = nav.offsetHeight
+        // console.log('sticky', sticky)
+
+        window.onscroll = () => {
+
+            if (window.pageYOffset > 300 ) {
+                nav.classList.add('desktopNavScrolled')
+                nav.classList.remove('desktopNavNotScrolled')
+                setIsScrolled(true)
+            }else{
+                setIsScrolled(false)
+
+                nav.classList.add('desktopNavNotScrolled')
+                nav.classList.remove('desktopNavScrolled')
+
+                // nav.classList.add('default')
+            }
+        }
+      }, []);
+    // -------
+    
+
     useEffect(() => {
         if (!width) setWidth(window.innerWidth);
         window.addEventListener("resize", () => {
@@ -326,7 +377,7 @@ const Burger = ({isOpen, setIsOpen}) => {
     }
 
     return (
-      <header>
+      <>
         {isMobile ?
         (
             <NavMobile className='container'>
@@ -360,20 +411,42 @@ const Burger = ({isOpen, setIsOpen}) => {
                 </div>
             </NavMobile>
         ):(
-            <NavDesktop className='desktopNavNontainer'>
-                <img src='/img/logoWhite.webp' alt='white logo' width='244px' height='135px'/>
+            <NavDesktop 
+                // style={{
+                //     backgroundColor: scrollY > 300 && 'red',
+                // }}
+                >
+                <nav className='desktopNavContainer'
+                // <nav className={`desktopNavContainer ${ scrollY > 300  ?'desktopNavScrolled' : 'desktopNavNotScrolled'}`}
+                    // style={{
+                    //     backgroundColor: navScroll ? '#F0EAD8' : 'transparent',
+                    // }}
+                >
 
+                <figure>
+                    {
+                         isScrolled  ? 
+                        (
+                            <img src='/img/logoPink.webp' alt='logo' width='122px' height='69px'/>
+
+                        ): (
+                            <img src='/img/logoWhite.webp' alt='white logo' width='244px' height='135px'/>
+
+                        )
+                    }
+                </figure>
                 <ul>
                     <li onClick={() => scrollToSection('#')}>Accueil</li>
                     <li onClick={() => scrollToSection('#')}>Nos prochains pop-up stores</li>
                     <li onClick={() => scrollToSection('#')}>Recrutement</li>
                     <li onClick={() => scrollToSection('#')}>Actus</li>
                 </ul>
+                </nav>
             </NavDesktop>
         )
       
       } 
-    </header>
+    </>
 
     );
   }

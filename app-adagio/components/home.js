@@ -4,41 +4,39 @@ import Carousel from "react-simply-carousel"
 import Button from '@/components/globalComponents/button'
 
 const Pink = styled.article`
-    padding: 0% 10% 5% 10%;
-    background-color: #F195BA;
+    padding: 0% 5% 10% 5%;
+    max-height: 700px;
+    min-height: 200px;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-end;
     position: relative;
+    border : solid blue 1px;
+    background-image: url('/img/bgCook.webp');
+    background-size: cover;
+    background-repeat: no-repeat;
     .title-container{
+        border : solid red 1px;
+        width: 55%;
         background-image: url('/img/sublime.svg');
         background-size: 380px 108px;
         background-repeat: no-repeat;
-        background-position: 90% 35%;
+        background-position: 90% 40%;
         // width: 100%;
         .title{
             display: flex;
             flex-direction: column;
             font-size: 83px;
+            font-family: "Poppins-Regular";
+            color: #FDFCF3;
             span{
-                &:nth-child(1){
-                    font-family: "Fascinate-Regular";
-                    color: #FDFCF3;
-                }
-                &:nth-child(2){
-                    // padding-left: 50px;
-                    padding-left: 10%;
-                    white-space: nowrap;
-                    font-family: "Poppins-Regular";
-                    color: #FDFCF3;
-                    span {
-                        font-family: "Poppins-Regular";
-                        padding-bottom: 2px;
-                        border-bottom: 5px solid #FDFCF3;
-                    }
-                    
-                }
-                
+                font-family: "Fascinate-Regular";
+            }
+            .separator{
+                width: 60%;
+                height:5px;
+                background-color: #FDFCF3;
+                margin: 0 ;
             }
         }
     }
@@ -47,7 +45,7 @@ const Pink = styled.article`
         color: #FDFCF3;
         font-family: "Poppins-Regular";
         font-size: 19px;
-        width: 35%;
+        width: 50%;
         margin: 0 0 0 auto;
         span{
             font-family: "Poppins-Regular";
@@ -56,82 +54,62 @@ const Pink = styled.article`
 
         }
     }
-    .orange-puzzle{
-        position: absolute;
-        bottom: -72px;
-        left: 50px;
-        height: 285px;
-        width: 355px;
-        background-image: url('/img/puzzleOrange.svg');
-        background-size: 355px 285px;
-        background-repeat: no-repeat;
+    @media (max-width: 1250px) {
+        .title-container{
+            .title{
+                font-size: 65px;
+            }
+        }
+        .description-container{
+            font-size: 12px;
+        }
     }
+
 
 
     @media (max-width: 1060px) {
         .title-container{
-            background-size: 280px 88px;
+            width: 100%;
             .title{
-                font-size: 63px;
+                font-size: 65px;
             }
         }
         .description-container{
-            font-size: 15px;
-        }
-        .orange-puzzle{
-            bottom: -52px;
-            height: 205px;
-            width: 256px ;
-            background-size: 256px  205px;
+            font-size: 17px;
         }
     }
 
     @media (max-width: 860px) {
         .title-container{
             .title{
-                font-size: 43px;
+                font-size: 45px;
             }
         }
         .description-container{
-            font-size: 13px;
-        }
-        .orange-puzzle{
-            bottom: -47px;
-            height: 185px;
-            width: 230px ;
-            background-size: 230px 185px;
+            font-size: 15px;
+            width: 60%;
+
         }
     }
 
     @media (max-width: 650px) {
+        background-color: #F195BA ;
+        background-image: none ;
         .title-container{
-            background: none;
             .title{
                 align-items: center;
-                span{
-                    color: #333333!important;
-                    text-align: center;
-
-                    &:nth-child(2) {
-                        padding-left: 0%;
-                        white-space: initial;
-                        span {
-                            border-bottom: 2px solid #333333;
-                        }
-                    }
+                color: #333333!important;
+                text-align: center;
+                .separator{
+                    background-color: #333333!important;
+                   color: #333333!important;
                 }
-                
             }
         }
         .description-container{
             color: #333333!important;
-
             width: 100%;
             text-align: center;
-        }
-        
-        .orange-puzzle{
-            background: none;
         }
     }
     
@@ -149,42 +127,17 @@ const Spots = styled.article`
         gap: 10px ;
         margin: 10px;
     }
-    .pink-puzzle{
-        position: absolute;
-        top: 0px;
-        left: 50px;
-        height: 211px;
-        width: 427px;
-        background-image: url('/img/puzzlePink.svg');
-        background-size: 427px 211px;
-        background-repeat: no-repeat;
-    }
     .btn-more-spot{
         // width: 35%;
     }
 
     @media (max-width: 1060px) {
-        .pink-puzzle{
-            left: 50px;
-            height: 153px;
-            width: 307px;
-            background-size:307px 153px;
-        }
     }
 
     @media (max-width: 860px) {
-        .pink-puzzle{
-            left: 50px;
-            height: 137px;
-            width: 276px;
-            background-size:276px 137px;
-        }
     }
 
     @media (max-width: 650px) {
-        .pink-puzzle{
-            background: none;
-        }
     }
     
     
@@ -254,19 +207,6 @@ const CardSpot = styled.article`
 export default function Home() {
     const [activeSlide, setActiveSlide] = useState(0);
 
-
-    const underlineLastWord=(element)=> {
-        var pieces = element.innerHTML.split(" ");
-        var last = pieces.pop();
-        var first = pieces.join(" ");
-        element.innerHTML = first + "<span> " + last + "</span>";
-    }
-
-    useEffect(() => {
-        var elements =  document.querySelectorAll(".underline-end");
-        elements.forEach(x => underlineLastWord(x));
-    }, []);
-
     useEffect(() => {
         document.querySelector('[role="presentation"]').classList.add("container-card");
     });
@@ -316,8 +256,9 @@ export default function Home() {
     <Pink className='container'>
         <div className='title-container'>
             <h1 className='title'>
-                <span>Les espaces &nbsp;</span>
-                <span className='underline-end'>culinaires sublimés.</span>
+                <span>Les espaces <br/></span>
+                culinaires sublimés
+                <div className='separator'/>
             </h1>
             <p className='description-container'>
                 Toutes les semaines, venez retrouvez 
@@ -326,12 +267,10 @@ export default function Home() {
             </p>
 
         </div>
-        <div className='orange-puzzle'/>
 
     </Pink>
 
     <Spots>
-        <div className='pink-puzzle'/>
 
         <Carousel
             className='parent'

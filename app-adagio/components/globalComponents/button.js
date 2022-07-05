@@ -19,8 +19,6 @@ const Btn = styled.a`
 `
 
 export default function Button({children, ...props}) {
-  console.log('oui')
-  console.log('props', props)
   return (
 
       <Link href={props.href}>
