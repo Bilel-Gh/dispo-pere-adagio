@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import Header from '@/components/globalComponents/header'
 import Newsletter from '@/components/news'
 import Home from '@/components/home'
 
@@ -14,7 +13,6 @@ export default function Main() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       
-      <Header style={{position:"fixed"}}/>
 
 
       <main className='main'>
