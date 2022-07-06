@@ -17,13 +17,13 @@ import UserOnSpot from "../components/UserOnSpot";
 export default function Spot({ userConnected, events}) {
   const { data: session } = useSession();
   // console.log("session :", session);
+  const [spots, setSpots] = useState([]);
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitted },
   } = useForm();
 
-  const [spots, setSpots] = useState([]);
   useEffect(() => {
     // get all spots
     const getAllSpots = () => { 
@@ -33,15 +33,7 @@ export default function Spot({ userConnected, events}) {
         })
     }
     getAllSpots();
-    // const showUserInSpot = (id) => {
-
-        
-    // }
-    // showUserInSpot(1);
     }, []);
-
-    // create spot fonction
-    console.log("spots :", spots);
 
     // create spot fonction
     const createSpot = async (data) => {
@@ -105,22 +97,30 @@ export default function Spot({ userConnected, events}) {
             <>
             <div key={index}>
                 <h1>{spot.name}</h1>
+                {spot.users.length > 0 ? (
                 <UserOnSpot id={spot.id}/>
-                {/* {
-                    spot.users.map(user => user.userId) ? (
-                    axios.get(`/api/userOnSpot/${spot.users.map(user => user.userId)}`, 
-                    {
-                        params: {
-                            id: spot.users.map(user => user.userId)
-                        }
-                    })
-                    .then(res => {
-                        console.log("BANANA", users);
+                ) : (
+                <p>Aucun utilisateur sur ce spot</p>
+                )}
+                {/* button s'inscrire sur ce spot */}
+                {userConnected ? (
+                <button
+                    onClick={() => {
+                        axios.post(`/api/userOnSpot/createUserOnSpot`, {
+                            userId: userConnected.id,
+                            spotId: spot.id,
+                        });
                     }
-                    )
-                ) : (  <p>Aucun utilisateur</p> )
-
-                } */}
+                    }
+                >
+                    S&apos;inscrire sur ce spot
+                </button>
+                ) : (
+                  <div>
+                    <p>Vous devez vous connecter pour s&apos;inscrire sur ce spot</p>
+                    <button onClick={() => signIn()}>Connexion</button>
+                  </div>
+                )}
             </div>
             </>
         ))}
@@ -185,7 +185,7 @@ export const getServerSideProps = async ({ req }) => {
     },
 });
 
-  const userConnected = await prisma.user.findUnique({
+  const userConnected = session ? await prisma.user.findUnique({
     where: {
       // if session is not null, user is connected
       id: session ? parseInt(session.id) : 0,
@@ -199,7 +199,7 @@ export const getServerSideProps = async ({ req }) => {
       jobId: true,
       createdAt: false,
     },
-  });
+  }) : null; 
 
   return {
     props: {

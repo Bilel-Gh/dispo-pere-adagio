@@ -3,23 +3,22 @@ const prisma = new PrismaClient()
 
 export default async function getUsersonSpot(req, res) {  
     // get id from params
-    // const { id } = req.params;
+    const { id } = req.query;
+  console.log("id :", id);
 
   try {
-    // get all users
+    // get one user
     const arrayOfData =await prisma.userOnSpot.findMany({ 
-        where: {
-          spotId: 1,
-        },
-            include: {
-          user: true,
-        },
-      })
+      where: {
+        spotId: parseInt(id),
+      },
+          include: {
+        user: true,
+      },
+    })
     const arrayOfUsers = arrayOfData.map(data => data.user)
-    
-    // return users
     res.status(200).json(arrayOfUsers)
-  } catch (error) {
+    } catch (error) {
     res.status(400).json({ error });
-  }
+    }
 }
