@@ -9,7 +9,7 @@ export default async function handler(req, res) {
     
     try {
         // get one user
-        const user = await prisma.user.findUnique({
+        const user = await prisma.spot.findUnique({
             where: {
                 id: parseInt(id),
             }
