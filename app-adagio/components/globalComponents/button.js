@@ -1,0 +1,65 @@
+import Link from 'next/link'
+import { useEffect, useState } from 'react'
+import styled from 'styled-components'
+
+
+const MyBtn = styled.div`
+  .btn{
+    cursor: pointer;
+    position: relative;
+    border-radius: 10px;
+    border: none;
+    font-weight: bold;
+    display: flex;
+    text-transform: uppercase;
+    padding: 15px;
+    align-items: center;
+    justify-content: center; 
+    font-family: "Poppins-ExtraBold";
+    justify-content: center;
+    width:100% ;
+    font-weight:'bold'
+}
+
+.violet{
+    background-color:#9F9FED; 
+    color:#333333; 
+    &:hover{
+        background-color:#333333; 
+        color:#9F9FED; 
+    }
+    
+}
+.black{
+    background-color:#333333; 
+    color:#FDFCF3; 
+    &:hover{
+        background-color:#FDFCF3; 
+        color:#333333; 
+    }
+}
+.white{
+    background-color:#FDFCF3; 
+    color:#333333; 
+    &:hover{
+        background-color:#333333; 
+        color:#FDFCF3; 
+    }
+}
+`
+
+
+export default function Button({children, color, link, text}) {
+
+  return (
+
+    <MyBtn>
+      <Link href={link}>
+        <a className={`btn
+        ${color === 'violet' ? 'violet' : color === 'black' ? 'black' : 'white' } `} >
+          {children}
+        </a>
+      </Link>
+    </MyBtn>
+  )
+}

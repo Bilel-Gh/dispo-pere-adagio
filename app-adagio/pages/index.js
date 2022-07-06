@@ -1,6 +1,5 @@
 import Head from "next/head";
-import Image from "next/image";
-import styles from "../styles/Home.module.css";
+import Landing from '@/components/landing'
 import { useForm } from "react-hook-form";
 import toast, { Toaster } from "react-hot-toast";
 import { getSession, useSession, signIn, signOut } from "next-auth/react";
@@ -20,7 +19,7 @@ export default function Home({ userConnected }) {
   // console.log("userConnected FDSFQSDF:", userConnected);
 
   return (
-    <div className={styles.container}>
+    <div className='container'>
       <Head>
         <title>Create Next App</title>
         <meta
@@ -29,50 +28,9 @@ export default function Home({ userConnected }) {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <Landing/>
 
-      <main className={styles.main}>
-        {!session ? (
-          <>
-            <h1>Inscrivez vous !</h1>
-            <Link href="/login">
-              <button className={styles.btn} type="submit">
-                {"s'inscrire"}
-              </button>
-            </Link>{" "}
-            <br />
-          </>
-        ) : (
-          <>
-            <h1> Bienvenue !</h1>
-          </>
-        )}
-        {session ? (
-          <>
-            Vous etes connecté en temps que {userConnected.firstname} <br />
-            <br />
-            <button onClick={() => signOut()}>Déconnexion</button>
-          </>
-        ) : (
-          <>
-            Connectez vous <br />
-            <br />
-            <button onClick={() => signIn()}>Connexion</button>
-          </>
-        )}
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{" "}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
-      </footer>
+      
     </div>
   );
 }
