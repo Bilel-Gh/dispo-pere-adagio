@@ -42,10 +42,19 @@ const Wish = styled.article`
   align-items: center;
   justify-content: center;
   margin: -5% 5%;
+  gap: 5%;
+  height: 400px;
   .titleW{
     font-family: 'Poppins-ExtraBold';
     color: #FDFCF3;
     font-size: 22px
+  }
+  .description{
+    align-items: center;
+    text-align: center;
+    color: #FDFCF3;
+    font-family: 'Poppins-Regular';
+    width: 50%;
 
   }
 `
@@ -55,7 +64,7 @@ export default function Event(props) {
     title, btn,info, text
   } = props
 
-  const [value, setValue] = React.useState(false);
+  const [value, setValue] = React.useState(true);
 
   return (
     <section className='section-event'>
@@ -71,11 +80,13 @@ export default function Event(props) {
         <Wish>
           <h2 className='titleW'>Vous souhaitez</h2>
           <Switch
-            onColor="#fff"
+            onColor="#FDFCF3"
             isOn={value}
+            valOne='Collaborer avec un autre artisan'
+            valTwo='Je veux être seul'
             handleToggle={() => setValue(!value)}
           />
-          <p>En fusionnant avec un autre artisan vous bénéficiez des food truck premium adaptés à vos besoins.</p>
+          <p className='description'>En fusionnant avec un autre artisan vous bénéficiez des food truck premium adaptés à vos besoins.</p>
           
         </Wish>
       </section>

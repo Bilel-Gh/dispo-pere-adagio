@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import Card from '@/components/globalComponents/cardInfoTemplate'
 
 const Main = styled.article`
-    border: solid red;
     background-color: #EB5B2D;
     background-image: url(/img/bgCook.webp);
     background-size: 50% 130%;
@@ -14,7 +13,6 @@ const Main = styled.article`
     align-items: center;
     padding-left: 10%;
     .title-container{
-        border : solid red 1px;
         background-image: url('/img/sublime.svg');
         background-size: 380px 108px;
         background-repeat: no-repeat;

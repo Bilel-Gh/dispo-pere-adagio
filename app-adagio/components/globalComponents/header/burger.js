@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import styled from 'styled-components'
-
+import Link from 'next/link'
 
 
 const NavDesktop = styled.div`
@@ -27,12 +27,16 @@ const NavDesktop = styled.div`
             align-items: center;
             justify-content: center;
             li{
-                font-family: 'Poppins-Regular';
-                font-size: 15px;
-                line-height: 32px;
-                color: #FDFCF3;
-                text-transform: uppercase;
-                cursor: pointer;
+                a{
+                    font-family: 'Poppins-Regular';
+                    font-size: 15px;
+                    line-height: 32px;
+                    color: #FDFCF3;
+                    text-transform: uppercase;
+                    cursor: pointer;
+                    text-decoration: none;
+                }
+               
             }
 
         }
@@ -43,7 +47,7 @@ const NavDesktop = styled.div`
         display: flex;
         flex-direction: row;
         align-items: center;
-        ul li{
+        ul li a{
             color: #333333;
         }
     }
@@ -436,10 +440,26 @@ const Burger = ({isOpen, setIsOpen}) => {
                     }
                 </figure>
                 <ul>
-                    <li onClick={() => scrollToSection('#')}>Accueil</li>
-                    <li onClick={() => scrollToSection('#')}>Nos prochains pop-up stores</li>
-                    <li onClick={() => scrollToSection('#')}>Recrutement</li>
-                    <li onClick={() => scrollToSection('#')}>Actus</li>
+                    <li>
+                        <Link href="/">
+                            <a>Accueil</a>
+                        </Link>
+                    </li>
+                    <li>
+                        <Link href="/event">
+                            <a>Nos prochains pop-up stores</a>
+                        </Link>
+                    </li>
+                    <li>
+                        <Link href="/event">
+                            <a>Recrutement</a>
+                        </Link>
+                    </li>
+                    <li>
+                        <Link href="/event">
+                            <a>Actus</a>
+                        </Link>
+                    </li>
                 </ul>
                 </nav>
             </NavDesktop>
