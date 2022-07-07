@@ -117,128 +117,137 @@ export default function Spot({ userConnected, events}) {
 
   // console.log("userConnected FDSFQSDF:", userConnected);
 
-  return (
-    <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <meta
-          name="description"
-          content="Pere Adagio, l'application qui permet aux artisans de colaborer entre eux facilement"
-        />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main className={styles.main}>
-        {spots.map((spot, index) => (
-            <div key={index}>
-                <h1>{spot.name}</h1>
-                {spot.users.length > 0 ? (
-                  <UserOnSpot id={spot.id}/>
-                ) : (
-                <p>Aucun utilisateur sur ce spot</p>
-                )}
-                {/* button s'inscrire sur ce spot */}
-                {userConnected ? (
-                <div>
-                <button
-                    onClick={() => {
-                        axios.post(`/api/userOnSpot/createUserOnSpot`, {
-                            userId: userConnected.id,
-                            spotId: spot.id,
-                        });
-                        // then reload page
-                        window.location.reload();
-                        // toast success
-                        toast.success("Inscription réussi", {
-                            autoClose: 5000,
-                        });
-                    }
-                    }
-                >
-                    S&apos;inscrire sur ce spot
-                </button>
-                  <SetLeaderToSpot userId={userConnected.id} spotId={spot.id}/>
-                {/* si dans spot.user aucun user n'a un spotStatus à FIRSTACCEPTED */}
-                {/* {spot.users.length > 0 && spot.users.filter(user => user.spotStatus === "FIRSTACCEPTED").length === 0 ? (
-                  
-                    <button
-                        onClick={() => {
-                            registerUserToSpot(spot.id);
-                        }
-                        }
-                    >
-                        S&apos;inscrire sur ce spot
-                    </button>
-                ) 
-                : (
-                    <p>il y a déjà un leader pour ce spot envoyez lui votre candidature</p>
-                )} */}
-                {/* // on click register first user to spot randomly */}
-                {/* <button onClick={() => { registerUserToSpot(spot.id) }} >
-                  Definir un admin
-                </button>  */}
-                </div>
-                ) : (
+  return (  
+    // is user connected ? 
+    userConnected ? (
+      <div className={styles.container}>
+        <Head>
+          <title>Create Next App</title>
+          <meta
+            name="description"
+            content="Pere Adagio, l'application qui permet aux artisans de colaborer entre eux facilement"
+          />
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
+  
+        <main className={styles.main}>
+          {spots.map((spot, index) => (
+              <div key={index}>
+                  <h1>{spot.name}</h1>
+                  {spot.users.length > 0 ? (
+                    <UserOnSpot id={spot.id}/>
+                  ) : (
+                  <p>Aucun utilisateur sur ce spot</p>
+                  )}
+                  {/* button s'inscrire sur ce spot */}
+                  {userConnected ? (
                   <div>
-                    <p>Vous devez vous connecter pour s&apos;inscrire sur ce spot</p>
-                    <button onClick={() => signIn()}>Connexion</button>
+                  <button
+                      onClick={() => {
+                          axios.post(`/api/userOnSpot/createUserOnSpot`, {
+                              userId: userConnected.id,
+                              spotId: spot.id,
+                          });
+                          // then reload page
+                          window.location.reload();
+                          // toast success
+                          toast.success("Inscription réussi", {
+                              autoClose: 5000,
+                          });
+                      }
+                      }
+                  >
+                      S&apos;inscrire sur ce spot
+                  </button>
+                    <SetLeaderToSpot userId={userConnected.id} spotId={spot.id}/>
+                  {/* si dans spot.user aucun user n'a un spotStatus à FIRSTACCEPTED */}
+                  {/* {spot.users.length > 0 && spot.users.filter(user => user.spotStatus === "FIRSTACCEPTED").length === 0 ? (
+                    
+                      <button
+                          onClick={() => {
+                              registerUserToSpot(spot.id);
+                          }
+                          }
+                      >
+                          S&apos;inscrire sur ce spot
+                      </button>
+                  ) 
+                  : (
+                      <p>il y a déjà un leader pour ce spot envoyez lui votre candidature</p>
+                  )} */}
+                  {/* // on click register first user to spot randomly */}
+                  {/* <button onClick={() => { registerUserToSpot(spot.id) }} >
+                    Definir un admin
+                  </button>  */}
                   </div>
-                )}
-                
-            </div>
-        ))}
-        <Toaster />
-        <br /><br />
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <label>
-                Name:
-                <input 
-                    type="text"
-                    id="nom"
-                    {...register("name")}
-                    required
-                    placeholder="Nom du spot"
-                />
-            </label>
-            <label>
-                Adresse:
-                <input 
-                    type="text"
-                    id="adresse"
-                    {...register("address")}
-                    required
-                    placeholder="Adresse du spot"
-                />
-            </label>
-            <label>
-                EventId:
-                  <select {...register("eventId")}>
-                    {events.map((event, index) => (
-                      <option key={index} value={event.id}>
-                        {event.name}
-                      </option>
-                    ))}
-                  </select>
-            </label>
-            <button type="submit">Submit</button>
-        </form>
-      </main>
+                  ) : (
+                    <div>
+                      <p>Vous devez vous connecter pour s&apos;inscrire sur ce spot</p>
+                      <button onClick={() => signIn()}>Connexion</button>
+                    </div>
+                  )}
+                  
+              </div>
+          ))}
+          <Toaster />
+          <br /><br />
+          <form onSubmit={handleSubmit(onSubmit)}>
+              <label>
+                  Name:
+                  <input 
+                      type="text"
+                      id="nom"
+                      {...register("name")}
+                      required
+                      placeholder="Nom du spot"
+                  />
+              </label>
+              <label>
+                  Adresse:
+                  <input 
+                      type="text"
+                      id="adresse"
+                      {...register("address")}
+                      required
+                      placeholder="Adresse du spot"
+                  />
+              </label>
+              <label>
+                  EventId:
+                    <select {...register("eventId")}>
+                      {events.map((event, index) => (
+                        <option key={index} value={event.id}>
+                          {event.name}
+                        </option>
+                      ))}
+                    </select>
+              </label>
+              <button type="submit">Submit</button>
+          </form>
+        </main>
+  
+        <footer className={styles.footer}>
+          <a
+            href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Powered by{" "}
+            <span className={styles.logo}>
+              <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
+            </span>
+          </a>
+        </footer>
+      </div>
+     ) : (
+      <div>
+        <h1>Vous devez vous connecter pour accéder à cette page</h1>
+        <button onClick={() => signIn()}>Connexion</button>
+      </div>
+    )
+)
 
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{" "}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
-      </footer>
-    </div>
-  );
-}
+};
 
 export const getServerSideProps = async ({ req }) => {
   const session = await getSession({ req });
@@ -262,6 +271,7 @@ export const getServerSideProps = async ({ req }) => {
       phone: true,
       jobId: true,
       createdAt: false,
+      role: true,
     },
   }) : null; 
 

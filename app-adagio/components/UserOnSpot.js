@@ -31,18 +31,23 @@ export default function UserOnSpot({ id }) {
 
 
 
-  console.log("DATA9:", usersOnSpotData);
+  console.log("DATA9 usersOnSpotData:", usersOnSpotData);
   // console.log("DATA10:", users);
 
   return (
     <div className={styles.container}>
       <div>
         {usersOnSpotData.map(userOnSpotData => (
+          <>  {
+            userOnSpotData.user && 
           <div className={userOnSpotData.userStatus.toLowerCase()} key={userOnSpotData.id}>
             <p>{userOnSpotData.user.email}</p>
             <p>----</p>
             <p>{userOnSpotData.userStatus}</p>
           </div>
+          }
+
+          </>
         ))}
       </div>
     </div>

@@ -15,7 +15,7 @@ a {
   box-sizing: border-box;
 }
 
-.pending {
+.pending, .notassigned {
   color: darkgray;
   display: flex;
 }
