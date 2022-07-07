@@ -35,9 +35,9 @@ model Job {
 model Event{  
   id        Int  @id @default(autoincrement())
   name      String @unique
-  dateStart DateTime
+  dateStart String
   spots     Spot[]
-  dateEnd   DateTime
+  dateEnd   String
 }
 
 model Spot{
@@ -56,7 +56,7 @@ model UserOnSpot {
   userStatus String? @default("NOTASSIGNED")
   spot       Spot?     @relation(fields: [spotId], references: [id])
   spotId     Int? 
-  assignedAt DateTime? @default(now())
+  assignedAt String?
   assignedBy String?
 }
 
