@@ -5,7 +5,6 @@ export default async function createUserOnSpot(req, res) {
 
 //   console.log("REQUEST", req)
 
-  
   try {
     await prisma.userOnSpot.create({ 
         data: {

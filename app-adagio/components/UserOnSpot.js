@@ -31,7 +31,7 @@ export default function UserOnSpot({ id }) {
 
 
 
-  // console.log("DATA9:", usersStatus);
+  console.log("DATA9:", usersOnSpotData);
   // console.log("DATA10:", users);
 
   return (

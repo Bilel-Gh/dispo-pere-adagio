@@ -6,13 +6,22 @@ export default async function accepteFirstUserToSpot(req, res) {
   console.log("accepteFirstUserToSpot USERID AND SPOTID", userId, spotId)
   try {
     // get all users
-    await prisma.userOnSpot.update({
+    // const uniqueUserOnSpot = await prisma.userOnSpot.findUnique({
+    //   where: {
+    //     userId: parseInt(userId),
+    //     spotId: parseInt(spotId),
+    //   }
+    // })
+
+    console.log("uniqueUserOnSpot", uniqueUserOnSpot);
+
+    await prisma.userOnSpot.updateMany({
         where: {
             userId: parseInt(userId),
             spotId: parseInt(spotId),
           },
         data: {
-          userStatus: 'FIRSTACCEPTED',
+          userStatus: "FIRSTACCEPTED",
         },
       })
     
