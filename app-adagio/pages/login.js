@@ -207,6 +207,7 @@ export const getServerSideProps = async ({ req }) => {
       phone: true,
       jobId: true,
       createdAt: false,
+      role: true,
     },
   });
   const jobs = await prisma.job.findMany();
