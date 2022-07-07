@@ -19,7 +19,7 @@ const MySignup = styled.section`
   /* background: linear-gradient(to right, #FDFCF3 65%, #F195BA 0); */
   .mainInscription{
     /* width: 65%; */
-    width: 70%;
+    width: 65%;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
@@ -103,7 +103,7 @@ const MySignupForm = styled.form`
   
   .conditions{
     font-family: 'Poppins-Regular';
-    /* margin: 0 10%; */
+    margin: 10px;
     span{
       /* font-family: 'Poppins-ExtraBold'; */
       font-weight: 600;
@@ -111,6 +111,13 @@ const MySignupForm = styled.form`
       cursor: pointer;
     }
   }
+  @media (max-width: 1320px) {
+    .formInfo{
+    width: initial;
+    }
+  }
+
+
 `
 
 export default function Home({ jobs, emails, userConnected }) {
