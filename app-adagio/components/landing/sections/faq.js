@@ -49,7 +49,7 @@ position: relative;
                         transform: rotate(180deg);
                         transition:0.5s;
                     }
-                    h2{
+                    h3{
                         width: 80%;
                     }
                 }
@@ -154,7 +154,7 @@ export default function Faq() {
                         qas.map((qa, index) => (
                             <article className='faq' id={index} key={index}>
                                 <div className='question' onClick={() => toggle(index)}>
-                                    <h2>{qa.question}</h2>
+                                    <h3>{qa.question}</h3>
                                     <svg className={tab[index] ? 'svg' :'svgTrun'} xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#F195BA" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
                                 </div>  
                                 {

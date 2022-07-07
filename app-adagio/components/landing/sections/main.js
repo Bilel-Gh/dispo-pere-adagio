@@ -191,7 +191,7 @@ export default function Main() {
           </h1>
         </main> 
         <section className='info'>
-            <h1 className='infoTitle'>Père adagio</h1>
+            <p className='infoTitle'>Père adagio</p>
             <p className='infoPara'>
               <span>La première plateforme</span>  &nbsp;qui rassemble des
               acteurs de l&#x27;artisanat culinaire autour d&#x27;un projet commun, 

@@ -50,7 +50,7 @@ position: relative;
                 .aboutUs,.letsTalk{
                     display: flex;
                     flex-direction: column;
-                h2{
+                h3{
                     white-space: nowrap;
                     text-align: left;
                     font-size: 20px;
@@ -137,14 +137,14 @@ export default function Footer() {
             
             <div className='more'>
               <div className='aboutUs'>
-                <h2>À propos </h2>
+                <h3>À propos </h3>
                 <ul>
                   <li>Qui sommes-nous ? </li>
                   <li>Nos locaux</li>
                 </ul>
               </div>
               <div className='letsTalk'>
-                <h2>On papote </h2>
+                <h3>On papote </h3>
                 <ul>
                     <li>Nous écrire </li>
                 </ul>

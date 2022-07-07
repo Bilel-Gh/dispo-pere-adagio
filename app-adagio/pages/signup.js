@@ -12,13 +12,104 @@ const prisma = new PrismaClient();
 
 
 const MySignup = styled.section`
-  border: solid red;
   height: 100vh;
   display: flex;
   flex-direction: column;
-  .form{
-    width: 50%;
-    border: solid blue;
+  justify-content: center;
+  /* background: linear-gradient(to right, #FDFCF3 65%, #F195BA 0); */
+  .mainInscription{
+    /* width: 65%; */
+    width: 70%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    flex-direction: column;
+    align-items: center;
+    .title{
+      font-family: 'Poppins-ExtraBold';
+      color: #333333;
+      text-align: center;
+      font-size: 44px;
+      margin: 0;
+    }
+    .text{
+      font-family: 'Poppins-Regular';
+      font-size: 14px;
+      text-align: center;
+      width: 80%;
+    }
+  }
+  .mainConnexion{
+    /* width: 65%; */
+  }
+`
+const MySignupForm = styled.form`
+  padding: 30px 0px;
+  .formInfo{
+    display: flex;
+    width: 80%;
+    flex-wrap: wrap;
+    gap: 5%;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+    p{
+      display: flex; 
+      flex-direction:column;
+      label{
+        font-family: 'Poppins-Regular';
+        font-size: 14px;
+        color: #333333;
+      }
+      input, select{
+        width: 350px; 
+        height: 44px;
+        border: transparent;
+        background-color: #F4F4F5;
+        border-radius: 10px;
+        padding: 10px;
+        color: #A1A1AA;
+      }
+    }
+  }
+  .btnContainer{
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: flex-end;
+    .btn{
+    position: relative;
+    border-radius: 10px;
+    border: none;
+    font-weight: bold;
+    display: flex;
+    text-transform: uppercase;
+    padding: 15px;
+    align-items: center;
+    justify-content: center; 
+    font-family: "Poppins-ExtraBold";
+    justify-content: center;
+    /* width:100% ; */
+    font-weight:'bold';
+    background: #EB5B2D;
+    color: #FFFFFF;
+    border: 2px solid #EB5B2D;
+    &:hover{
+        background-color:#FFFFFF; 
+        color:#EB5B2D; 
+    }
+  }
+  }
+  
+  .conditions{
+    font-family: 'Poppins-Regular';
+    /* margin: 0 10%; */
+    span{
+      /* font-family: 'Poppins-ExtraBold'; */
+      font-weight: 600;
+      text-decoration: underline;
+      cursor: pointer;
+    }
   }
 `
 
@@ -87,41 +178,37 @@ export default function Home({ jobs, emails, userConnected }) {
 
   return (
     <div id='signup' className='section-signup'>
-      <Head>
-        <title>Create Next App</title>
-        <meta
-          name="description"
-          content="Pere Adagio, l'application qui permet aux artisans de colaborer entre eux facilement"
-        />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
       <MySignup className='main'>
         {!session ? (
-          <>
-            <h1>Inscrivez vous !</h1>
-            <form onSubmit={handleSubmit(onSubmit)} className='form'>
+          <div className='mainInscription'>
+            <h1 className='title'>Inscrivez vous !</h1>
+            <p className='text'>
+              Rejoignez la communauté du Père Adagio et obtenez un accès 
+              à l’intrégalité des services et commencer à vous reinventez !
+            </p>
+            <MySignupForm onSubmit={handleSubmit(onSubmit)} className='form'>
               <div className='formInfo'>
                 <p>
-                  <label>nom : </label>
-                  <input
-                    type="text"
-                    id="nom"
-                    {...register("lastname")}
-                    required
-                    placeholder="Votre nom"
-                  />
-                </p>
-                <p>
-                  <label>Prénom : </label>
+                  <label>Prénom</label>
                   <input
                     type="text"
                     id="prenom"
                     {...register("firstname")}
                     required
-                    placeholder="Votre prénom"
+                    placeholder="Tapez votre prénom ici"
                   />
                 </p>
+                <p>
+                  <label>Nom</label>
+                  <input
+                    type="text"
+                    id="nom"
+                    {...register("lastname")}
+                    required
+                    placeholder="Tapez votre nom ici"
+                  />
+                </p>
+                
                 <p>
                   <label>Email : </label>
                   <input
@@ -129,7 +216,7 @@ export default function Home({ jobs, emails, userConnected }) {
                     id="email"
                     {...register("email")}
                     required
-                    placeholder="Votre adresse Email"
+                    placeholder="Adresse mail"
                   />
                 </p>
                 <p>
@@ -138,7 +225,7 @@ export default function Home({ jobs, emails, userConnected }) {
                     type="tel"
                     id="phone"
                     {...register("phone")}
-                    placeholder="06-xx-xx-xx-xx"
+                    placeholder="06..."
                     pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}"
                   />
                 </p>
@@ -162,13 +249,24 @@ export default function Home({ jobs, emails, userConnected }) {
                     ))}
                   </select>
                 </p>
+                <div className='conditions'>
+                <input type="checkbox" id="scales" name="scales"/>
+                <label>
+                  J’accepte les <span>conditions générales d’utilisation</span>
+                </label>
               </div>
-              <button className='btn' type="submit">
-                Submit
-              </button>
+              </div>
+              <div className='btnContainer'  >
+                <button className='btn' type="submit">
+                  Envoyer
+                </button>
+              </div>
+              
+              
               <Toaster />
-            </form>
-          </>
+            </MySignupForm>
+          </div>
+          
         ) : (
           <>
             <h1> Bienvenue !</h1>
@@ -180,10 +278,10 @@ export default function Home({ jobs, emails, userConnected }) {
             <button onClick={() => signOut()}>Déconnexion</button>
           </>
         ) : (
-          <>
+          <div  className='mainConnexion' style={{display: 'none'}} >
             Connectez vous <br /><br />
             <button onClick={() => signIn()}>Connexion</button>
-          </>
+          </div>
         )}
       </MySignup>
     </div>
