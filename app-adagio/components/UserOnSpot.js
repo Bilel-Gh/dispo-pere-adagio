@@ -12,32 +12,39 @@ import axios from "axios";
 // const prisma = new PrismaClient();
 
 export default function UserOnSpot({ id }) {
-//   const { data: session } = useSession();
+  // console.log("spotId UserOnSpot:", id);
+  const { data: session } = useSession();
 
-  const [users, setUsers] = useState([]);
+  const [usersOnSpotData, setUsersOnSpotData] = useState([]);
+  // const [usersStatus, setUsersStatus] = useState([]);
   useEffect(() => {
     // get all spots
     const getAllSpots = () => { 
         axios.get(`/api/userOnSpot/${id}`)
         .then(res => {
-            setUsers(res.data);
+            // setUsers(res.data.map(user => user.user));
+            setUsersOnSpotData(res.data);
         })
     }
     getAllSpots();
 }, [id]);
 
 
- console.log("DATA10:", users);
+
+  // console.log("DATA9:", usersStatus);
+  // console.log("DATA10:", users);
 
   return (
     <div className={styles.container}>
-      <p>
-        {users.map(user => (
-          <div key={user.id}>
-            <p>{user.email}</p>
+      <div>
+        {usersOnSpotData.map(userOnSpotData => (
+          <div className={userOnSpotData.userStatus.toLowerCase()} key={userOnSpotData.id}>
+            <p>{userOnSpotData.user.email}</p>
+            <p>----</p>
+            <p>{userOnSpotData.userStatus}</p>
           </div>
         ))}
-      </p>
+      </div>
     </div>
   );
 }

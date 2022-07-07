@@ -9,10 +9,10 @@ import Link from "next/link";
 import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
-const { PrismaClient } = require("@prisma/client");
-const prisma = new PrismaClient();
+import prisma from "/lib/prisma";
 
 import UserOnSpot from "../components/UserOnSpot";
+import SetLeaderToSpot from "../components/SetLeaderToSpot";
 
 export default function Spot({ userConnected, events}) {
   const { data: session } = useSession();
@@ -71,12 +71,48 @@ export default function Spot({ userConnected, events}) {
                 duration: 3000,
               }
             );
+            // then reload the page
+            window.location.reload();
           } catch (error) {
             console.log("error :", error);
           }
       };
-    // get one spot by id
-    // get spot user id
+
+      // const registerUserToSpot = async (spotId) => {
+      //   try { 
+      //     axios.post(`/api/userOnSpot/getRandomUserOnSpot`, {
+      //       spotId: spotId,
+      //   }).then(res => {
+      //       const randomedID = res.data.id;
+      //       console.log("randomedID", randomedID);
+      //       axios.post(`/api/userOnSpot/accepteFirstUserToSpot`, {
+      //           userId: randomedID,
+      //       })
+      //       toast.success(`${res.data.spotStatus} ${res.data.firstname}`, {
+      //         autoClose: 5000,
+      //       });
+      //       window.location.reload();
+      //   }
+      //   )
+      //   } catch (error) { 
+      //     // toast error
+      //     toast.error("Erreur lors de l'inscription", { autoClose: 5000 });
+      //   }
+      // }
+
+      // const isOneLeaderInSpot = (userId, spotId) => {
+      //   axios.get(`/api/userOnSpot/${spotId}`)
+      //   .then(res => {
+      //     // chercher si un utilisateur a la propriété spotStatus a FIRSTACCEPTED
+      //     const isOneLeader = res.data.find(user => user.userId === userId && user.spotStatus === "FIRSTACCEPTED");
+          
+      //     console.log("isOneLeader", isOneLeader, res.data);
+
+      //       setUsers(res.data);
+      //   })
+
+      // }
+
 
 
   // console.log("userConnected FDSFQSDF:", userConnected);
@@ -94,37 +130,65 @@ export default function Spot({ userConnected, events}) {
 
       <main className={styles.main}>
         {spots.map((spot, index) => (
-            <>
             <div key={index}>
                 <h1>{spot.name}</h1>
                 {spot.users.length > 0 ? (
-                <UserOnSpot id={spot.id}/>
+                  <UserOnSpot id={spot.id}/>
                 ) : (
                 <p>Aucun utilisateur sur ce spot</p>
                 )}
                 {/* button s'inscrire sur ce spot */}
                 {userConnected ? (
+                <div>
                 <button
                     onClick={() => {
                         axios.post(`/api/userOnSpot/createUserOnSpot`, {
                             userId: userConnected.id,
                             spotId: spot.id,
                         });
+                        // then reload page
+                        window.location.reload();
+                        // toast success
+                        toast.success("Inscription réussi", {
+                            autoClose: 5000,
+                        });
                     }
                     }
                 >
                     S&apos;inscrire sur ce spot
                 </button>
+                  <SetLeaderToSpot userId={userConnected.id} spotId={spot.id}/>
+                {/* si dans spot.user aucun user n'a un spotStatus à FIRSTACCEPTED */}
+                {/* {spot.users.length > 0 && spot.users.filter(user => user.spotStatus === "FIRSTACCEPTED").length === 0 ? (
+                  
+                    <button
+                        onClick={() => {
+                            registerUserToSpot(spot.id);
+                        }
+                        }
+                    >
+                        S&apos;inscrire sur ce spot
+                    </button>
+                ) 
+                : (
+                    <p>il y a déjà un leader pour ce spot envoyez lui votre candidature</p>
+                )} */}
+                {/* // on click register first user to spot randomly */}
+                {/* <button onClick={() => { registerUserToSpot(spot.id) }} >
+                  Definir un admin
+                </button>  */}
+                </div>
                 ) : (
                   <div>
                     <p>Vous devez vous connecter pour s&apos;inscrire sur ce spot</p>
                     <button onClick={() => signIn()}>Connexion</button>
                   </div>
                 )}
+                
             </div>
-            </>
         ))}
         <Toaster />
+        <br /><br />
         <form onSubmit={handleSubmit(onSubmit)}>
             <label>
                 Name:

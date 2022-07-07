@@ -7,8 +7,7 @@ import { getSession, useSession, signIn, signOut } from "next-auth/react";
 import * as bcrypt from "bcryptjs";
 import { useState } from "react";
 import { useEffect } from "react";
-const { PrismaClient } = require("@prisma/client");
-const prisma = new PrismaClient();
+import prisma from '/lib/prisma'
 
 export default function Home({ jobs, emails, userConnected }) {
   const { data: session } = useSession();
@@ -90,7 +89,7 @@ export default function Home({ jobs, emails, userConnected }) {
             <h1>Inscrivez vous !</h1>
             <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
               <div className={styles.formInfo}>
-                <p>
+                <div>
                   <label>nom : </label>
                   <input
                     type="text"
@@ -99,8 +98,8 @@ export default function Home({ jobs, emails, userConnected }) {
                     required
                     placeholder="Votre nom"
                   />
-                </p>
-                <p>
+                </div>
+                <div>
                   <label>Prénom : </label>
                   <input
                     type="text"
@@ -109,8 +108,8 @@ export default function Home({ jobs, emails, userConnected }) {
                     required
                     placeholder="Votre prénom"
                   />
-                </p>
-                <p>
+                </div>
+                <div>
                   <label>Email : </label>
                   <input
                     type="email"
@@ -119,8 +118,8 @@ export default function Home({ jobs, emails, userConnected }) {
                     required
                     placeholder="Votre adresse Email"
                   />
-                </p>
-                <p>
+                </div>
+                <div>
                   <label>Numéro de téléphone : </label>
                   <input
                     type="tel"
@@ -129,8 +128,8 @@ export default function Home({ jobs, emails, userConnected }) {
                     placeholder="06-xx-xx-xx-xx"
                     pattern="[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}[0-9]{2}"
                   />
-                </p>
-                <p>
+                </div>
+                <div>
                   <label>Mot de passe : </label>
                   <input
                     type="password"
@@ -139,8 +138,8 @@ export default function Home({ jobs, emails, userConnected }) {
                     required
                     placeholder="Mot de passe"
                   />
-                </p>
-                <p>
+                </div>
+                <div>
                   <label>Metier : </label>
                   <select {...register("jobId")}>
                     {jobs.map((job, index) => (
@@ -149,7 +148,7 @@ export default function Home({ jobs, emails, userConnected }) {
                       </option>
                     ))}
                   </select>
-                </p>
+                </div>
               </div>
               <button className={styles.btn} type="submit">
                 Submit

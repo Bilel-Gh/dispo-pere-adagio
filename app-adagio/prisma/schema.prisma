@@ -53,6 +53,7 @@ model UserOnSpot {
   id         Int   @id @default(autoincrement())
   user       User?     @relation(fields: [userId], references: [id])
   userId     Int? 
+  userStatus SpotStatus? @default(PENDING)
   spot       Spot?     @relation(fields: [spotId], references: [id])
   spotId     Int? 
   assignedAt DateTime? @default(now())
@@ -70,7 +71,10 @@ enum Type {
 }
 
 enum SpotStatus {
+  FIRSTACCEPTED
+  LEADER
   ACCEPTED
   PENDING
   REJECTED
+  NOTASSIGNED
 }

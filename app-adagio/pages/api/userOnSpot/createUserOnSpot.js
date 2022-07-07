@@ -1,10 +1,9 @@
-const { PrismaClient } = require('@prisma/client')
-const prisma = new PrismaClient()
+import prisma from '/lib/prisma'
 
 export default async function createUserOnSpot(req, res) {
   const { userId, spotId } = req.body;
 
-  console.log("REQUEST", req)
+//   console.log("REQUEST", req)
 
   
   try {

@@ -14,3 +14,23 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.pending {
+  color: darkgray;
+  display: flex;
+}
+
+.firstaccepted {
+  color: green;
+  display: flex;
+}
+
+.accepted {
+  color: greenyellow;
+  display: flex;
+}
+
+.rejected {
+  color: red;
+  display: flex;
+}

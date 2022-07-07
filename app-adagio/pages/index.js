@@ -5,8 +5,7 @@ import { useForm } from "react-hook-form";
 import toast, { Toaster } from "react-hot-toast";
 import { getSession, useSession, signIn, signOut } from "next-auth/react";
 import Link from "next/link";
-const { PrismaClient } = require("@prisma/client");
-const prisma = new PrismaClient();
+import prisma from '/lib/prisma'
 
 export default function Home({ userConnected }) {
   const { data: session } = useSession();
