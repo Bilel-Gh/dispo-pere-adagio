@@ -12,10 +12,10 @@ import prisma from '/lib/prisma'
 export default function Home({ jobs, emails }) {
   const [userConnected, setUserConnected] = useState(
     useEffect(() => {
-      var userConnected = JSON.parse(
+      var user = JSON.parse(
         window.localStorage.getItem("userConnected")
       );
-      setUserConnected(userConnected);
+      setUserConnected(user);
   }, [])
   );
   
@@ -210,8 +210,8 @@ export const getServerSideProps = async ({ req }) => {
     props: {
       jobs,
       emails,
-      // if session is not null, user is connected
-      userConnected: session ? userConnected : null,
+      // // if session is not null, user is connected
+      // userConnected: session ? userConnected : null,
     },
   };
 };

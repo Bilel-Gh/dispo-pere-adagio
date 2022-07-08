@@ -15,7 +15,7 @@ export default async function setLeaderToSpot(req, res) {
         },
       })
 
-      console.log("userOnSpotChanged", userOnSpotChanged);
+      // console.log("userOnSpotChanged", userOnSpotChanged);
     
     res.status(200).json(userOnSpotChanged)
   } catch (error) {

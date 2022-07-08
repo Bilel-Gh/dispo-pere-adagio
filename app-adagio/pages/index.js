@@ -103,7 +103,7 @@ export const getServerSideProps = async ({ req }) => {
     },
   });
 
-  console.log("userConnected INDEX:", userConnected);
+  // console.log("userConnected INDEX:", userConnected);
   return {
     props: {
       // if session is not null, user is connected

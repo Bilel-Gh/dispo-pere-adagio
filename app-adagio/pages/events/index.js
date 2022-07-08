@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Image from "next/image";
-import styles from "../styles/Home.module.css";
+import styles from "../../styles/Home.module.css";
 import { useForm } from "react-hook-form";
 import toast, { Toaster } from "react-hot-toast";
 import { getSession, useSession, signIn, signOut } from "next-auth/react";
@@ -11,17 +11,15 @@ import { useEffect } from "react";
 import axios from "axios";
 import prisma from "/lib/prisma";
 
-import UserOnSpot from "../components/UserOnSpot";
-import SetLeaderToSpot from "../components/SetLeaderToSpot";
-
-export default function Spot({ events}) {
+export default function Events({ events}) {
+  // console.log("events_____________", events);
   // get userConnected from localStorage
   const [userConnected, setUserConnected] = useState(
     useEffect(() => {
-      var userConnected = JSON.parse(
+      var user = JSON.parse(
         window.localStorage.getItem("userConnected")
       );
-      setUserConnected(userConnected);
+      setUserConnected(user);
   }, [])
   );
 
@@ -44,11 +42,10 @@ export default function Spot({ events}) {
     }, []);
 
     // create spot fonction
-    const createSpot = async (data) => {
+    const createEvent = async (data) => {
         try {
           // fetch get one with query params
-          const { name, adresse, eventId } = data;
-          await fetch("api/spot/createSpot", {
+          await fetch("api/event/createEvent", {
             body: JSON.stringify(data),
             headers: {
               "Content-Type": "application/json",
@@ -58,7 +55,7 @@ export default function Spot({ events}) {
           // redirect to sign with next-auth
         } catch (error) {
           // toast error
-          toast.error("Erreur lors de l'inscription", { autoClose: 5000 });
+          toast.error("Erreur lors de la création de l'event", { autoClose: 5000 });
           throw new Error(error);
         }
       };
@@ -66,10 +63,7 @@ export default function Spot({ events}) {
     const onSubmit = async (data) => {
           try {
             toast.promise(
-                createSpot({
-                ...data,
-                eventId: parseInt(data.eventId),
-              }),
+              createEvent(data),
               {
                 loading: "Creation en cours...",
                 success: "Création reussi !",
@@ -100,63 +94,15 @@ export default function Spot({ events}) {
         </Head>
   
         <main className={styles.main}>
-          {spots.map((spot, index) => (
-              <div key={index}>
-                  <h1>{spot.name}</h1>
-                  {spot.users.length > 0 ? (
-                    <UserOnSpot id={spot.id}/>
-                  ) : (
-                  <p>Aucun utilisateur sur ce spot</p>
-                  )}
-                  {/* button s'inscrire sur ce spot */}
-                  {userConnected ? (
-                  <div>
-                  <button
-                      onClick={() => {
-                          axios.post(`/api/userOnSpot/createUserOnSpot`, {
-                              userId: userConnected.id,
-                              spotId: spot.id,
-                          });
-                          // then reload page
-                          window.location.reload();
-                          // toast success
-                          toast.success("Inscription réussi", {
-                              autoClose: 5000,
-                          });
-                      }
-                      }
-                  >
-                      S&apos;inscrire sur ce spot
-                  </button>
-                    <SetLeaderToSpot userId={userConnected.id} spotId={spot.id}/>
-                  {/* si dans spot.user aucun user n'a un spotStatus à FIRSTACCEPTED */}
-                  {/* {spot.users.length > 0 && spot.users.filter(user => user.spotStatus === "FIRSTACCEPTED").length === 0 ? (
-                    
-                      <button
-                          onClick={() => {
-                              registerUserToSpot(spot.id);
-                          }
-                          }
-                      >
-                          S&apos;inscrire sur ce spot
-                      </button>
-                  ) 
-                  : (
-                      <p>il y a déjà un leader pour ce spot envoyez lui votre candidature</p>
-                  )} */}
-                  {/* // on click register first user to spot randomly */}
-                  {/* <button onClick={() => { registerUserToSpot(spot.id) }} >
-                    Definir un admin
-                  </button>  */}
-                  </div>
-                  ) : (
-                    <div>
-                      <p>Vous devez vous connecter pour s&apos;inscrire sur ce spot</p>
-                      <button onClick={() => signIn()}>Connexion</button>
-                    </div>
-                  )}
-                  
+          {events.map((event, index) => (
+            <Link href={`/spots/${event.id}`} key={index}>
+              <div>
+                  <h1>{event.name}</h1>
+                  {event.spots.map((spot, index) => (
+                      <p key={index}>{spot.name}</p>
+                  ))} 
               </div>
+            </Link>
           ))}
           <Toaster />
           <br /><br />
@@ -168,28 +114,28 @@ export default function Spot({ events}) {
                       id="nom"
                       {...register("name")}
                       required
-                      placeholder="Nom du spot"
+                      placeholder="Nom de l'event"
                   />
               </label>
               <label>
-                  Adresse:
-                  <input 
-                      type="text"
-                      id="adresse"
-                      {...register("address")}
-                      required
-                      placeholder="Adresse du spot"
-                  />
+                  Date de début:
+                    <input
+                        type="date"
+                        id="dateStart"
+                        {...register("dateStart")}
+                        required
+                        placeholder="Date de début"
+                    />
               </label>
               <label>
-                  EventId:
-                    <select {...register("eventId")}>
-                      {events.map((event, index) => (
-                        <option key={index} value={event.id}>
-                          {event.name}
-                        </option>
-                      ))}
-                    </select>
+                  Date de fin:
+                    <input
+                        type="date"
+                        id="dateEnd"
+                        {...register("dateEnd")}
+                        required
+                        placeholder="Date de début"
+                    />
               </label>
               <button type="submit">Submit</button>
           </form>

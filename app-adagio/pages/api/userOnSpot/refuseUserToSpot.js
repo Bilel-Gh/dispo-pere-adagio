@@ -4,13 +4,13 @@ export default async function refuseUserToSpot(req, res) {
   const { userId, spotId } = req.body;
   try {
     // get all users
-    const updateUser = await prisma.userOnSpot.update({
+  await prisma.userOnSpot.updateMany({
         where: {
           userId: parseInt(userId),
           spotId: parseInt(spotId),
           },
         data: {
-          userStatus: 'REJECTED',
+          userStatus: 'REFUSED',
         },
       })
     

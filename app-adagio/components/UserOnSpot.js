@@ -11,16 +11,16 @@ import axios from "axios";
 // const { PrismaClient } = require("@prisma/client");
 // const prisma = new PrismaClient();
 
-export default function UserOnSpot({ id }) {
+export default function UserOnSpot({ id, userLoged, }) {
   // console.log("spotId UserOnSpot:", id);
-  const [userConnected, setUserConnected] = useState(
-    useEffect(() => {
-      var userConnected = JSON.parse(
-        window.localStorage.getItem("userConnected")
-      );
-      setUserConnected(userConnected);
-  }, [])
-  );
+  // const [userConnected, setUserConnected] = useState(
+  //   useEffect(() => {
+  //     var userConnected = JSON.parse(
+  //       window.localStorage.getItem("userConnected")
+  //     );
+  //     setUserConnected(userConnected);
+  // }, [])
+  // );
 
   const [usersOnSpotData, setUsersOnSpotData] = useState([]);
   // const [usersStatus, setUsersStatus] = useState([]);
@@ -35,10 +35,59 @@ export default function UserOnSpot({ id }) {
     }
     getAllSpots();
 }, [id]);
+console.log("usersOnSpotData_____________:", usersOnSpotData);
+
+const [usersOnSpotStatus, setUsersOnSpotStatus] = useState([]);
+const statusOfUser = async (id) => {
+  axios.post(`/api/userOnSpot/getStatusOfOneUserOnSpot`, {
+        userId: userLoged.id,
+        spotId: id,
+    }).then(res => {
+        setUsersOnSpotStatus(res.data);
+    }
+    ).catch(err => {
+        console.log("err", err);
+        toast.error("pas de status pour cet utilisateur");
+    }
+    )
+}
+statusOfUser(id);
+
+const acceptUserOnSpot = async (userId, spotId) => {
+  axios.post(`/api/userOnSpot/accepteUserToSpot`, {
+        userId: userId,
+        spotId: id,
+    }).then(res => {
+        // refresh the page
+        window.location.reload();
+    }
+    ).catch(err => {
+        console.log("err", err);
+        toast.error("pas de status pour cet utilisateur");
+    }
+    )
+}
+
+const refuseUserOnSpot = async (userId, spotId) => {
+  axios.post(`/api/userOnSpot/refuseUserToSpot`, {
+        userId: userId,
+        spotId: id,
+    }).then(res => {
+        // refresh the page
+        window.location.reload();
+    }
+    ).catch(err => {
+        console.log("err", err);
+        toast.error("pas de status pour cet utilisateur");
+    }
+    )
+}
+
+  // console.log("statusOfUser_________:", usersOnSpotStatus);
 
 
 
-  console.log("DATA9 usersOnSpotData:", usersOnSpotData);
+  // console.log("DATA9 usersOnSpotData:", usersOnSpotData);
   // console.log("DATA10:", users);
 
   return (
@@ -51,6 +100,36 @@ export default function UserOnSpot({ id }) {
             <p>{userOnSpotData.user.email}</p>
             <p>----</p>
             <p>{userOnSpotData.userStatus}</p>
+            {
+              usersOnSpotStatus === "LEADER" ? (
+                userOnSpotData.user.id === userLoged.id ? null : (
+                  userOnSpotData.userStatus === "ACCEPTED" ? (
+                    <> 
+                      <button onClick={() => refuseUserOnSpot(userOnSpotData.userId, userOnSpotData.spotId)}>
+                        Refuse User
+                      </button>
+                    </>
+                  ) : (
+                    userOnSpotData.userStatus === "REFUSED" ? (
+                      <>
+                        <button onClick={() => acceptUserOnSpot(userOnSpotData.userId, userOnSpotData.spotId)}>
+                          accepte User
+                        </button>
+                      </>
+                    ) : (
+              <>
+                <button onClick={() => acceptUserOnSpot(userOnSpotData.userId, userOnSpotData.spotId)}>
+                  accepte User
+                </button>
+                <button onClick={() => refuseUserOnSpot(userOnSpotData.userId, userOnSpotData.spotId)}>
+                  Refuse User
+                </button>
+              </>
+                    )
+                  )
+                )
+            ) : null 
+            } 
           </div>
           }
 

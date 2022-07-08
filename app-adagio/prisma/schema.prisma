@@ -19,9 +19,8 @@ model User {
   phone       Int?
   role        Role     @default(USER)
   spots       UserOnSpot[]
-  spotStatus  SpotStatus? @default(PENDING)
   job         Job? @relation(fields: [jobId], references: [id])   
-  jobId       Int?  
+  jobId       Int?
 }
 
 model Job {
@@ -49,13 +48,12 @@ model Spot{
 }
 
 model UserOnSpot {
-  id         Int   @id @default(autoincrement())
-  user       User?     @relation(fields: [userId], references: [id])
+  id         Int      @id @default(autoincrement())
+  user       User?    @relation(fields: [userId], references: [id])
   userId     Int? 
-  userStatus String? @default("NOTASSIGNED")
-  spot       Spot?     @relation(fields: [spotId], references: [id])
-  spotId     Int? 
-  assignedAt String?
+  userStatus String?  @default("NOTASSIGNED")
+  spot       Spot?    @relation(fields: [spotId], references: [id])
+  spotId     Int?
   assignedBy String?
 }
 

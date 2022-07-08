@@ -10,6 +10,7 @@ export default async function createUserOnSpot(req, res) {
         data: {
           userId: parseInt(userId),
           spotId: parseInt(spotId),
+          userStatus: "PENDING",
         },
     })
     
