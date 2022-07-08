@@ -9,8 +9,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
-const { PrismaClient } = require("@prisma/client");
-const prisma = new PrismaClient();
+import prisma from '/lib/prisma';
 
 import UserOnSpot from "../components/UserOnSpot";
 
