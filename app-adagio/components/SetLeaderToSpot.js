@@ -13,7 +13,21 @@ import axios from "axios";
 
 export default function SetLeaderToSpot({ spotId }) {
   // console.log("spotId SetLeaderToSpot:", spotId );
-  const { data: session } = useSession();
+  const [userConnected, setUserConnected] = useState();
+    useEffect(() => {
+      var userConnected = JSON.parse(
+        window.localStorage.getItem("userConnected")
+      );
+      setUserConnected(userConnected);
+  }, [])
+
+  // const valueUser = userConnected?.spots.find(spot => spot.id === spotId).then(res => {
+  //   console.log("valueUser:", res);
+  //   return res;
+  // }
+  // );
+
+  // userConnected ? console.log("USERCONNECTED SETLEADER:", valueUser ) : console.log("USERCONNECTED SETLEADER:", "pas de USER");
 
   const [usersOnSpotData, setUsersOnSpotData] = useState([]);
   useEffect(() => {
@@ -35,17 +49,20 @@ const setLeaderRandomlyToSpot = async (spotId) => {
     axios.post(`/api/userOnSpot/getRandomUserOnSpot`, {
       spotId: spotId,
   }).then(res => {
-      const randomedID = res.data.id;
-      console.log("randomedID", randomedID);
-      axios.post(`/api/userOnSpot/accepteFirstUserToSpot`, {
+      const randomedID = res.data.id; // ----> id de l'utilisateur tiré au hasard
+      axios.post(`/api/userOnSpot/setLeaderToSpot`, {
           userId: randomedID,
           spotId: spotId,
-      })
-      console.log("DATA AFTER RANDOM3", res.data)
-      toast.success(`${res.data.firstname} deviens LEADER`, {
-        autoClose: 5000,
-      });
-      // window.location.reload();
+      }).then(res => {
+          toast.success("L'utilisateur a été accepté");
+          window.location.reload();
+      }
+      ).catch(err => {
+          console.log("err", err);
+          toast.error("Erreur lors de l'acceptation de l'utilisateur");
+      }
+      )
+
   }
   )
   } catch (error) { 
@@ -58,7 +75,7 @@ const isOneLeaderInSpot = () => {
   // chercher si un user dans users a la propriété spotStatus a FIRSTACCEPTED
   // si oui, return true
   // si non, return false
-  const isOneLeader = usersOnSpotData.find(userOnSpotData => userOnSpotData.userStatus === "FIRSTACCEPTED");
+  const isOneLeader = usersOnSpotData.find(userOnSpotData => userOnSpotData.userStatus === "LEADER");
   if (isOneLeader) {
     return true;
   }
@@ -69,17 +86,29 @@ const isOneLeaderInSpot = () => {
 
   return (
     <div className={styles.container}>
-      { !isOneLeaderInSpot() ? (
-        <button
-          onClick={() => {
-            setLeaderRandomlyToSpot(spotId);
-          }}
-        >
-          Definir un Leader
-        </button>
+      {/* { !isOneLeaderInSpot() && userConnected ? (
+        userConnected.role === "ADMIN" ? (
+          <>
+            <button onClick={() => setLeaderRandomlyToSpot(spotId)}>
+              Assigner un leader au spot
+            </button>
+          </>
+        ) : (
+          <>
+            <p>Vous n&apos;êtes pas autorisé à assigner un leader</p>
+          </>
+        )
       ) : (
-        <p>il y a déjà un leader pour ce spot envoyez lui votre candidature</p>
-      )}
+        userConnected && userConnected.spots.find(spot => spot.id === spotId).userStatus != "LEADER" ? (
+          <button>
+            Posez votre candidature
+          </button>
+        ) : (
+          <button>
+            tu est un leader
+          </button>
+        )
+      )} */}
     </div>
   );
 }

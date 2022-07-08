@@ -3,7 +3,6 @@ import prisma from '/lib/prisma'
 export default async function getUsersonSpot(req, res) {  
     // get id from params
     const { spotId } = req.body;
-    console.log("ids :", spotId);
 
   try {
     // get all users id from spot
@@ -16,11 +15,8 @@ export default async function getUsersonSpot(req, res) {
         },
     })
     const getAllUsersId = findUsers.map(data => data.user.id)
-    console.log("getAllUsersId :", getAllUsersId);
     // get one randome id from getAllUsersId arrays
     const randomUserId = getAllUsersId[Math.floor(Math.random() * getAllUsersId.length)];
-    console.log("randomUserId :", randomUserId);
-
 
     // get one user
     const arrayOfData =await prisma.userOnSpot.findMany({ 
@@ -32,6 +28,7 @@ export default async function getUsersonSpot(req, res) {
         user: true,
       },
     })
+
     const arrayOfUsers = arrayOfData.map(data => data.user)
     res.status(200).json(arrayOfUsers[0])
     } catch (error) {

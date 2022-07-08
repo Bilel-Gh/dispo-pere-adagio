@@ -14,9 +14,17 @@ import prisma from "/lib/prisma";
 import UserOnSpot from "../components/UserOnSpot";
 import SetLeaderToSpot from "../components/SetLeaderToSpot";
 
-export default function Spot({ userConnected, events}) {
-  const { data: session } = useSession();
-  // console.log("session :", session);
+export default function Spot({ events}) {
+  // get userConnected from localStorage
+  const [userConnected, setUserConnected] = useState(
+    useEffect(() => {
+      var userConnected = JSON.parse(
+        window.localStorage.getItem("userConnected")
+      );
+      setUserConnected(userConnected);
+  }, [])
+  );
+
   const [spots, setSpots] = useState([]);
   const {
     register,
@@ -77,45 +85,6 @@ export default function Spot({ userConnected, events}) {
             console.log("error :", error);
           }
       };
-
-      // const registerUserToSpot = async (spotId) => {
-      //   try { 
-      //     axios.post(`/api/userOnSpot/getRandomUserOnSpot`, {
-      //       spotId: spotId,
-      //   }).then(res => {
-      //       const randomedID = res.data.id;
-      //       console.log("randomedID", randomedID);
-      //       axios.post(`/api/userOnSpot/accepteFirstUserToSpot`, {
-      //           userId: randomedID,
-      //       })
-      //       toast.success(`${res.data.spotStatus} ${res.data.firstname}`, {
-      //         autoClose: 5000,
-      //       });
-      //       window.location.reload();
-      //   }
-      //   )
-      //   } catch (error) { 
-      //     // toast error
-      //     toast.error("Erreur lors de l'inscription", { autoClose: 5000 });
-      //   }
-      // }
-
-      // const isOneLeaderInSpot = (userId, spotId) => {
-      //   axios.get(`/api/userOnSpot/${spotId}`)
-      //   .then(res => {
-      //     // chercher si un utilisateur a la propriété spotStatus a FIRSTACCEPTED
-      //     const isOneLeader = res.data.find(user => user.userId === userId && user.spotStatus === "FIRSTACCEPTED");
-          
-      //     console.log("isOneLeader", isOneLeader, res.data);
-
-      //       setUsers(res.data);
-      //   })
-
-      // }
-
-
-
-  // console.log("userConnected FDSFQSDF:", userConnected);
 
   return (  
     // is user connected ? 
@@ -250,7 +219,6 @@ export default function Spot({ userConnected, events}) {
 };
 
 export const getServerSideProps = async ({ req }) => {
-  const session = await getSession({ req });
   // if session is not null, user is connected
   const events = await prisma.event.findMany({
     include: {
@@ -258,27 +226,10 @@ export const getServerSideProps = async ({ req }) => {
     },
 });
 
-  const userConnected = session ? await prisma.user.findUnique({
-    where: {
-      // if session is not null, user is connected
-      id: session ? parseInt(session.id) : 0,
-    },
-    select: {
-      id: true,
-      firstname: true,
-      lastname: true,
-      email: true,
-      phone: true,
-      jobId: true,
-      createdAt: false,
-      role: true,
-    },
-  }) : null; 
-
   return {
     props: {
       // if session is not null, user is connected
-      userConnected: session ? userConnected : null,
+      // userConnected: session ? userConnected : null,
       events: JSON.parse(JSON.stringify(events)) ,
     },
   };

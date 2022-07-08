@@ -13,7 +13,14 @@ import axios from "axios";
 
 export default function UserOnSpot({ id }) {
   // console.log("spotId UserOnSpot:", id);
-  const { data: session } = useSession();
+  const [userConnected, setUserConnected] = useState(
+    useEffect(() => {
+      var userConnected = JSON.parse(
+        window.localStorage.getItem("userConnected")
+      );
+      setUserConnected(userConnected);
+  }, [])
+  );
 
   const [usersOnSpotData, setUsersOnSpotData] = useState([]);
   // const [usersStatus, setUsersStatus] = useState([]);

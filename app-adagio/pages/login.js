@@ -9,7 +9,16 @@ import { useState } from "react";
 import { useEffect } from "react";
 import prisma from '/lib/prisma'
 
-export default function Home({ jobs, emails, userConnected }) {
+export default function Home({ jobs, emails }) {
+  const [userConnected, setUserConnected] = useState(
+    useEffect(() => {
+      var userConnected = JSON.parse(
+        window.localStorage.getItem("userConnected")
+      );
+      setUserConnected(userConnected);
+  }, [])
+  );
+  
   const { data: session } = useSession();
   // console.log("session :", session);
   const {
@@ -191,24 +200,6 @@ export default function Home({ jobs, emails, userConnected }) {
 }
 
 export const getServerSideProps = async ({ req }) => {
-  const session = await getSession({ req });
-  // if session is not null, user is connected
-
-  const userConnected = await prisma.user.findUnique({
-    where: {
-      // if session is not null, user is connected
-      id: session ? parseInt(session.id) : 0,
-    },
-    select: {
-      id: true,
-      firstname: true,
-      lastname: true,
-      email: true,
-      phone: true,
-      jobId: true,
-      createdAt: false,
-    },
-  });
   const jobs = await prisma.job.findMany();
   const emails = await prisma.user.findMany({
     select: {

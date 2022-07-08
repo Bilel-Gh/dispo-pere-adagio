@@ -8,6 +8,11 @@ import Link from "next/link";
 import prisma from '/lib/prisma'
 
 export default function Home({ userConnected }) {
+  // put userConnected 
+  if (typeof window !== "undefined") {
+    // Client-side-only code
+    window.localStorage.setItem("userConnected", JSON.stringify(userConnected));
+  }
   const { data: session } = useSession();
   // console.log("session :", session);
   const {
@@ -49,6 +54,14 @@ export default function Home({ userConnected }) {
           <>
             Vous etes connecté en temps que {userConnected.firstname} <br />
             <br />
+            {/* button go to /spot */}
+            <Link href="/spot">
+              <button className={styles.btn}>
+                {"aller sur les spots"}
+              </button>
+            </Link>{" "}
+            <br />
+            {/* button logout */}
             <button onClick={() => signOut()}>Déconnexion</button>
           </>
         ) : (
@@ -85,17 +98,12 @@ export const getServerSideProps = async ({ req }) => {
       // if session is not null, user is connected
       id: session ? parseInt(session.id) : 0,
     },
-    select: {
-      id: true,
-      firstname: true,
-      lastname: true,
-      email: true,
-      phone: true,
-      jobId: true,
-      createdAt: false,
+    include: {
+        spots: true,
     },
   });
 
+  console.log("userConnected INDEX:", userConnected);
   return {
     props: {
       // if session is not null, user is connected
