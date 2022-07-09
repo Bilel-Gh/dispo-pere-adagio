@@ -46,7 +46,15 @@ const MyBtn = styled.div`
         color:#FDFCF3; 
     }
 }
-
+.pink{
+    background-color:#F195BA; 
+    color:#333333; 
+    text-align: center;
+    &:hover{
+        background-color:#333333; 
+        color:#F195BA; 
+    }
+}
 .orange{
     background-color:#EB5B2D; 
     text-transform: initial;
@@ -69,8 +77,10 @@ export default function Button({children, color, link, text}) {
         return "black"
       case "white":
         return "white"
+      case "pink":
+        return "pink"
       case "orange":
-      return "orange"
+        return "orange"
       default:
         return "neutral"
     }
