@@ -11,23 +11,36 @@ import axios from "axios";
 // const { PrismaClient } = require("@prisma/client");
 // const prisma = new PrismaClient();
 
-export default function SetLeaderToSpot({ spotId }) {
+export default function SetLeaderToSpot({ spotId, userLoged }) {
+  // console.log("userLoged:", userLoged);
   // console.log("spotId SetLeaderToSpot:", spotId );
-  const [userConnected, setUserConnected] = useState();
-    useEffect(() => {
-      var userConnected = JSON.parse(
-        window.localStorage.getItem("userConnected")
-      );
-      setUserConnected(userConnected);
-  }, [])
-
-  // const valueUser = userConnected?.spots.find(spot => spot.id === spotId).then(res => {
-  //   console.log("valueUser:", res);
-  //   return res;
-  // }
-  // );
-
-  // userConnected ? console.log("USERCONNECTED SETLEADER:", valueUser ) : console.log("USERCONNECTED SETLEADER:", "pas de USER");
+  // const [userConnected, setUserConnected] = useState();
+  //   useEffect(() => {
+  //     var userConnected = JSON.parse(
+  //       window.localStorage.getItem("userConnected")
+  //     );
+  //     // if userConnected is null, redirect to sign in
+  //     if (userConnected === null) {
+  //       window.location.href = "/signin";
+  //     }
+  //     setUserConnected(userConnected);
+  // }, [])
+  const [usersOnSpotStatus, setUsersOnSpotStatus] = useState([]);
+  const statusOfUser = async (spotId) => {
+    axios.post(`/api/userOnSpot/getStatusOfOneUserOnSpot`, {
+          userId: userLoged.id,
+          spotId: spotId,
+      }).then(res => {
+          setUsersOnSpotStatus(res.data);
+      }
+      ).catch(err => {
+          console.log("err", err);
+          toast.error("pas de status pour cet utilisateur");
+      }
+      )
+  }
+  statusOfUser(spotId);
+  console.log("statusOfUser_________:", usersOnSpotStatus);
 
   const [usersOnSpotData, setUsersOnSpotData] = useState([]);
   useEffect(() => {
@@ -85,9 +98,9 @@ const isOneLeaderInSpot = () => {
 //  console.log("DATA10:", users);
 
   return (
-    <div className='container'>
-      {/* { !isOneLeaderInSpot() && userConnected ? (
-        userConnected.role === "ADMIN" ? (
+    <div className={styles.container}>
+      { !isOneLeaderInSpot() && userLoged != undefined ? (
+        userLoged.role === "ADMIN" ? (
           <>
             <button onClick={() => setLeaderRandomlyToSpot(spotId)}>
               Assigner un leader au spot
@@ -99,44 +112,16 @@ const isOneLeaderInSpot = () => {
           </>
         )
       ) : (
-        userConnected && userConnected.spots.find(spot => spot.id === spotId).userStatus != "LEADER" ? (
+        userLoged && usersOnSpotStatus != "LEADER" ? (
           <button>
-            Posez votre candidature
+            Vous netes pas leader
           </button>
         ) : (
           <button>
             tu est un leader
           </button>
         )
-      )} */}
+      )}
     </div>
   );
 }
-
-// export const getServerSideProps = async ({ req }) => {
-//   const session = await getSession({ req });
-//   // if session is not null, user is connected
-
-//   const userConnected = await prisma.user.findUnique({
-//     where: {
-//       // if session is not null, user is connected
-//       id: session ? parseInt(session.id) : 0,
-//     },
-//     select: {
-//       id: true,
-//       firstname: true,
-//       lastname: true,
-//       email: true,
-//       phone: true,
-//       jobId: true,
-//       createdAt: false,
-//     },
-//   });
-
-//   return {
-//     props: {
-//       // if session is not null, user is connected
-//       userConnected: session ? userConnected : null,
-//     },
-//   };
-// };

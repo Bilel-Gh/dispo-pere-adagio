@@ -314,8 +314,8 @@ export const getServerSideProps = async ({ req }) => {
     props: {
       jobs,
       emails,
-      // if session is not null, user is connected
-      // userConnected: session ? userConnected : null 
+      // // if session is not null, user is connected
+      // userConnected: session ? userConnected : null,
     },
   };
 };
