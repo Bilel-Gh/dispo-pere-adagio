@@ -155,6 +155,12 @@ const Burger = ({isOpen, setIsOpen}) => {
   }, [])
   )
 
+  const logOut = () =>{
+    console.log('logout')
+    // router.push('/')
+    signOut()
+  }
+
 
     const [isMobile, setIsMobile] = useState(false)
 
@@ -243,7 +249,7 @@ const Burger = ({isOpen, setIsOpen}) => {
           
           userConnected ? (
 
-            <ul className='nav'>
+            <ul className='nav' style={{color: router.asPath === '/accueil' && 'white' }}>
               <li className='navItem'>
                 <Link href='/accueil'>
                   <a>
@@ -252,10 +258,16 @@ const Burger = ({isOpen, setIsOpen}) => {
                 </Link>
                
               </li>
-              <li onClick={() => scrollToSection('data')} className='navItem'>Les prochains évènements</li>
-              <li onClick={() => scrollToSection('faq')} className='navItem'>Evenements</li>
+              <li onClick={() => scrollToSection('data')} className='navItem'>Les évènements</li>
+              <li className='navItem'>
+                <Link href='/spot'>
+                  <a>
+                  Les stands
+                  </a>
+                </Link>
+              </li>
               <li onClick={() => scrollToSection('faq')} className='navItem'>Blog</li>
-              <button className='navItemUser'>{userConnected.firstname}</ button>
+              <button onClick={() => signOut()} className='navItemUser'>{userConnected.firstname}</ button>
             </ul>
           
             

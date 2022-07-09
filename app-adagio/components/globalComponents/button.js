@@ -46,6 +46,16 @@ const MyBtn = styled.div`
         color:#FDFCF3; 
     }
 }
+.white-low{
+    background-color:#FDFCF3; 
+    color:#333333; 
+    text-transform: initial;
+    font-family: "Poppins-Regular";
+    &:hover{
+        background-color:#333333; 
+        color:#FDFCF3; 
+    }
+}
 .pink{
     background-color:#F195BA; 
     color:#333333; 
@@ -59,6 +69,7 @@ const MyBtn = styled.div`
     background-color:#EB5B2D; 
     text-transform: initial;
     color:#FDFCF3; 
+    font-family: "Poppins-Regular";
     &:hover{
         background-color:#333333; 
         color:#FDFCF3; 
@@ -77,6 +88,8 @@ export default function Button({children, color, link, text}) {
         return "black"
       case "white":
         return "white"
+      case "white-low":
+        return "white-low"
       case "pink":
         return "pink"
       case "orange":
