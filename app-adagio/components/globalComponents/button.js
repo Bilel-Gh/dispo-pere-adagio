@@ -12,7 +12,7 @@ const MyBtn = styled.div`
     font-weight: bold;
     display: flex;
     text-transform: uppercase;
-    padding: 15px;
+    padding: 10px;
     align-items: center;
     justify-content: center; 
     font-family: "Poppins-ExtraBold";
@@ -46,19 +46,43 @@ const MyBtn = styled.div`
         color:#FDFCF3; 
     }
 }
+
+.orange{
+    background-color:#EB5B2D; 
+    text-transform: initial;
+    color:#FDFCF3; 
+    &:hover{
+        background-color:#333333; 
+        color:#FDFCF3; 
+    }
+}
 `
 
 
 export default function Button({children, color, link, text}) {
 
+  const switchColor = (color) => {
+    switch(color){
+      case "violet":
+        return "violet"
+      case "black":
+        return "black"
+      case "white":
+        return "white"
+      case "orange":
+      return "orange"
+      default:
+        return "neutral"
+    }
+  }
+
   return (
 
     <MyBtn>
       <Link href={link}>
-        <a className={`btn
-        ${color === 'violet' ? 'violet' : color === 'black' ? 'black' : 'white' } `} >
-          {children}
-        </a>
+      <a className={`btn ${switchColor(color)}`}>
+        {children}
+      </a>
       </Link>
     </MyBtn>
   )

@@ -5,31 +5,58 @@ import { useForm } from "react-hook-form";
 import toast, { Toaster } from "react-hot-toast";
 import { getSession, useSession, signIn, signOut } from "next-auth/react";
 import Link from "next/link";
-// import { useState } from "react";
-// // import { useEffect } from "react";
+import { useState } from "react";
+import { useEffect } from "react";
+import axios from "axios";
 // const { PrismaClient } = require("@prisma/client");
 // const prisma = new PrismaClient();
 
 export default function UserOnSpot({ id }) {
-//   const { data: session } = useSession();
+  // console.log("spotId UserOnSpot:", id);
+  const [userConnected, setUserConnected] = useState(
+    useEffect(() => {
+      var userConnected = JSON.parse(
+        window.localStorage.getItem("userConnected")
+      );
+      setUserConnected(userConnected);
+  }, [])
+  );
 
-//   const [users, setUsers] = useState([]);
-//   useEffect(() => {
-//     // get all spots
-//     const getAllSpots = () => { 
-//         axios.get(`/api/UserOnSpot/${id}`)
-//         .then(res => {
-//             setSpots(res.data);
-//         })
-//     }
-//     getAllSpots();
-// }, []);
+  const [usersOnSpotData, setUsersOnSpotData] = useState([]);
+  // const [usersStatus, setUsersStatus] = useState([]);
+  useEffect(() => {
+    // get all spots
+    const getAllSpots = () => { 
+        axios.get(`/api/userOnSpot/${id}`)
+        .then(res => {
+            // setUsers(res.data.map(user => user.user));
+            setUsersOnSpotData(res.data);
+        })
+    }
+    getAllSpots();
+}, [id]);
 
-  // console.log("userConnected FDSFQSDF:", userConnected);
+
+
+  // console.log("DATA9 usersOnSpotData:", usersOnSpotData);
+  // console.log("DATA10:", users);
 
   return (
-    <div className={styles.container}>
-      <p>{id}</p>
+    <div className='container'>
+      <div>
+        {usersOnSpotData.map(userOnSpotData => (
+          <>  {
+            userOnSpotData.user && 
+          <div className={userOnSpotData.userStatus.toLowerCase()} key={userOnSpotData.id}>
+            <p>{userOnSpotData.user.email}</p>
+            <p>----</p>
+            <p>{userOnSpotData.userStatus}</p>
+          </div>
+          }
+
+          </>
+        ))}
+      </div>
     </div>
   );
 }

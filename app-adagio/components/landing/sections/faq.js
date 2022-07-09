@@ -109,9 +109,9 @@ position: relative;
 }
 
 @media (max-width: 760px) {
-        .headerOne{
-            font-size: 28px;
-        }
+    .headerOne{
+        font-size: 28px;
+    }
 }
 `
 

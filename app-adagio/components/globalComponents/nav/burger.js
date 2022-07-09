@@ -1,7 +1,9 @@
 import React, {useState, useEffect} from 'react'
 import styled from 'styled-components'
 import Button from '@/components/globalComponents/button'
+import { getSession, useSession, signIn, signOut } from "next-auth/react";
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 const NavDesktop = styled.nav`
  display: flex;
@@ -38,6 +40,15 @@ const NavDesktop = styled.nav`
         }
         .navItemInscription{
           text-transform: initial!important;
+        }
+        .navItemUser{
+          width: 136px;
+          background: #333333;
+          border-radius: 1000px;
+          padding: 8px;
+          color: #FDFCF3;
+          font-family: 'Poppins-Regular';
+          border: none;
         }
         @media (max-width: 1100px) {
             gap: 20px;
@@ -132,6 +143,18 @@ width: 100%;
 
 
 const Burger = ({isOpen, setIsOpen}) => {
+  const router = useRouter()
+
+
+  const [userConnected, setUserConnected] = useState(
+    useEffect(() => {
+      var user = JSON.parse(
+        window.localStorage.getItem("userConnected")
+      );
+      setUserConnected(user);
+  }, [])
+  )
+
 
     const [isMobile, setIsMobile] = useState(false)
 
@@ -208,22 +231,49 @@ const Burger = ({isOpen, setIsOpen}) => {
       :
       (
         <NavDesktop className='navDesktop'>
-        <Link href='/'>
+          <Link href='/'>
           <a>
             <figure>
-              <img className='logoDesktop' src='img/landing/logo.webp' alt="logo"/>
+              <img className='logoDesktop' src= {router.asPath === '/' ?  'img/landing/logo.webp' : 'img/landing/logoWhite.webp'} alt="logo"/>
             </figure>
           </a>
-        </Link>
-          
-          <ul className='nav'>
-            <li onClick={() => scrollToSection('concept')} className='navItem'>Le concept</li>
-            <li onClick={() => scrollToSection('data')} className='navItem'>En quelques chiffres</li>
-            <li onClick={() => scrollToSection('faq')} className='navItem'>Faq</li>
-           <Button className='navItemConnexion' link='/login' color='white'>Connexion</Button>
-           <Button className='navItemInscription' link='/signup' color='black'>Inscription</Button>
+          </Link>
 
-          </ul>
+        {
+          
+          userConnected ? (
+
+            <ul className='nav'>
+              <li className='navItem'>
+                <Link href='/accueil'>
+                  <a>
+                  Accueuil
+                  </a>
+                </Link>
+               
+              </li>
+              <li onClick={() => scrollToSection('data')} className='navItem'>Les prochains évènements</li>
+              <li onClick={() => scrollToSection('faq')} className='navItem'>Evenements</li>
+              <li onClick={() => scrollToSection('faq')} className='navItem'>Blog</li>
+              <button className='navItemUser'>{userConnected.firstname}</ button>
+            </ul>
+          
+            
+            
+          ): (
+            <ul className='nav'>
+              <li onClick={() => scrollToSection('concept')} className='navItem'>Le concept</li>
+              <li onClick={() => scrollToSection('data')} className='navItem'>En quelques chiffres</li>
+              <li onClick={() => scrollToSection('faq')} className='navItem'>Faq</li>
+              <button onClick={() => signIn()}>Connexion</button>
+              <Button className='navItemInscription' link='/signup' color='black'>Inscription</Button>
+            </ul>
+            
+          )
+        }
+          
+
+
         </NavDesktop>
       )
       

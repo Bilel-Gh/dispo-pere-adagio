@@ -56,11 +56,11 @@ const Home = styled.section`
               font-size: 5vw;
               background: none;
               line-height: 0;
-                z-index: 1;
-                text-shadow:none;
-                color: #000;
-                width: fit-content;
-                font-family: "BrittanySignature";
+              z-index: 1;
+              text-shadow:none;
+              color: #000;
+              width: fit-content;
+              font-family: "BrittanySignature";
               }
             }
           }

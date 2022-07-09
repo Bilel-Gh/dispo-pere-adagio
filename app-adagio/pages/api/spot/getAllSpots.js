@@ -1,12 +1,11 @@
-const { PrismaClient } = require('@prisma/client')
-const prisma = new PrismaClient()
+import prisma from '/lib/prisma'
 
 export default async function getAllSpots(req, res) {  
   try {
     // get all users
     const spots = await prisma.spot.findMany({ 
       include: {
-      users: true,
+        users: true,
     },
   })
     

@@ -1,7 +1,6 @@
 // get one user by email
 // Compare this snippet from pages/api/getOneUser.js:
-const { PrismaClient } = require('@prisma/client')
-const prisma = new PrismaClient()
+import prisma from '/lib/prisma'
 // import { getSession } from "next-auth/client"
 
 export default async function handler(req, res) {

@@ -1,9 +1,11 @@
 import styled from 'styled-components'
 import Burger from './burger'
-import { useState } from 'react';
+import React, {useState, useEffect} from 'react'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 const MyNav = styled.header`
-  background-color: #FDFCF3;
+  /* background-color: #FDFCF3; */
   z-index: 1;
   display: flex;
   width: 100%;
@@ -26,10 +28,20 @@ const MyNav = styled.header`
   }
 `
 
-export default function NavBar() {
+export default function NavBar({}) {
+  // console.table(window.localStorage.userConnected)
   const [isOpen, setIsOpen] = useState(false)
+  const router = useRouter()
+
+  console.log(router.asPath === '/accueil' ? 'oui' : 'non')
+
+
   return (
-    <MyNav id='footer' className='section-nav'>
+    <MyNav id='nav' className='section-nav' 
+      style={{
+        position: router.asPath === '/accueil' && 'absolute'
+      }}
+    >
       <Burger isOpen={isOpen} setIsOpen={setIsOpen} />
     </MyNav>
   )

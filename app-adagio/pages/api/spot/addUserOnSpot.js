@@ -1,8 +1,7 @@
 // create UserOnSpot
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 
-const { PrismaClient } = require('@prisma/client')
-const prisma = new PrismaClient()
+import prisma from '/lib/prisma'
 import { useSession, getSession } from "next-auth/react"
 
 export default async function addUserOnSpot(req, res) {

@@ -7,8 +7,7 @@ import { getSession, useSession, signIn, signOut } from "next-auth/react";
 import * as bcrypt from "bcryptjs";
 import { useState } from "react";
 import { useEffect } from "react";
-const { PrismaClient } = require("@prisma/client");
-const prisma = new PrismaClient();
+import prisma from '/lib/prisma'
 
 
 const MySignup = styled.section`
@@ -120,14 +119,24 @@ const MySignupForm = styled.form`
 
 `
 
-export default function Home({ jobs, emails, userConnected }) {
+export default function Home({ jobs, emails }) {
+  const [userConnected, setUserConnected] = useState(
+    useEffect(() => {
+      var user = JSON.parse(
+        window.localStorage.getItem("userConnected")
+      );
+      setUserConnected(user);
+  }, [])
+  );
   const { data: session } = useSession();
-  // console.log("session :", session);
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitted },
   } = useForm();
+
+  // console.log('userConnected', userConnected)
+  // console.log('session', session)
 
   const createUser = async (data) => {
     try {
@@ -206,7 +215,7 @@ export default function Home({ jobs, emails, userConnected }) {
                   />
                 </p>
                 <p>
-                  <label>Nom</label>
+                  <label>Nom : </label>
                   <input
                     type="text"
                     id="nom"
@@ -215,7 +224,6 @@ export default function Home({ jobs, emails, userConnected }) {
                     placeholder="Tapez votre nom ici"
                   />
                 </p>
-                
                 <p>
                   <label>Email : </label>
                   <input
@@ -296,24 +304,6 @@ export default function Home({ jobs, emails, userConnected }) {
 }
 
 export const getServerSideProps = async ({ req }) => {
-  const session = await getSession({ req });
-  // if session is not null, user is connected
-
-  const userConnected = await prisma.user.findUnique({
-    where: {
-      // if session is not null, user is connected
-      id: session ? parseInt(session.id) : 0,
-    },
-    select: {
-      id: true,
-      firstname: true,
-      lastname: true,
-      email: true,
-      phone: true,
-      jobId: true,
-      createdAt: false,
-    },
-  });
   const jobs = await prisma.job.findMany();
   const emails = await prisma.user.findMany({
     select: {
@@ -325,7 +315,7 @@ export const getServerSideProps = async ({ req }) => {
       jobs,
       emails,
       // if session is not null, user is connected
-      userConnected: session ? userConnected : null,
+      // userConnected: session ? userConnected : null 
     },
   };
 };

@@ -1,9 +1,11 @@
 import { SessionProvider } from 'next-auth/react'
 import { createGlobalStyle } from 'styled-components';
+import Nav from '@/components/globalComponents/nav'
 import '../styles/globals.css' // à supprimer
 
 const GlobalStyle = createGlobalStyle`
   html, body{
+    background-color: #FDFCF3;
     margin: 0;
     padding: 0;
   }
@@ -38,9 +40,12 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps}) {
+  // console.log("userConnected app:", userConnected);
+  
   return (
     <SessionProvider session={pageProps.session}> 
+      <Nav user={pageProps.userConnected}/>
       <GlobalStyle/>
       <Component {...pageProps} />
     </SessionProvider>
