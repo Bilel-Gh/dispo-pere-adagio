@@ -2,6 +2,10 @@ import { SessionProvider } from 'next-auth/react'
 import { createGlobalStyle } from 'styled-components';
 import Nav from '@/components/globalComponents/nav'
 import '../styles/globals.css' // à supprimer
+import React, { useEffect } from 'react';
+import TagManager from 'react-gtm-module';
+import Head from 'next/head';
+
 
 const GlobalStyle = createGlobalStyle`
   html, body{
@@ -41,14 +45,34 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 function MyApp({ Component, pageProps}) {
+  useEffect(() => {
+    TagManager.initialize({ gtmId: 'GTM-KT47D9V' });
+  }, []);
   // console.log("userConnected app:", userConnected);
   
   return (
-    <SessionProvider session={pageProps.session}> 
-      <Nav user={pageProps.userConnected}/>
-      <GlobalStyle/>
-      <Component {...pageProps} />
-    </SessionProvider>
+    <>
+
+     <Head>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-4E1T9YRE4G"></script>
+        <script
+            dangerouslySetInnerHTML={{
+              __html: `     
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}   
+            gtag('js', new Date());
+            gtag('config', 'G-4E1T9YRE4G');
+          `,
+            }}
+          />
+          </Head>
+
+      <SessionProvider session={pageProps.session}> 
+        <Nav user={pageProps.userConnected}/>
+        <GlobalStyle/>
+        <Component {...pageProps} />
+      </SessionProvider>
+    </>
   );
 }
 
