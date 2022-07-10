@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import Newsletter from '@/components/globalComponents/newsletter'
-
+import Button from '@/components/globalComponents/button'
+import Link from 'next/link'
 
 const MyFooter = styled.footer`
     width: 100%;
@@ -144,21 +145,37 @@ export default function Footer() {
               </figure>
 
               <div className='social-wrapper_responsive'>
-                  <img className='facebook' src='/img/rs_fb.svg' alt='facebook icon'></img>
-                  <img className='instagram' src='/img/rs_insta.svg' alt='instagram icon'></img>
-                  <img className='linkedin' src='/img/rs_linkedin.svg' alt='linkedin icon'></img>
+                <Link  href='https://www.facebook.com/pereadagio'>
+                    <a>
+                        <img className='rs-facebook' src='/img/rs_fb.svg'  alt='facebook icon'></img>
+                    </a>
+                </Link>
+                <Link href='https://www.instagram.com/pereadagio/' >
+                    <a>
+                        <img className='rs-instagram' src='/img/rs_insta.svg'  alt='instagram icon'></img>
+                    </a>
+                </Link>
+                <Link  href='https://www.linkedin.com/company/p%C3%A8re-adagio/'>
+                    <a>
+                        <img className='rs-linkedin' src='/img/rs_linkedin.svg' alt='linkedin icon'></img>
+                    </a>
+                </Link>
               </div>
 
               <Newsletter/>
           </div>
 
           <div className='footContainer-top_second'>
-              <h1>À Propos</h1>
-              <ul>
-                  <li><a href="#">Qui sommes-nous</a></li>
-                  <li><a href="#">Le concept</a></li>
-                  <li><a href="#">Mentions légales & CGU</a></li>
-              </ul>
+                <h1>À Propos</h1>
+                <ul>
+                    <li><a href="#">Qui sommes-nous</a></li>
+                    <li><a href="#">Le concept</a></li>
+                    <li>
+                        <Link href="/doc/mentionsLegales.pdf" >
+                            <a target="_blank">Mentions légales & CGU</a>
+                        </Link>
+                    </li>
+                </ul>
           </div>
 
           <div className='footContainer-top_third'>
@@ -173,9 +190,9 @@ export default function Footer() {
           <div className='footContainer-top_fourth'>
               <div className='fourth-wrapper'>
                   <h1>Besoin d&#x27;aide ?</h1>
-                  <button className='button-contact-footer'>
-                      <a href='#'>Écrivez-nous !</a>
-                  </button>
+                  <Button color='orange' link='mailto:bonjour.utopia@gmail.com' name='btn-contact-footer'>
+                      Écrivez-nous !
+                  </Button>
               </div>
           </div>
       </div>
@@ -184,9 +201,22 @@ export default function Footer() {
           <a href='#'>©Copyright-UTOPIA</a>
 
           <div className='social-wrapper'>
-              <img className='rs-facebook' src='/img/rs_fb.svg' alt='facebook icon'></img>
-              <img className='rs-instagram' src='/img/rs_insta.svg' alt='instagram icon'></img>
-              <img className='rs-linkedin' src='/img/rs_linkedin.svg' alt='linkedin icon'></img>
+            <Link  href='https://www.facebook.com/pereadagio'>
+                <a>
+                    <img className='rs-facebook' src='/img/rs_fb.svg'  alt='facebook icon'></img>
+                </a>
+            </Link>
+            <Link href='https://www.instagram.com/pereadagio/' >
+                    <a>
+                        <img className='rs-instagram' src='/img/rs_insta.svg'  alt='instagram icon'></img>
+                    </a>
+                </Link>
+                <Link  href='https://www.linkedin.com/company/p%C3%A8re-adagio/'>
+                    <a>
+                        <img className='rs-linkedin' src='/img/rs_linkedin.svg' alt='linkedin icon'></img>
+                    </a>
+                </Link>
+           
           </div>
       </div>
 

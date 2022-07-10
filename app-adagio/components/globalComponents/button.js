@@ -78,7 +78,7 @@ const MyBtn = styled.div`
 `
 
 
-export default function Button({children, color, link, text}) {
+export default function Button({children, color, link,  name}) {
 
   const switchColor = (color) => {
     switch(color){
@@ -103,7 +103,7 @@ export default function Button({children, color, link, text}) {
 
     <MyBtn>
       <Link href={link}>
-      <a className={`btn ${switchColor(color)}`}>
+      <a className={`btn ${name} ${switchColor(color)}`}>
         {children}
       </a>
       </Link>

@@ -62,7 +62,7 @@ const MyConcept = styled.section`
                 flex-direction: column;
                 justify-content: space-evenly;
                 .btn-join{
-                    width: 50%;
+                    width: 80%;
                 }
             }
         }
@@ -165,7 +165,6 @@ const MyConcept = styled.section`
                 .ourConcept{
                     width: 100%;
                     position: relative;
-
                     .participate{
                         position: absolute;
                         top: 150%;
@@ -260,7 +259,7 @@ export default function Concept() {
                     et &nbsp; <span>vous souhaitez vous réinventez ?</span>
                 </p>
                 <div className='btn-join'>
-                    <Button link='/contact' color='white'>
+                    <Button link='/contact' name='btn-join' color='white'>
                         Rejoignez le projet
                     </Button>
                 </div>

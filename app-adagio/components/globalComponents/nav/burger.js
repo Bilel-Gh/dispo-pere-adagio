@@ -313,7 +313,11 @@ const Burger = ({isOpen, setIsOpen}) => {
               <li onClick={() => scrollToSection('data')} className='navItem'>En quelques chiffres</li>
               <li onClick={() => scrollToSection('faq')} className='navItem'>Faq</li>
               <button onClick={() => signIn()} className='btn-login' >Connexion</button>
-              <button className='btn-signup' link='/signup'>Inscription</button>
+              <Link href='/signup'>
+                <a>
+                  <button className='btn-signup'>Inscription</button>
+                </a>
+              </Link>
             </ul>
             
           )

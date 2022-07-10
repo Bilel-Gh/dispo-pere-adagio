@@ -176,7 +176,7 @@ export default function Faq() {
                 </div>
 
                 <div className='btn-contact-us'>
-                    <Button color='violet' link='/contact' text="On prend contact ?">On prend contact !</Button>
+                    <Button  name="btn-contact-us" color='violet' link='/contact'>On prend contact !</Button>
                 </div>
             </div>
         </MyFaq>
