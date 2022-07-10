@@ -39,17 +39,22 @@ console.log("usersOnSpotData_____________:", usersOnSpotData);
 
 const [usersOnSpotStatus, setUsersOnSpotStatus] = useState([]);
 const statusOfUser = async (id) => {
-  axios.post(`/api/userOnSpot/getStatusOfOneUserOnSpot`, {
-        userId: userLoged.id,
-        spotId: id,
-    }).then(res => {
-        setUsersOnSpotStatus(res.data);
-    }
-    ).catch(err => {
-        console.log("err", err);
-        toast.error("pas de status pour cet utilisateur");
-    }
-    )
+  id ? (
+    axios.post(`/api/userOnSpot/getStatusOfOneUserOnSpot`, {
+          userId: userLoged.id,
+          spotId: id,
+      }).then(res => {
+          setUsersOnSpotStatus(res.data);
+      }
+      ).catch(err => {
+          console.log("err", err);
+          toast.error("pas de status pour cet utilisateur");
+      }
+      )
+
+  ) : (
+    console.log("no spotId")
+  )
 }
 statusOfUser(id);
 

@@ -13,9 +13,10 @@ import SetLeaderToSpot from "./SetLeaderToSpot";
 // const prisma = new PrismaClient();
 
 export default function ButtonRegisterToSpot({ spotId, userLoged }) {
-
+  console.log("spotId___--", spotId);
   const [usersOnSpot, setUsersOnSpot] = useState([]);
   const isUserOnSpot = async (spotId) => {
+    spotId ? (
     axios.post(`/api/userOnSpot/isUserOnSpot`, {
           userId: userLoged.id,
           spotId: spotId,
@@ -27,6 +28,9 @@ export default function ButtonRegisterToSpot({ spotId, userLoged }) {
           toast.error("erreur lors de la recherche de l'utilisateur");
       }
       )
+    ) : (
+      console.log("no spotId")
+    )
   }
   isUserOnSpot(spotId);
 

@@ -14,6 +14,7 @@ model User {
   id        Int      @id @default(autoincrement())
   email       String   @unique
   password    String
+  image       String?   @default("https://cdn-icons-png.flaticon.com/512/1909/1909951.png")
   firstname   String
   lastname    String
   phone       Int?
@@ -34,6 +35,9 @@ model Event{
   id        Int  @id @default(autoincrement())
   name      String @unique
   dateStart String
+  image     String?
+  description String?
+  adresse  String?
   spots     Spot[]
   dateEnd   String
 }
@@ -42,6 +46,9 @@ model Spot{
   id        Int  @id @default(autoincrement())
   name      String @unique
   address   String
+  description String?
+  image     String?
+  adresse  String?
   event     Event @relation(fields: [eventId], references: [id])
   eventId   Int
   users     UserOnSpot[]
@@ -65,13 +72,4 @@ enum Role {
 enum Type {
   FOODTRUCK
   POPUP
-}
-
-enum SpotStatus {
-  FIRSTACCEPTED
-  LEADER
-  ACCEPTED
-  PENDING
-  REJECTED
-  NOTASSIGNED
 }
