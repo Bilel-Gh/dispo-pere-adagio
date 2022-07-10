@@ -36,7 +36,7 @@ export default function NavBar({}) {
   return (
     <MyNav id='nav' className='section-nav' 
       style={{
-        position: router.asPath !== '/' && 'absolute'
+        position: (router.asPath === '/' || router.asPath.includes('/#')) ? 'initial': 'absolute'
       }}
     >
       <Burger isOpen={isOpen} setIsOpen={setIsOpen} />
