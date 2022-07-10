@@ -80,7 +80,7 @@ export default function Contact() {
             <h1>Vous êtes au bon endroit</h1> 
         </div> 
         <div className='bottom'>
-            <Button color='black' link='/form' className='btn'>
+            <Button color='black' link='/form' name='go-to-form' className='btn'>
                 C&#x27;est parti
             </Button>
             <span>

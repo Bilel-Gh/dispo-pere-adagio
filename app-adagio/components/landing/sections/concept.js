@@ -7,7 +7,7 @@ const MyConcept = styled.section`
     padding: 10% 8%;
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    /* min-height: 100vh; */
     height: 100%;
     gap: 40px;
     position: relative;
@@ -61,8 +61,8 @@ const MyConcept = styled.section`
                 gap: 35px;
                 flex-direction: column;
                 justify-content: space-evenly;
-                .btnJoin{
-                    width: 50%;
+                .btn-join{
+                    width: 80%;
                 }
             }
         }
@@ -165,7 +165,6 @@ const MyConcept = styled.section`
                 .ourConcept{
                     width: 100%;
                     position: relative;
-
                     .participate{
                         position: absolute;
                         top: 150%;
@@ -223,7 +222,7 @@ const MyConcept = styled.section`
                     .participate{
                         top: 130%;
                     }
-                    .btnJoin{
+                    .btn-join{
                         margin: 0 auto;
                     }
                 }
@@ -248,7 +247,7 @@ const MyConcept = styled.section`
 
 export default function Concept() {
   return (
-    <MyConcept className='section-concept'>
+    <MyConcept id ='concept' className='section-concept'>
     <div className='concept'/>
     <h2 className='title'>Créer un écosystème d&#x27;espaces culinaires partagés.</h2>
     <div className='textContainer'>
@@ -259,8 +258,8 @@ export default function Concept() {
                     <span> les habitudes de vos clients changent &nbsp;</span>
                     et &nbsp; <span>vous souhaitez vous réinventez ?</span>
                 </p>
-                <div className='btnJoin'>
-                    <Button link='/contact' color='white'>
+                <div className='btn-join'>
+                    <Button link='/contact' name='btn-join' color='white'>
                         Rejoignez le projet
                     </Button>
                 </div>

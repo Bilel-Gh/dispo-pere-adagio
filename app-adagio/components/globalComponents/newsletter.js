@@ -69,6 +69,7 @@ function Newsletter() {
     useEffect(() => {
         document.querySelector("input[type='email']").placeholder='indiquer votre mail';
         document.querySelector("input[type='email']").parentNode.lastChild.textContent="Valider";
+        document.querySelector("input[type='email']").parentNode.lastChild.classList.add("btn-send-mail");
     });
 
     return (

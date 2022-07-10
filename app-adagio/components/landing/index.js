@@ -4,8 +4,6 @@ import RoadMap from './sections/roadmap'
 import Datas from './sections/datas'
 import Join from './sections/join'
 import Faq from './sections/faq'
-import Footer from '@/components/globalComponents/footer'
-
 
 export default function Landing() {
   return (
@@ -16,7 +14,6 @@ export default function Landing() {
       <Datas/>
       <Join/>
       <Faq/>
-      <Footer/>
     </section>
   )
 }
