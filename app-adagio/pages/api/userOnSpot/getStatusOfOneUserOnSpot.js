@@ -12,7 +12,11 @@ export default async function getOneUserOnSpot(req, res) {
         userId: parseInt(userId),
       },
           include: {
-        user: true,
+        user: {
+          include: {
+            job: true,
+        },
+        }
       },
     })
 

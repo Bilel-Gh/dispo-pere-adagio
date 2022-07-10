@@ -117,10 +117,29 @@ export default function Event({ events }) {
               <ItemContainner> 
                   {spots.map((spot, index) => (
                     <Link key={index} href={`/spots/oneSpot/${spot.id}`}>
-                      <MyItem>
+                      {/* if 10 - spot.user.length == 0 className MyItem disabled*/}
+                      <MyItem className={
+                          (10 - spot.users.length) == 0
+                            ? "card-spot disabled"
+                            : "card-spot"
+                        }>
+                          <img src={spot.image} alt="event" />
                           <h2>{spot.name}</h2>
-
-                          <p></p>
+                          <p className="description">{spot.description}</p>
+                          <p>{spot.address}</p>
+                          <p className="eventStatus">{spot.users.length} inscrits </p>
+                          <p className="eventStatusRemain"> 
+                            {/* if spot.user.length > 0 */}
+                            {(10 - spot.users.length) > 0 ? (
+                              <>
+                                {10 - spot.users.length} places restantes
+                              </>
+                            ) : (
+                              <>
+                                complet
+                              </>
+                            )}
+                          </p>
                       </MyItem>
                     </Link>
                   ))}
@@ -173,19 +192,6 @@ export default function Event({ events }) {
                 </div>
               </MySignupForm>
             </MyMain>
-      
-            <footer className={styles.footer}>
-              <a
-                href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Powered by{" "}
-                <span className={styles.logo}>
-                  <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-                </span>
-              </a>
-            </footer>
           </div>
           </>
          ) : (

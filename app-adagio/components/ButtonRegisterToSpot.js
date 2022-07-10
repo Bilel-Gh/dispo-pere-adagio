@@ -9,6 +9,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
 import SetLeaderToSpot from "./SetLeaderToSpot";
+import { ButtonOrange } from "./SetLeaderToSpot";
 // const { PrismaClient } = require("@prisma/client");
 // const prisma = new PrismaClient();
 
@@ -41,7 +42,7 @@ export default function ButtonRegisterToSpot({ spotId, userLoged }) {
       {userLoged ? (
         !usersOnSpot ? (
         <div>
-          <button
+          <ButtonOrange
             onClick={() => {
               axios.post(`/api/userOnSpot/createUserOnSpot`, {
                 userId: userLoged.id,
@@ -56,7 +57,7 @@ export default function ButtonRegisterToSpot({ spotId, userLoged }) {
             }}
           >
             S&apos;inscrire sur ce spot
-          </button>
+          </ButtonOrange>
         </div>
         ) : (          <SetLeaderToSpot
           userId={userLoged.id}
@@ -66,7 +67,7 @@ export default function ButtonRegisterToSpot({ spotId, userLoged }) {
       ) : (
         <div>
           <p>Vous devez vous connecter pour s&apos;inscrire sur ce spot</p>
-          <button onClick={() => signIn()}>Connexion</button>
+          <ButtonOrange onClick={() => signIn()}>Connexion</ButtonOrange>
         </div>
       )}
     </div>

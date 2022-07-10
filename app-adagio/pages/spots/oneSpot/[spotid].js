@@ -45,6 +45,25 @@ export const ButtonBack = styled.div`
   }
   `;
 
+export const SpotContainner = styled.div`
+  width: 85%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 80px;
+  .container{
+      width: 80%;
+    }
+`
+
+export const MySpot = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+`
+
 export default function Event({  }) {
       const router = useRouter();
       const [userConnected, setUserConnected] = useState(
@@ -99,8 +118,8 @@ export default function Event({  }) {
             </Head>
       
             <MyMain>
-              <ItemContainner> 
-                  <MyItem>
+              <SpotContainner> 
+                  <MySpot>
                           <h1>{spot.name}</h1>
                           {spot.users?.length > 0 ? (
                             <UserOnSpot userLoged={userConnected} spotId={spot.id} id={spot.id}/>
@@ -108,23 +127,10 @@ export default function Event({  }) {
                           <p>Aucun utilisateur sur ce spot</p>
                           )}
                             <ButtonRegisterToSpot spotId={spot.id} userLoged={userConnected} />
-                    </MyItem>
-              </ItemContainner>
+                    </MySpot>
+              </SpotContainner>
               <Toaster />
             </MyMain>
-      
-            <footer className={styles.footer}>
-              <a
-                href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Powered by{" "}
-                <span className={styles.logo}>
-                  <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-                </span>
-              </a>
-            </footer>
           </div>
           </>
          ) : (

@@ -12,7 +12,11 @@ export default async function getUsersonSpot(req, res) {
         spotId: parseInt(id),
       },
           include: {
-        user: true,
+        user: {
+          include: {
+            job: true,
+        },
+        }
       },
     })
     // const arrayOfUsers = arrayOfData.map(data => data.user)

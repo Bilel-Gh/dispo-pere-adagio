@@ -15,7 +15,7 @@ import styled from 'styled-components'
   // _________________________________________________________STYLES_________________________________________________________
    export const MyMain = styled.main`
     min-height: 100vh;
-    padding: 25rem 0 0;
+    padding: 35rem 0 0;
     flex: 1 1;
     display: flex;
     flex-direction: column;
@@ -147,6 +147,11 @@ import styled from 'styled-components'
       grid-template-columns: 1fr 1fr 1fr;
       width: 80%;
       grid-gap: 25px;
+
+      .disabled {
+        opacity: 20%;
+        pointer-events: none;
+      }
     `;
 
     export const MyItem = styled.div`
@@ -187,6 +192,16 @@ import styled from 'styled-components'
 
       .description {
         padding: 5px 35px;
+      }
+
+      .eventStatusRemain {
+        position: absolute;
+        top: 0;
+        background-color: #eb5b2dc9;
+        color: white;
+        right: 0;
+        margin: 10px 15px 0 0;
+        padding: 5px;
       }
     `;
 
@@ -284,7 +299,7 @@ export default function Events({ events}) {
             <ItemContainner>
               {events.map((event, index) => (
                 <Link href={`/spots/${event.id}`} key={index}>
-                  <MyItem>
+                  <MyItem className="card-event">
                     <img src={event.image} alt="event" />
                     <h2>{event.name}</h2>
                     <p className="description">{event.description}</p>
@@ -354,24 +369,6 @@ export default function Events({ events}) {
               </MySignupForm>
             ) : null}
           </MyMain>
-
-          <footer className={styles.footer}>
-            <a
-              href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Powered by{" "}
-              <span className={styles.logo}>
-                <Image
-                  src="/vercel.svg"
-                  alt="Vercel Logo"
-                  width={72}
-                  height={16}
-                />
-              </span>
-            </a>
-          </footer>
         </div>
       </>
     ) : (
