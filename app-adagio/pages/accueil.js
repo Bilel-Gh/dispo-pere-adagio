@@ -258,7 +258,7 @@ export default function Accueil() {
             Le Père Adagio vous permet d’obtenir votre foodtruck dans les évènements des plus grandes villes de France
           </p>
           <div className='btn-container'>
-            <Button link='/evenements' color='orange'>Tous nos évènements</Button>
+            <Button link='/events' color='orange'>Tous nos évènements</Button>
           </div>
         </article>
       </div>
@@ -272,7 +272,7 @@ export default function Accueil() {
         </div>
         <CarouselEvent/>
         <div className='btn-container'>
-          <Button link='/evenements' color='white-low'>Tous nos évènements</Button>
+          <Button link='/events' color='white-low'>Tous nos évènements</Button>
         </div>
       </CurrentEvent>
 

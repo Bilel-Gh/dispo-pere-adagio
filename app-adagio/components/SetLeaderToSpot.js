@@ -27,6 +27,7 @@ export default function SetLeaderToSpot({ spotId, userLoged }) {
   // }, [])
   const [usersOnSpotStatus, setUsersOnSpotStatus] = useState([]);
   const statusOfUser = async (spotId) => {
+    spotId ? (
     axios.post(`/api/userOnSpot/getStatusOfOneUserOnSpot`, {
           userId: userLoged.id,
           spotId: spotId,
@@ -38,6 +39,9 @@ export default function SetLeaderToSpot({ spotId, userLoged }) {
           toast.error("pas de status pour cet utilisateur");
       }
       )
+    ) : (
+      console.log("no spotId")
+    )
   }
   statusOfUser(spotId);
   console.log("statusOfUser_________:", usersOnSpotStatus);

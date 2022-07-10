@@ -49,7 +49,32 @@ const NavDesktop = styled.nav`
           color: #FDFCF3;
           font-family: 'Poppins-Regular';
           border: none;
+          cursor: pointer;
+          /* on hover show disconnect button */
         }
+        .disconnectButton {
+          display: none;
+          width: 136px;
+          background: #333333;
+          border-radius: 1000px;
+          padding: 8px;
+          color: #FDFCF3;
+          font-family: 'Poppins-Regular';
+          border: none;
+          cursor: pointer;
+        }
+        .hoverDiv{ 
+          &:hover{
+            .disconnectButton {
+              display: block;
+            }
+            /* deplacer .navItemButon vers le bas de 10px */
+            .navItemUser{
+              margin-top: 30px;
+            }
+          }
+        }
+
         @media (max-width: 1100px) {
             gap: 20px;
         }
@@ -145,6 +170,7 @@ width: 100%;
 const Burger = ({isOpen, setIsOpen}) => {
   const router = useRouter()
 
+  const { data: session } = useSession();
 
   const [userConnected, setUserConnected] = useState(
     useEffect(() => {
@@ -247,7 +273,7 @@ const Burger = ({isOpen, setIsOpen}) => {
 
         {
           
-          userConnected ? (
+          session ? (
 
             <ul className='nav' style={{color: router.asPath === '/accueil' && 'white' }}>
               <li className='navItem'>
@@ -258,7 +284,13 @@ const Burger = ({isOpen, setIsOpen}) => {
                 </Link>
                
               </li>
-              <li onClick={() => scrollToSection('data')} className='navItem'>Les évènements</li>
+              <li className='navItem'>
+                <Link href='/events'>
+                  <a>
+                  Les évènements
+                  </a>
+                </Link>
+              </li>
               <li className='navItem'>
                 <Link href='/spot'>
                   <a>
@@ -267,7 +299,10 @@ const Burger = ({isOpen, setIsOpen}) => {
                 </Link>
               </li>
               <li onClick={() => scrollToSection('faq')} className='navItem'>Blog</li>
-              <button onClick={() => signOut()} className='navItemUser'>{userConnected.firstname}</ button>
+              <div className='hoverDiv'> 
+                <button className='navItemUser'>{userConnected.firstname}</button>
+                <button className='disconnectButton' onClick={() => signOut()}>Déconnexion</button>
+              </div>
             </ul>
           
             

@@ -8,9 +8,7 @@ const MyNewsletter = styled.section`
 .form {
     div{
         display: flex;
-        justify-content: center;
         gap: 20px;
-
     }
     input{
         padding: 10px;
@@ -18,19 +16,18 @@ const MyNewsletter = styled.section`
         color: #FDFCF3;
         background-color: transparent;
         border-radius: 10px;
-        width: 30%;
         height: 40px;
         &::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-            color:rgba(253, 252, 243, 0.5);
+            color:#A1A1AA;
             opacity: 1; /* Firefox */
-            font-family: "Poppins-ExtraBold";
+            font-family: "Poppins-Regular";
 
         }
     }
     button{
-        background-color: #9F9FED;
+        background-color:#EB5B2D;
         text-transform: uppercase;
-        color: #333333;
+        color: #FFFFFF;
         cursor: pointer;
         position: relative;
         border-radius: 10px;
@@ -44,8 +41,7 @@ const MyNewsletter = styled.section`
         justify-content: center;
     }
 }
-
-@media (max-width: 850px) {
+@media (max-width: 1149px) {
     .form {
         div{
             flex-direction: column;
@@ -61,7 +57,9 @@ const MyNewsletter = styled.section`
         }
     }
 
-    }
+}
+
+    
 `
 
 function Newsletter() {

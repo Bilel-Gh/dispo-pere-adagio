@@ -33,7 +33,7 @@ const MyFooter = styled.footer`
                 cursor: pointer;
             }
             .footContainer-top_first{
-                width: 35%;
+                width: 30%;
                 figure{
                     margin: 0 0 1em 0;
                 }
@@ -140,13 +140,13 @@ export default function Footer() {
       <div className='footContainer-top'>
           <div className='footContainer-top_first'>
               <figure>
-                  <img src="/img/logoWhite.webp" width="143.01" height="80" alt='logo pa' />
+                  <img src="/img/landing/logoWhite.webp" width="143.01" height="80" alt='logo pa' />
               </figure>
 
               <div className='social-wrapper_responsive'>
-                  <img className='facebook' src='/img/fb.webp' alt='facebook icon'></img>
-                  <img className='instagram' src='/img/insta.webp' alt='instagram icon'></img>
-                  <img className='linkedin' src='/img/linkedin.webp' alt='linkedin icon'></img>
+                  <img className='facebook' src='/img/rs_fb.svg' alt='facebook icon'></img>
+                  <img className='instagram' src='/img/rs_insta.svg' alt='instagram icon'></img>
+                  <img className='linkedin' src='/img/rs_linkedin.svg' alt='linkedin icon'></img>
               </div>
 
               <Newsletter/>
@@ -165,7 +165,7 @@ export default function Footer() {
               <h1>Le site</h1>
               <ul>
                   <li><a href="#">Les prochains pop-up stores</a></li>
-                  <li><a href="#">Les évènements</a></li>
+                  <li><a href="/events">Les évènements</a></li>
                   <li><a href="#">Inscription</a></li>
               </ul>
           </div>
