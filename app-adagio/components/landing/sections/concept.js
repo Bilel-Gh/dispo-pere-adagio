@@ -247,7 +247,7 @@ const MyConcept = styled.section`
 
 export default function Concept() {
   return (
-    <MyConcept className='section-concept'>
+    <MyConcept id ='concept' className='section-concept'>
     <div className='concept'/>
     <h2 className='title'>Créer un écosystème d&#x27;espaces culinaires partagés.</h2>
     <div className='textContainer'>

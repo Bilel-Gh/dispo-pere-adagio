@@ -54,7 +54,6 @@ position: relative;
                     }
                 }
                 .answer{
-                    max-height: 63px;
                     border: 2px solid #F195BA;
                     border-radius: 12px;
                     display: flex;
@@ -120,15 +119,15 @@ export default function Faq() {
     const qas= [
         {
             question : 'Pourquoi père adagio ?',
-            answer : 'Réponse...'
+            answer : `Chez père adagio on est fan des inconnus, c'est une référence au père ducasse. Adagio c'est surtout parce qu'avec nous votre affaire se développe dans le calme et la sérénité.`
         },
         {
             question : 'Quand le père adagio a été fondé ?',
-            answer : 'Réponse...'
+            answer : 'Le père adagio a été fondée en juin 2022 par 15 collaborateurs.'
         },
         {
             question : `Dans l'avenir vous souhaitez étendre votre offre aux commerçants (hors artisanat) ?`,
-            answer : 'Réponse...',
+            answer : `Ce n'est pas dans nos projet pour l'instant, mais comme le dit le celebre dicton "never say never", donc actuellement et pendant plusieurs années nous nous impliquerons cœurs et âmes uniquement pour les artisans`
         },
         {
             question : 'Vous vous présentez ?',

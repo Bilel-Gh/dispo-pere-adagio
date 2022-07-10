@@ -202,7 +202,7 @@ const Burger = ({isOpen, setIsOpen}) => {
 
     const scrollToSection = (id) => {
       const element = document.getElementById(id);
-      element.scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"})
+      element.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"})
     }
 
     return (
@@ -238,8 +238,8 @@ const Burger = ({isOpen, setIsOpen}) => {
                     </nav>
                   
                     <div className='btn'>
-                        <Button className='btn-login' link='/login' color='white'>Connexion</Button>
-                        <Button className='btn-signup' link='/signup' color='black'>Inscription</Button>
+                        <button className='btn-login' href='/login' color='white'>Connexion</button>
+                        <button className='btn-signup' href='/signup' color='black'>Inscription</button>
                     </div>
 
                     <div className='social'>
@@ -304,9 +304,6 @@ const Burger = ({isOpen, setIsOpen}) => {
                 <button className='disconnectButton' onClick={() => signOut()}>Déconnexion</button>
               </div>
             </ul>
-          
-            
-            
           ): (
             <ul className='nav'>
               <li onClick={() => scrollToSection('concept')} className='navItem'>Le concept</li>

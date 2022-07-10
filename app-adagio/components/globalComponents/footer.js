@@ -136,6 +136,13 @@ const MyFooter = styled.footer`
 `
 
 export default function Footer() {
+
+    const scrollToSection = (id) => {
+        console.log(id)
+        const element = document.getElementById(id);
+        element.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"})
+    }
+
   return (
     <MyFooter id='footer' className='section-footer'>
       <div className='footContainer-top'>
@@ -169,7 +176,11 @@ export default function Footer() {
                 <h1>À Propos</h1>
                 <ul>
                     <li><a href="#">Qui sommes-nous</a></li>
-                    <li><a href="#">Le concept</a></li>
+                    <li>
+                        <Link href="/#concept" >
+                            <a>Le concept</a>
+                        </Link>
+                    </li>
                     <li>
                         <Link href="/doc/mentionsLegales.pdf" >
                             <a target="_blank">Mentions légales & CGU</a>
@@ -181,9 +192,17 @@ export default function Footer() {
           <div className='footContainer-top_third'>
               <h1>Le site</h1>
               <ul>
-                  <li><a href="#">Les prochains pop-up stores</a></li>
-                  <li><a href="/events">Les évènements</a></li>
-                  <li><a href="#">Inscription</a></li>
+                    <li><a href="#">Les prochains pop-up stores</a></li>
+                    <li>
+                        <Link href="/events" >
+                            <a>Les évènements</a>
+                        </Link>
+                    </li>
+                    <li>
+                        <Link href="/signup" >
+                            <a>Inscription</a>
+                        </Link>
+                    </li>
               </ul>
           </div>
           
