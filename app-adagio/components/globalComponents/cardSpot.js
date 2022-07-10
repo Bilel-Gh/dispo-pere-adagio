@@ -9,7 +9,7 @@ const MyCard = styled.div`
   height: 350px;
   display: flex;
   flex-direction : column;
-  border: solid rebeccapurple;
+  box-shadow: 5px 1px 64px 6px rgba(0, 0, 0, 0.08);
   .image-card{
     display: flex;
     align-items: center; 

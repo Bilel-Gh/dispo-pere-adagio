@@ -2,7 +2,8 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { keyframes } from 'styled-components'
-import Fonctionnement from '@/components/fonctionnement'
+import Fonctionnement from '@/components/spot/fonctionnement'
+import Gamme from '@/components/spot/gamme'
 
 const MySpotRegister = styled.section`
   background: #00C2D1;
@@ -166,7 +167,7 @@ export default function Spot({}) {
       </span>
     </TextDefilant>
     <Fonctionnement/>
-      
+    <Gamme/>
     
     </MySpotRegister>
 

@@ -224,7 +224,7 @@ const Burger = ({isOpen, setIsOpen}) => {
                           <img src='/img/landing/instaBlack.svg' alt="icon instagram"/>
                         </a>
                         <a href="https://www.youtube.com/channel/UCBFPQC4zt_I0oVBIMBWaCYw">
-                          <img src='/img/landing/inkedinBlack.svg' alt="icon linkedin "/>
+                          <img src='/img/landing/linkedinBlack.svg' alt="icon linkedin "/>
                         </a>
                     </div>
                   </div>

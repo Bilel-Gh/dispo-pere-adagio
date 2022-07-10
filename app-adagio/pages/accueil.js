@@ -4,6 +4,8 @@ import React, {useState, useEffect} from 'react'
 import CarouselEvent from '@/components/carouselEvent'
 import CarouselSpot from '@/components/carouselSpot'
 
+
+
 const MyAccueil = styled.section`
   .main{
     background-image: url(img/dispo/bgCooker.webp);
@@ -152,7 +154,6 @@ const CurrentEvent = styled.section`
   }
   
 `
-
 const CurrentSpot = styled.section`
   position: relative;
   background: #FDFCF3;
@@ -242,6 +243,7 @@ export default function Accueil() {
       setUserConnected(user);
   }, [])
   );
+
   console.log('userConnected', userConnected)
   return (
     <MyAccueil className='section-accueil'>
