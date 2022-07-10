@@ -1,6 +1,7 @@
 import { SessionProvider } from 'next-auth/react'
 import { createGlobalStyle } from 'styled-components';
 import Nav from '@/components/globalComponents/nav'
+import Footer from '@/components/globalComponents/footer'
 import '../styles/globals.css' // à supprimer
 
 const GlobalStyle = createGlobalStyle`
@@ -48,6 +49,7 @@ function MyApp({ Component, pageProps}) {
       <Nav user={pageProps.userConnected}/>
       <GlobalStyle/>
       <Component {...pageProps} />
+      <Footer/>
     </SessionProvider>
   );
 }
