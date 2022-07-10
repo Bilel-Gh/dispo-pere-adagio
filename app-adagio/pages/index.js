@@ -5,8 +5,8 @@ import { useForm } from "react-hook-form";
 import toast, { Toaster } from "react-hot-toast";
 import { getSession, useSession, signIn, signOut } from "next-auth/react";
 import Link from "next/link";
-const { PrismaClient } = require("@prisma/client");
-const prisma = new PrismaClient();
+//const { PrismaClient } = require("@prisma/client");
+//const prisma = new PrismaClient();
 
 export default function Home({ userConnected }) {
   const { data: session } = useSession();
@@ -28,6 +28,22 @@ export default function Home({ userConnected }) {
           content="Pere Adagio, l'application qui permet aux artisans de colaborer entre eux facilement"
         />
         <link rel="icon" href="/favicon.ico" />
+
+        <script
+            dangerouslySetInnerHTML={{
+              __html: `
+              window.axeptioSettings = {
+                  clientId: "62b2d68254bf6310d9d3c8f0",
+                };
+                 
+                (function(d, s) {
+                  var t = d.getElementsByTagName(s)[0], e = d.createElement(s);
+                  e.async = true; e.src = "//static.axept.io/sdk.js";
+                  t.parentNode.insertBefore(e, t);
+                })(document, "script");
+          `,
+            }}
+          />
       </Head>
 
       <main className={styles.main}>
@@ -77,7 +93,7 @@ export default function Home({ userConnected }) {
   );
 }
 
-export const getServerSideProps = async ({ req }) => {
+/*export const getServerSideProps = async ({ req }) => {
   const session = await getSession({ req });
   // if session is not null, user is connected
 
@@ -103,4 +119,5 @@ export const getServerSideProps = async ({ req }) => {
       userConnected: session ? userConnected : null,
     },
   };
-};
+//};
+*/
