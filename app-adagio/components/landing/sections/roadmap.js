@@ -63,9 +63,11 @@ export default function Road() {
             <h2>
                 Notre plan d&#x27;action
             </h2>
+            <div className='btn-roadmap'>
               <Button  link='/contact' color='black'>
                   Consulter notre roadmap
               </Button>
+            </div>
             <div className='arrow'/>
         </div>
     </MyRoad>

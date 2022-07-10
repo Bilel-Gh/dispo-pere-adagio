@@ -7,7 +7,7 @@ const MyConcept = styled.section`
     padding: 10% 8%;
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    /* min-height: 100vh; */
     height: 100%;
     gap: 40px;
     position: relative;
@@ -61,7 +61,7 @@ const MyConcept = styled.section`
                 gap: 35px;
                 flex-direction: column;
                 justify-content: space-evenly;
-                .btnJoin{
+                .btn-join{
                     width: 50%;
                 }
             }
@@ -223,7 +223,7 @@ const MyConcept = styled.section`
                     .participate{
                         top: 130%;
                     }
-                    .btnJoin{
+                    .btn-join{
                         margin: 0 auto;
                     }
                 }
@@ -259,7 +259,7 @@ export default function Concept() {
                     <span> les habitudes de vos clients changent &nbsp;</span>
                     et &nbsp; <span>vous souhaitez vous réinventez ?</span>
                 </p>
-                <div className='btnJoin'>
+                <div className='btn-join'>
                     <Button link='/contact' color='white'>
                         Rejoignez le projet
                     </Button>

@@ -31,7 +31,7 @@ position: relative;
             .faq{
                 width: 100%;
                 margin: 0 0 10px 0;
-                .question{
+                .faq-question{
                     border: 2px solid #F195BA;
                     border-radius: 12px;
                     display: flex;
@@ -153,7 +153,7 @@ export default function Faq() {
                     {
                         qas.map((qa, index) => (
                             <article className='faq' id={index} key={index}>
-                                <div className='question' onClick={() => toggle(index)}>
+                                <div className='faq-question' onClick={() => toggle(index)}>
                                     <h3>{qa.question}</h3>
                                     <svg className={tab[index] ? 'svg' :'svgTrun'} xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#F195BA" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
                                 </div>  
@@ -175,22 +175,9 @@ export default function Faq() {
                     <p>Vous avez d&#x27;autres <span className='spanFaq'>questions</span> ?</p>
                 </div>
 
-                <div className='btn'>
+                <div className='btn-contact-us'>
                     <Button color='violet' link='/contact' text="On prend contact ?">On prend contact !</Button>
                 </div>
-
-                <div className='socialMedia'>
-                    <a className='rs-fb' href='https://www.facebook.com/pereadagio'>
-                        <img alt='facebook' src='/img/landing/facebook.svg' width='40' height='40'></img>
-                    </a>
-                    <a  className='rs-insta' href='https://www.instagram.com/pereadagio/'>
-                        <img alt='instagram' src='/img/landing/instagram.svg' width='40' height='40'></img>
-                    </a>
-                    <a  className='rs-lkn' href='https://www.youtube.com/channel/UCBFPQC4zt_I0oVBIMBWaCYw'>
-                        <img alt='youtube' src='/img/landing/youtube.svg' width='40' height='40'></img>
-                    </a>
-                </div>
-
             </div>
         </MyFaq>
     )

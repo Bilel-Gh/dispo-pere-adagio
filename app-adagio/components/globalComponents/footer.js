@@ -173,7 +173,7 @@ export default function Footer() {
           <div className='footContainer-top_fourth'>
               <div className='fourth-wrapper'>
                   <h1>Besoin d&#x27;aide ?</h1>
-                  <button className='button'>
+                  <button className='button-contact-footer'>
                       <a href='#'>Écrivez-nous !</a>
                   </button>
               </div>
@@ -184,9 +184,9 @@ export default function Footer() {
           <a href='#'>©Copyright-UTOPIA</a>
 
           <div className='social-wrapper'>
-              <img className='facebook' src='/img/rs_fb.svg' alt='facebook icon'></img>
-              <img className='instagram' src='/img/rs_insta.svg' alt='instagram icon'></img>
-              <img className='linkedin' src='/img/rs_linkedin.svg' alt='linkedin icon'></img>
+              <img className='rs-facebook' src='/img/rs_fb.svg' alt='facebook icon'></img>
+              <img className='rs-instagram' src='/img/rs_insta.svg' alt='instagram icon'></img>
+              <img className='rs-linkedin' src='/img/rs_linkedin.svg' alt='linkedin icon'></img>
           </div>
       </div>
 

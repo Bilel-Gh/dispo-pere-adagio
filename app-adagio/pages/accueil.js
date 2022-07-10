@@ -123,7 +123,7 @@ const CurrentEvent = styled.section`
     }
     
   }
-  .btn-container{
+  .btn-allEvents{
       margin: 10px auto;
       width: fit-content;
     }
@@ -192,7 +192,7 @@ const CurrentSpot = styled.section`
       width: 70%;
     }
   }
-  .btn-container{
+  .btn-allSpots{
     display: flex;
     width: 100%;
        background-position: 4% 50%;
@@ -222,7 +222,7 @@ const CurrentSpot = styled.section`
       background-image: none;
       display: none;
     }
-    .btn-container{
+    .btn-allSpots{
       background-image: none;
     }
     .titleContainer{
@@ -271,7 +271,7 @@ export default function Accueil() {
           la chance de faire <span>la fusion culinaire de vos rêves </span>avec Le Père Adagio.</p>
         </div>
         <CarouselEvent/>
-        <div className='btn-container'>
+        <div className='btn-allEvents'>
           <Button link='/events' color='white-low'>Tous nos évènements</Button>
         </div>
       </CurrentEvent>
@@ -286,7 +286,7 @@ export default function Accueil() {
           </p>
         </div>
         <CarouselSpot/>
-        <div className='btn-container'>
+        <div className='btn-allSpots'>
           <Button link='/evenements' color='orange'>Voir tous les hot spots</Button>
         </div>
       </CurrentSpot>

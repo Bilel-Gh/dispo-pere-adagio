@@ -12,7 +12,7 @@ const NavDesktop = styled.nav`
     justify-content: space-between;
     figure{
         margin: 0;
-        .logoDesktop{
+        .logo-desktop{
             height: 69px;
             width: 122px;
         }
@@ -38,7 +38,7 @@ const NavDesktop = styled.nav`
         .navItemConnexion{
           font-family: "Poppins-ExtraBold";
         }
-        .navItemInscription{
+        .btn-login{
           text-transform: initial!important;
         }
         .navItemUser{
@@ -238,8 +238,8 @@ const Burger = ({isOpen, setIsOpen}) => {
                     </nav>
                   
                     <div className='btn'>
-                        <Button className='navItemInscription' link='/signin' color='white'>Connexion</Button>
-                        <Button className='navItemInscription' link='/login' color='black'>Inscription</Button>
+                        <Button className='btn-login' link='/login' color='white'>Connexion</Button>
+                        <Button className='btn-signup' link='/signup' color='black'>Inscription</Button>
                     </div>
 
                     <div className='social'>
@@ -266,7 +266,7 @@ const Burger = ({isOpen, setIsOpen}) => {
           <Link href='/'>
           <a>
             <figure>
-              <img className='logoDesktop' src= {router.asPath === '/' ?  'img/landing/logo.webp' : 'img/landing/logoWhite.webp'} alt="logo"/>
+              <img className='logo-desktop' src= {router.asPath === '/' ?  'img/landing/logo.webp' : 'img/landing/logoWhite.webp'} alt="logo"/>
             </figure>
           </a>
           </Link>
@@ -312,8 +312,8 @@ const Burger = ({isOpen, setIsOpen}) => {
               <li onClick={() => scrollToSection('concept')} className='navItem'>Le concept</li>
               <li onClick={() => scrollToSection('data')} className='navItem'>En quelques chiffres</li>
               <li onClick={() => scrollToSection('faq')} className='navItem'>Faq</li>
-              <button onClick={() => signIn()}>Connexion</button>
-              <Button className='navItemInscription' link='/signup' color='black'>Inscription</Button>
+              <button onClick={() => signIn()} className='btn-login' >Connexion</button>
+              <button className='btn-signup' link='/signup'>Inscription</button>
             </ul>
             
           )
