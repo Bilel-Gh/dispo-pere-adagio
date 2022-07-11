@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import Button from '@/components/globalComponents/button'
 import { getSession, useSession, signIn, signOut } from "next-auth/react";
@@ -91,7 +91,6 @@ const NavDesktop = styled.nav`
       }
     }
 `
-
 const NavMobile = styled.nav`
   width: 100%;
   .navMobile{
@@ -221,8 +220,7 @@ const NavMobile = styled.nav`
 
 `
 
-
-const Burger = ({isOpen, setIsOpen}) => {
+const Burger = ({ isOpen, setIsOpen }) => {
   const router = useRouter()
 
   const { data: session } = useSession();
@@ -233,49 +231,47 @@ const Burger = ({isOpen, setIsOpen}) => {
         window.localStorage.getItem("userConnected")
       );
       setUserConnected(user);
-  }, [])
+    }, [])
   )
 
+  const [isMobile, setIsMobile] = useState(false)
+
+  const [width, setWidth] = useState();
+
+  useEffect(() => {
+    if (!width) setWidth(window.innerWidth);
+    window.addEventListener("resize", () => {
+      setWidth(window.innerWidth);
+    });
+    width > 830 ? setIsMobile(false) : setIsMobile(true)
+  }, [width, isMobile]);
 
 
-    const [isMobile, setIsMobile] = useState(false)
-
-    const [width, setWidth] = useState();
-
-    useEffect(() => {
-        if (!width) setWidth(window.innerWidth);
-        window.addEventListener("resize", () => {
-            setWidth(window.innerWidth);
-        });
-        width > 830 ? setIsMobile(false) : setIsMobile(true)
-    }, [width, isMobile]);
-
-
-    return (
-      <>
+  return (
+    <>
       {isMobile ?
-      (
-        
-        <NavMobile className='mobileContainer'>
-          <nav className='navMobile'>
-            <figure  onClick={isOpen ? null : () => setIsOpen(isOpen ? false : true)}>
-              <img className='burger' src='img/landing/burger.svg' alt="burger"/>
-            </figure>
-            <figure>
-              <img className='logoMobile' src='img/landing/pa.webp' alt="logo"/>
-            </figure>
-          </nav>
-        
-          <div id="burger" className='close'>
-            {
-              isOpen &&
-              <div className='burgerOpen'>    
+        (
+
+          <NavMobile className='mobileContainer'>
+            <nav className='navMobile'>
+              <figure onClick={isOpen ? null : () => setIsOpen(isOpen ? false : true)}>
+                <img className='burger' src='img/landing/burger.svg' alt="burger" />
+              </figure>
+              <figure>
+                <img className='logoMobile' src='img/landing/pa.webp' alt="logo" />
+              </figure>
+            </nav>
+
+            <div id="burger" className='close'>
+              {
+                isOpen &&
+                <div className='burgerOpen'>
                   <figure onClick={() => setIsOpen(isOpen ? false : true)}>
-                      <img className='exit' src="img/landing/exit.svg" alt="exit"/>
-                  </figure>  
+                    <img className='exit' src="img/landing/exit.svg" alt="exit" />
+                  </figure>
                   <div className='burgerContent'>
-                    { session ? (
-                  
+                    {session ? (
+
                       <>
                         <nav className='burgerNav'>
                           <ul>
@@ -287,167 +283,175 @@ const Burger = ({isOpen, setIsOpen}) => {
                             <li className='navItem'>
                               <Link href='/events'>
                                 <a>
-                                Les évènements
+                                  Les évènements
                                 </a>
                               </Link>
                             </li>
                             <li className='navItem'>
                               <Link href='/spot'>
                                 <a>
-                                Les stands
+                                  Les stands
                                 </a>
                               </Link>
                             </li>
-                            <li className='separatorBurger'> </li> 
+                            <li className='separatorBurger'> </li>
                           </ul>
                         </nav>
-                      
-                        <div className='hoverDiv'> 
-                          <button className='navItemUser'>{userConnected.firstname}</button>
+
+                        <div className='hoverDiv'>
+                          <Link href='/profil'>
+                            <a>
+                              <button className='navItemUser'>{userConnected.firstname}</button>
+                            </a>
+                          </Link>
                           <button className='disconnectButton' onClick={() => signOut()}>Déconnexion</button>
                         </div>
-                    </>
-                    ):(
+                      </>
+                    ) : (
                       <>
                         <nav className='burgerNav'>
                           <ul>
-                          <li> 
-                            <Link href='/'>
-                              <a>Accueil</a>
-                            </Link>
-                          </li>
-                            <li> 
+                            <li>
+                              <Link href='/'>
+                                <a>Accueil</a>
+                              </Link>
+                            </li>
+                            <li>
                               <Link href='/#concept'>
                                 <a>Le concept</a>
                               </Link>
                             </li>
                             <li>
                               <Link href='/#data'>
-                              <a  className='navItem'>
-                                En quelques chiffres
-                              </a>
-                            </Link>
+                                <a className='navItem'>
+                                  En quelques chiffres
+                                </a>
+                              </Link>
                             </li>
                             <li>
-                            <Link href='/#faq'>
-                            <a  className='navItem'>
-                              Faq
-                            </a>
-                          </Link>
+                              <Link href='/#faq'>
+                                <a className='navItem'>
+                                  Faq
+                                </a>
+                              </Link>
                             </li>
-                            <li className='separatorBurger'> </li> 
+                            <li className='separatorBurger'> </li>
                           </ul>
                         </nav>
-                      
+
                         <div className='hoverDiv'>
                           <button className='btn-login' onClick={() => signIn()} > Connexion </button>
                           <Link href='/signup'>
-                          <a>
-                            <button className='btn-signup'>Inscription</button>
-                          </a>
-                        </Link>
+                            <a>
+                              <button className='btn-signup'>Inscription</button>
+                            </a>
+                          </Link>
                         </div>
                       </>
                     )}
 
                     <div className='social'>
-                        <a href="https://www.linkedin.com/company/sens-positif/about/?viewAsMember=true">
-                          <img src='/img/landing/fbBlack.svg' alt="icon facebook"/>
-                        </a>
-                        <a href="https://www.instagram.com/pereadagio/">
-                          <img src='/img/landing/instaBlack.svg' alt="icon instagram"/>
-                        </a>
-                        <a href="https://www.youtube.com/channel/UCBFPQC4zt_I0oVBIMBWaCYw">
-                          <img src='/img/landing/linkedinBlack.svg' alt="icon linkedin "/>
-                        </a>
+                      <a href="https://www.linkedin.com/company/sens-positif/about/?viewAsMember=true">
+                        <img src='/img/landing/fbBlack.svg' alt="icon facebook" />
+                      </a>
+                      <a href="https://www.instagram.com/pereadagio/">
+                        <img src='/img/landing/instaBlack.svg' alt="icon instagram" />
+                      </a>
+                      <a href="https://www.youtube.com/channel/UCBFPQC4zt_I0oVBIMBWaCYw">
+                        <img src='/img/landing/linkedinBlack.svg' alt="icon linkedin " />
+                      </a>
                     </div>
                   </div>
-              </div>
+                </div>
+              }
+
+            </div>
+          </NavMobile>
+        )
+        :
+        (
+          <NavDesktop className='navDesktop'>
+            <Link href='/'>
+              <a>
+                <figure>
+                  <img className='logo-desktop' src={(router.asPath === '/' || router.asPath === '/profil' || router.asPath.includes('/#')) ? 'img/landing/logo.webp' : 'img/landing/logoWhite.webp'} alt="logo" />
+                </figure>
+              </a>
+            </Link>
+
+            {
+
+              session ? (
+
+                <ul className='nav' style={{ color: router.asPath === '/accueil' && 'white' }}>
+                  <li className='navItem'>
+                    <Link href='/accueil'>
+                      <a>Accueuil</a>
+                    </Link>
+                  </li>
+                  <li className='navItem'>
+                    <Link href='/events'>
+                      <a>
+                        Les évènements
+                      </a>
+                    </Link>
+                  </li>
+                  <li className='navItem'>
+                    <Link href='/spot'>
+                      <a>
+                        Les stands
+                      </a>
+                    </Link>
+                  </li>
+                  <div className='hoverDiv'>
+                    <Link href='/profil'>
+                      <a>
+                        <button className='navItemUser'>{userConnected.firstname}</button>
+                      </a>
+                    </Link>
+                    <button className='disconnectButton' onClick={() => signOut()}>Déconnexion</button>
+                  </div>
+                </ul>
+              ) : (
+                <ul className='nav'>
+                  <Link href='/#concept'>
+                    <a className='navItem'>
+                      Le concept
+                    </a>
+                  </Link>
+                  <Link href='/#data'>
+                    <a className='navItem'>
+                      En quelques chiffres
+                    </a>
+                  </Link>
+                  <Link href='/#faq'>
+                    <a className='navItem'>
+                      Faq
+                    </a>
+                  </Link>
+                  <button className='btn-login' onClick={() => signIn()} > Connexion </button>
+                  <Link href='/signup'>
+                    <a>
+                      <button className='btn-signup'>Inscription</button>
+                    </a>
+                  </Link>
+                </ul>
+
+              )
             }
 
-          </div>
-        </NavMobile>
-      )
-      :
-      (
-        <NavDesktop className='navDesktop'>
-          <Link href='/'>
-          <a>
-            <figure>
-              <img className='logo-desktop' src= {(router.asPath === '/' || router.asPath === '/profil' || router.asPath.includes('/#'))  ?    'img/landing/logo.webp': 'img/landing/logoWhite.webp' } alt="logo"/>
-            </figure>
-          </a>
-          </Link>
-
-        {
-          
-          session ? (
-
-            <ul className='nav' style={{color: router.asPath === '/accueil' && 'white' }}>
-              <li className='navItem'>
-                <Link href='/accueil'>
-                  <a>Accueuil</a>
-                </Link>
-              </li>
-              <li className='navItem'>
-                <Link href='/events'>
-                  <a>
-                  Les évènements
-                  </a>
-                </Link>
-              </li>
-              <li className='navItem'>
-                <Link href='/spot'>
-                  <a>
-                  Les stands
-                  </a>
-                </Link>
-              </li>
-              <div className='hoverDiv'> 
-                <button className='navItemUser'>{userConnected.firstname}</button>
-                <button className='disconnectButton' onClick={() => signOut()}>Déconnexion</button>
-              </div>
-            </ul>
-          ): (
-            <ul className='nav'>
-              <Link href='/#concept'>
-                <a  className='navItem'>
-                Le concept
-                </a>
-              </Link>
-              <Link href='/#data'>
-                <a  className='navItem'>
-                  En quelques chiffres
-                </a>
-              </Link>
-              <Link href='/#faq'>
-                <a  className='navItem'>
-                  Faq
-                </a>
-              </Link>
-              <button className='btn-login' onClick={() => signIn()} > Connexion </button>
-              <Link href='/signup'>
-                <a>
-                  <button className='btn-signup'>Inscription</button>
-                </a>
-              </Link>
-            </ul>
-            
-          )
-        }
-          
 
 
-        </NavDesktop>
-      )
-      
-      
+          </NavDesktop>
+        )
+
+
       }
 
-      
+
     </>
 
-    );
-  }
+  );
+}
 
-  export default Burger;
+export default Burger;

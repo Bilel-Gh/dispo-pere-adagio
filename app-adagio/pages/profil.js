@@ -2,22 +2,33 @@ import styled from 'styled-components'
 import Header from '@/components/globalComponents/nav'
 import Button from '@/components/globalComponents/button'
 import Footer from '@/components/globalComponents/footer'
-import {useState} from 'react';
+import React, {useState, useEffect} from 'react'
+import { getSession, useSession, signIn, signOut } from "next-auth/react";
 
 const MyHeader = styled.main`
     .header{
         display: flex;
         gap: 5%;
-        align-items: center;
+        align-items: flex-start;
+        min-height: 40vh;
+        height: 40vh;
         padding: 7em 4em 1em 4em;
         figure{
             all: unset;
+            .imgUser{
+                border-radius: 50%;
+                height: 240px;
+                width: 240px;
+            }
         }
         article{
+            padding-top: 20px;
+            justify-content: space-between;
             max-height: fit-content;
             width: 78%;
             display: flex;
             flex-direction: column;
+            height: 100%;
             .article-wrapper{
                 height: 40px;
                 display: flex;
@@ -43,13 +54,25 @@ const MyHeader = styled.main`
                 margin-bottom: 1em;
             }
             .account-tags{
+                font-size: 14px;
                 display: flex;
                 justify-content: space-between;
-                padding: 0 0.5em;
                 .tags-default{
                     margin-right: 3em;
                     cursor: pointer;
+                    font-family: 'Poppins-Regular';
+                    &:hover{
+                    font-family: 'Poppins-ExtraBold'
+                    }
                 }
+                .tags-default-deco{
+                    cursor: pointer;
+                    font-family: 'Poppins-Regular';
+                    &:hover{
+                    font-family: 'Poppins-ExtraBold'
+                    }
+                }
+               
             }
         }
         .sticker{
@@ -60,7 +83,7 @@ const MyHeader = styled.main`
             background-repeat: no-repeat;
             position: absolute;
             right: 16%;
-            top: 6%;
+            top: 10%;
         }
     }
 
@@ -70,12 +93,27 @@ const MyHeader = styled.main`
         gap:50px; 
         background-color: white;
         width: 100%;
-        padding: 4em 4em 0 4em;
+        padding: 4em;
         .separator{
             background: #E4E4E7;
             height: 1px;
             width: 100%;
             margin: 0 auto; 
+        }
+    }
+    @media (max-width: 900px) {
+        .header{
+            .sticker{
+                display: none;
+                background-image : none;
+            }
+        }
+    }
+    @media (max-width: 870px) {
+        .header{
+            height: initial;
+            flex-direction: column;
+            align-items: center;
         }
     }
 `
@@ -172,7 +210,6 @@ const Suivi = styled.section`
 
 `
 const Personnel = styled.section`
-    border: solid red; 
     .title{
         color: #EB5B2D;
         font-family: 'Fascinate-Regular';
@@ -182,10 +219,11 @@ const Personnel = styled.section`
     .userInfo{
         display: flex;
         flex-wrap: wrap;
-        gap: 30px;
-
+        gap: 2%;
+        justify-content: space-between;
         div{
-            width: 50%;
+            margin: 5px 0px;
+            width: 48%;
             .userLabel{
                 color: #333333;
                 font-size: 14px;
@@ -205,37 +243,64 @@ const Personnel = styled.section`
         }
 
     }
+    @media (max-width: 700px) {
+        .userInfo{
+            flex-direction: column;
+            align-items: center;
+            div{
+                width: 100%;
+            }
+        }
+
+    }
+
 `
 export default function Profil() {
 
+    const scrollToSection = (id) => {
+        const element = document.getElementById(id);
+        element.scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"})
+    }
+
+    const [userConnected, setUserConnected] = useState(
+        useEffect(() => {
+          var user = JSON.parse(
+            window.localStorage.getItem("userConnected")
+          );
+          setUserConnected(user);
+      }, [])
+    )
+
+    console.log(userConnected && userConnected.spots.length)
+
     return (
+        
         <MyHeader>
+            { userConnected && (
+                <>
             <header className='header'>
                 <figure>
-                    <img alt='profile picture' src='/img/dispo/profilePic.webp'>
-                    </img>
+                    <img className='imgUser' alt='profile picture' src={userConnected.image}></img>
                 </figure>
-
+               
                 <article>
-                    <div className='article-wrapper'>
-                        <h1 className='H5'>Pauline</h1>
-                        <div className='rating'>
-                            <img src='/img/dispo/star.svg'></img>
-                            <p className='form-label'>4.6</p>
-                        </div>                        
+                    <div>
+                        <div className='article-wrapper'>
+                            <h1 className='H5'>{userConnected.firstname}&nbsp;{userConnected.lastname}</h1>
+                            <div className='rating'>
+                                <img src='/img/dispo/star.svg'></img>
+                                <p className='form-label'>4.6</p>
+                            </div>                        
+                        </div>
                     </div>
-
-                    <div className='profession'>
-                        <p className='content-medium'>Chocolatière</p>
-                        <p className='content-medium'>Le Havre</p>
-                    </div>
-
                     <div className='account-tags'>
                         <div>
-                            <a className='tags-default' href='#'>Mon suivi</a>
-                            <a className='tags-default' href='#'>Information personnelles</a>
+                            {userConnected.spots.lenght > 0 &&
+                                (<a className='tags-default' onClick={() => scrollToSection('suivi')}>Mon suivi</a>)
+                            }
+                            <a className='tags-default' onClick={() => scrollToSection('perso')}>Information personnelles</a>
                         </div>                  
-                        <a href='#'>Se déconnecter</a>
+                        <a className='tags-default-deco' onClick={() => signOut()}>Se déconnecter</a>
                     </div>
                 </article>
                 <div className='sticker'>
@@ -243,7 +308,8 @@ export default function Profil() {
             </header>
 
             <main className='main-container'>
-                <Suivi className='suivi'>
+                { userConnected.spots.length > 0 && (
+                <Suivi  id='suivi' className='suivi'>
                     <h2 className='title'>Mon suivi</h2>
                     <div className='suivi-card'>
                         <article className='card'>
@@ -299,42 +365,44 @@ export default function Profil() {
                             </div>
                         </article>
                     </div>
-                </Suivi>
+                </Suivi>)}
 
                 <div className='separator'></div>
 
-                <Personnel className='suivi'>
+                <Personnel id='perso' className='perso'>
                     <h2 className='title' >Information personnelle</h2>
                         <div className='userInfo'>
                             <div>
                                 <label className='userLabel'>Prénom</label>
                                 <div className='containerVal'>
-                                    <h3>prenom</h3>
+                                    <h3>{userConnected.firstname}</h3>
                                 </div>
                                 
                             </div>
                             <div>
                                 <label className='userLabel'>Nom</label>
                                 <div className='containerVal'>
-                                    <h3>Nom</h3>
+                                    <h3>{userConnected.lastname}</h3>
                                 </div>
                             </div>
                             <div>
                                 <label className='userLabel'>Email</label>
                                 <div className='containerVal'>
-                                    <h3>Email</h3>
+                                    <h3>{userConnected.email}</h3>
                                 </div>
                             </div>
                             <div>
                                 <label className='userLabel'>Numéro de téléphone</label>
                                 <div className='containerVal'>
-                                    <h3>Numéro</h3>
+                                    <h3>{userConnected.phone ? userConnected.phone : 'pas communiqué'}</h3>
                                 </div>
                             </div>
 
                         </div>
                 </Personnel>
             </main>
+            </>
+            )}
         </MyHeader>
     )
 }
