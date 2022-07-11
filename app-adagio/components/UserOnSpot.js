@@ -96,7 +96,6 @@ export default function UserOnSpot({ id, userLoged, }) {
     }
     getAllSpots();
 }, [id]);
-console.log("usersOnSpotData_____________:", usersOnSpotData);
 
 const [usersOnSpotStatus, setUsersOnSpotStatus] = useState([]);
 const statusOfUser = async (id) => {

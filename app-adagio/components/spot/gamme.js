@@ -4,14 +4,11 @@ import styled from 'styled-components'
 
 
 const MyGamme = styled.section`
-    background: #FFFFFF;
-    padding: 0% 5% 5% 5%;
-
+  background: #FFFFFF;
+  padding: 0% 5% 5% 5%;
   .gammeContainer{
     padding: 72px 72px 50px 72px;
-
     .titleContainer{
-
       color: #333333;
       flex-direction: column;
       align-items: center;
@@ -77,13 +74,22 @@ const MyGamme = styled.section`
 const Card = styled.section`
   display: flex;
   gap: 5%;
-  justify-content: space-between;
+  justify-content: center;
   .card{
     width: 304px;
     border-radius: 12px;
     .topCard{
       padding: 20px;
-      height: 152px;
+      height: 180px;
+      .cardBtn{
+        font-family: 'Poppins-ExtraBold';
+        color: #333333;
+        border: none;
+        width: 100%;
+        padding: 10px;
+        margin: 5px 0px;
+        border-radius: 4px;
+      }
       h3{
         margin: 0px;
         font-family: 'Poppins-ExtraBold';
@@ -232,7 +238,6 @@ export default function Gamme({}) {
   ]
 
   const switchFormule = (i) => {
-    console.log(i)
     switch(i){
       case 0:
         return "Chambre Froide"
@@ -274,6 +279,14 @@ export default function Gamme({}) {
                 <h3>{card.type}</h3>
                 <h4>{card.pourcantage} <span>commission sur CA</span></h4>
                 <p>{card.text}</p>
+                <button className='cardBtn' 
+                  style={{
+                    background: `${card.color}`,
+                    cursor: index === 0 && 'pointer',
+
+                  }}>
+                  Choisir ce Food Truck
+                </button>
               </div>
               <div className='bottomCard'>
                 <h4>Incluant dans la formule</h4>

@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import prisma from '/lib/prisma'
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { MyMainLoading } from './spots';
 
 
 const MySignup = styled.section`
@@ -297,23 +298,15 @@ export default function Home({ jobs, emails, userLoged }) {
           </div>
           
         ) : (
-          <>
-            <h1> Bienvenue !</h1>
-          </>
-        )}
-        {session ? (
-          <>
-            Vous etes connecté en temps que {userConnected.firstname} <br /><br />
-            {/* button redirect to accueil */}
-            <Link href="/accueil">
-              <button>Accueil</button>
-            </Link>
-          </>
-        ) : (
-          <div  className='mainConnexion' style={{display: 'none'}} >
-            Connectez vous <br /><br />
-            <button onClick={() => signIn()}>Connexion</button>
+          <MyMainLoading>
+          <div className="loading-container">
+            <div className="main">
+              <div className="loader">
+                CHARGEMENT...
+              </div>
+            </div>
           </div>
+        </MyMainLoading>
         )}
       </MySignup>
     </div>

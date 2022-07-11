@@ -12,6 +12,7 @@ import UserOnSpot from "../../../components/UserOnSpot";
 import ButtonRegisterToSpot from "../../../components/ButtonRegisterToSpot";
 import { MyMain, MySignupForm, HeaderBlue, ItemContainner, MyItem} from "../../events";
 import styled from "styled-components";
+import { MyMainLoading } from "../index";
 
 export const ButtonBack = styled.div`
     position: absolute;
@@ -30,7 +31,6 @@ export const ButtonBack = styled.div`
     justify-content: center; 
     font-family: "Poppins-ExtraBold";
     justify-content: center;
-    /* width:100% ; */
     font-weight:'bold';
     background: #EB5B2D;
     color: #FFFFFF;
@@ -43,13 +43,13 @@ export const ButtonBack = styled.div`
   `;
 
 export const SpotContainner = styled.div`
-  width: 85%;
+  width: 90%;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 80px;
   .container{
-      width: 80%;
+      /* width: 80%; */
     }
 `
 
@@ -101,7 +101,6 @@ export default function Event({  }) {
 
       //   }, [router.query]);
 
-        console.log(spot);
     
       return (  
         // is user connected ? 
@@ -115,15 +114,6 @@ export default function Event({  }) {
             </ButtonBack>
           </HeaderBlue>
           <div className={styles.container}>
-            <Head>
-              <title>Create Next App</title>
-              <meta
-                name="description"
-                content="Pere Adagio, l'application qui permet aux artisans de colaborer entre eux facilement"
-              />
-              <link rel="icon" href="/favicon.ico" />
-            </Head>
-      
             <MyMain>
               <SpotContainner> 
                   <MySpot>
@@ -140,6 +130,16 @@ export default function Event({  }) {
             </MyMain>
           </div>
           </>
-         ) : null
+         ) : (
+          <MyMainLoading>
+          <div className="loading-container">
+            <div className="main">
+              <div className="loader">
+                CHARGEMENT...
+              </div>
+            </div>
+          </div>
+        </MyMainLoading>
+         )
     )
 }

@@ -14,7 +14,6 @@ import { ButtonOrange } from "./SetLeaderToSpot";
 // const prisma = new PrismaClient();
 
 export default function ButtonRegisterToSpot({ spotId, userLoged }) {
-  console.log("spotId___--", spotId);
   const [usersOnSpot, setUsersOnSpot] = useState([]);
   const isUserOnSpot = async (spotId) => {
     spotId ? (
@@ -34,8 +33,6 @@ export default function ButtonRegisterToSpot({ spotId, userLoged }) {
     )
   }
   isUserOnSpot(spotId);
-
-  // console.log("usersOnSpot_________:", usersOnSpot);
 
   return (
     <div className={styles.container}>

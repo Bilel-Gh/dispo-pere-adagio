@@ -12,6 +12,7 @@ import axios from "axios";
 import prisma from "/lib/prisma";
 import { MyMain, MySignupForm, HeaderBlue, ItemContainner, MyItem} from "./../events";
 import { ButtonBack } from "../spots/oneSpot/[spotid]";
+import { MyMainLoading } from "./index";
 
 
 export default function Event({ events }) {
@@ -101,15 +102,6 @@ export default function Event({ events }) {
             </ButtonBack>
           </HeaderBlue>
           <div className={styles.container}>
-            <Head>
-              <title>Create Next App</title>
-              <meta
-                name="description"
-                content="Pere Adagio, l'application qui permet aux artisans de colaborer entre eux facilement"
-              />
-              <link rel="icon" href="/favicon.ico" />
-            </Head>
-      
             <MyMain>
               <ItemContainner> 
                   {spots.map((spot, index) => (
@@ -192,10 +184,15 @@ export default function Event({ events }) {
           </div>
           </>
          ) : (
-          <div>
-            <h1>Vous devez vous connecter pour accéder à cette page</h1>
-            <button onClick={() => signIn()}>Connexion</button>
+          <MyMainLoading>
+          <div className="loading-container">
+            <div className="main">
+              <div className="loader">
+                CHARGEMENT...
+              </div>
+            </div>
           </div>
+        </MyMainLoading>
         )
     )
 }

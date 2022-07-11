@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import Carousel from 'react-elastic-carousel';
+import axios from "axios";
 import CardEvent from '@/components/globalComponents/cardEventOne';
 
 
@@ -20,7 +21,7 @@ const MyCarouselEvent = styled.div`
 `
 
 
-export default function CarousselEvent({}) {
+export default function CarousselEvent({data}) {
 
   const breakPoints = [
     { width: 1, itemsToShow: 1 },
@@ -28,65 +29,22 @@ export default function CarousselEvent({}) {
     { width: 768, itemsToShow: 3 },
     { width: 1200, itemsToShow: 4 },
   ];
-  
+
   return (
 
     <MyCarouselEvent>
       <Carousel className='caroussel' breakPoints={breakPoints}>
-      <div>
-        <CardEvent
-        name='Nos pop-up store'
-        btn='Voir'
-        date='Du 29 juin au 1e juillet 2022'
-        place='Hôtel de ville de Paris'
-        link='/event'
-        />
-      </div>
-      <div>
-        <CardEvent
-        name='Nos pop-up store'
-        btn='Voir'
-        date='Du 29 juin au 1e juillet 2022'
-        place='Hôtel de ville de Paris'
-        link='/event'
-        />
-      </div>
-      <div>
-        <CardEvent
-        name='Nos pop-up store'
-        btn='Voir'
-        date='Du 29 juin au 1e juillet 2022'
-        place='Hôtel de ville de Paris'
-        link='/event'
-        />
-      </div>
-      <div>
-        <CardEvent
-        name='Nos pop-up store'
-        btn='Voir'
-        date='Du 29 juin au 1e juillet 2022'
-        place='Hôtel de ville de Paris'
-        link='/event'
-        />
-      </div>
-      <div>
-        <CardEvent
-        name='Nos pop-up store'
-        btn='Voir'
-        date='Du 29 juin au 1e juillet 2022'
-        place='Hôtel de ville de Paris'
-        link='/event'
-        />
-      </div>
-      <div>
-        <CardEvent
-        name='Nos pop-up store'
-        btn='Voir'
-        date='Du 29 juin au 1e juillet 2022'
-        place='Hôtel de ville de Paris'
-        link='/event'
-        />
-      </div>
+      {data.map((evt, index) => (
+          <CardEvent key={index}
+            name={evt.name}
+            descr={evt.description}
+            date={`Du ${evt.dateStart} au ${evt.dateEnd}`}
+            img={evt.image}
+            link={`/spots/${evt.id}`}
+            btn='Voir'
+
+          />
+      ))}
     </Carousel> 
   </MyCarouselEvent>
   )

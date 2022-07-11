@@ -1,8 +1,6 @@
 import MailchimpSubscribe from "react-mailchimp-subscribe"
 import styled from 'styled-components'
-
 import React, { useEffect } from 'react';
-
 
 const MyNewsletter = styled.section`
 .form {
@@ -17,11 +15,10 @@ const MyNewsletter = styled.section`
         background-color: transparent;
         border-radius: 10px;
         height: 40px;
-        &::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+        &::placeholder { 
             color:#A1A1AA;
-            opacity: 1; /* Firefox */
+            opacity: 1; 
             font-family: "Poppins-Regular";
-
         }
     }
     button{
@@ -58,8 +55,6 @@ const MyNewsletter = styled.section`
     }
 
 }
-
-    
 `
 
 function Newsletter() {

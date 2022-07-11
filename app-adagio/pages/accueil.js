@@ -3,8 +3,7 @@ import styled from 'styled-components'
 import React, {useState, useEffect} from 'react'
 import CarouselEvent from '@/components/carouselEvent'
 import CarouselSpot from '@/components/carouselSpot'
-
-
+import prisma from "/lib/prisma";
 
 const MyAccueil = styled.section`
   .main{
@@ -15,6 +14,7 @@ const MyAccueil = styled.section`
     display: flex;
     align-items: center;
     padding: 10%;
+    gap: 15px;
     article{
     display: flex;
     flex-direction:column;
@@ -75,12 +75,37 @@ const MyAccueil = styled.section`
     }
   }
   }
+
+  @media (max-width: 500px) {
+    .main{
+      article{
+        .title{
+          span{
+            :nth-child(1) {
+            font-size: 50px;
+          }
+          :nth-child(2) {
+            font-size: 22px;
+          }
+          :nth-child(3) {
+            font-size: 65px;
+          }
+          }
+          
+        }
+        .description{
+          font-size: 15px;
+          margin: 10px 0px;
+        }
+      }
+    }
+  }
+  
   
 
 `
 const CurrentEvent = styled.section`
   background-color:#EB5B2D;
-  /* height: 90vh; */
   padding: 5% 0%;
   position: relative;
   .clockStickers{
@@ -233,7 +258,7 @@ const CurrentSpot = styled.section`
   }
 `
 
-export default function Accueil() {
+export default function Accueil({events}) {
 
   const [userConnected, setUserConnected] = useState(
     useEffect(() => {
@@ -243,6 +268,8 @@ export default function Accueil() {
       setUserConnected(user);
   }, [])
   );
+
+  console.log('eventssss', events)
 
   console.log('userConnected', userConnected)
   return (
@@ -270,7 +297,7 @@ export default function Accueil() {
           <p  className='descriptionEvent'>Les inscriptions pour ces prochains évènements ouvrent bientôt ! Ne manquez pas 
           la chance de faire <span>la fusion culinaire de vos rêves </span>avec Le Père Adagio.</p>
         </div>
-        <CarouselEvent/>
+        <CarouselEvent data={events}/>
         <div className='btn-allEvents'>
           <Button link='/events' name ='go-to-event' color='white-low'>Tous nos évènements</Button>
         </div>
@@ -279,7 +306,7 @@ export default function Accueil() {
       <CurrentSpot>
         <div className='vectorStickers' />
         <div className='titleContainer'>
-          <h2 className='title'>Les ouvertures imminitentes !</h2>
+          <h2 className='title'>Les derniers évènements à ne pas rater !</h2>
           <p  className='descriptionSpot'>
             C’est en ce moment même que les inscritpions se déroulent. Choisissez parmis le nombreux 
             choix de lieu, l’endroit ou vous souhaitez faire découvrir vôtre spécialité !
@@ -296,3 +323,20 @@ export default function Accueil() {
     </MyAccueil>
   )
 }
+
+export const getServerSideProps = async ({ req }) => {
+  // if session is not null, user is connected
+  const events = await prisma.event.findMany({
+    include: {
+        spots: true,
+    },
+  });
+
+  return {
+    props: {
+      // if session is not null, user is connected
+      // userConnected: session ? userConnected : null,
+      events: JSON.parse(JSON.stringify(events)) ,
+    },
+  };
+};

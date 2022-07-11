@@ -5,9 +5,37 @@ import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
 import prisma from "/lib/prisma";
+import Card from '@/components/globalComponents/cardSpot'
+import { MyMain, HeaderBlue, MySignupForm, ItemContainner, MyItem} from "./../events";
+import Link from "next/link";
 import { useRouter } from "next/router";
-import UserOnSpot from "../../components/UserOnSpot";
-import ButtonRegisterToSpot from "../../components/ButtonRegisterToSpot";
+import styled from "styled-components";
+
+const AllSpots = styled.section`
+  padding: 30rem 0 0;
+  display: flex;
+  width: 90%;
+  margin: 0 auto;
+  gap: 30px;
+  flex-wrap: wrap;
+  justify-content: center;
+`
+export const MyMainLoading = styled.div`
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .loading-container {
+    width: 80%;
+    height: 75vh;
+    width: 80%;
+    height: 75vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 50px;
+  }
+`
 
 export default function Spot({ events}) {
   const router = useRouter();
@@ -88,43 +116,57 @@ export default function Spot({ events}) {
   return (  
     // is user connected ? 
     session && session.data != null  ? (
+      <>
+      <HeaderBlue>
+          <h1>les stands</h1>
+          <p className="p1">disponibles</p>
+      </HeaderBlue>
       <div className='container'>
-        <main className='main'>
-          {spots.map((spot, index) => (
-              <div key={index}>
-                  <h1>{spot.name}</h1>
-                  {spot.users.length > 0 ? (
-                    <UserOnSpot userLoged={userConnected} spotId={spot.id} id={spot.id}/>
-                  ) : (
-                  <p>Aucun utilisateur sur ce spot</p>
-                  )}
-                  {/* button s'inscrire sur ce spot */}
-                    <ButtonRegisterToSpot spotId={spot.id} userLoged={userConnected} />
-              </div>
-          ))}
+        <AllSpots className='main'>
+        {spots.map((spot, index) => (
+          <Link href={`/spots/${spot.id}`} key={index}>
+          <a>
+            <Card
+              name={spot.name}
+              descr={spot.description}
+              place={spot.address}
+              img={spot.image}
+            />
+            </a>
+          </Link>
+        ))}
+          
+        </AllSpots>
+
           <Toaster />
           <br /><br />
-          <form onSubmit={handleSubmit(onSubmit)}>
-              <label>
-                  Name:
-                  <input 
-                      type="text"
-                      id="nom"
-                      {...register("name")}
-                      required
-                      placeholder="Nom du spot"
-                  />
-              </label>
-              <label>
-                  Adresse:
-                  <input 
-                      type="text"
-                      id="adresse"
-                      {...register("address")}
-                      required
-                      placeholder="Adresse du spot"
-                  />
-              </label>
+          <MySignupForm onSubmit={handleSubmit(onSubmit)}>
+            <div className="formInfo">
+              <div>
+                <label>
+                    Name:
+                    <input 
+                        type="text"
+                        id="nom"
+                        {...register("name")}
+                        required
+                        placeholder="Nom du spot"
+                    />
+                </label>
+              </div>
+              <div>
+                <label>
+                    Adresse:
+                    <input 
+                        type="text"
+                        id="adresse"
+                        {...register("address")}
+                        required
+                        placeholder="Adresse du spot"
+                    />
+                </label>
+              </div>
+              <div>
               <label>
                   EventId:
                     <select {...register("eventId")}>
@@ -135,11 +177,28 @@ export default function Spot({ events}) {
                       ))}
                     </select>
               </label>
-              <button type="submit">Submit</button>
-          </form>
-        </main>
+              </div>
+              <div className="btnContainer">
+                <button className="btn" type="submit">
+                  Submit
+                </button>
+              </div>
+            </div>
+          </MySignupForm>
       </div>
-     ) : null
+      </>
+     ) : (
+      // loadin page
+      <MyMainLoading>
+        <div className="loading-container">
+          <div className="main">
+            <div className="loader">
+              CHARGEMENT...
+            </div>
+          </div>
+        </div>
+      </MyMainLoading>
+     )
 )
 
 };

@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import Button from '@/components/globalComponents/button'
+import {useSession} from "next-auth/react";
 
 
 const MyConcept = styled.section`
@@ -7,7 +8,6 @@ const MyConcept = styled.section`
     padding: 10% 8%;
     display: flex;
     flex-direction: column;
-    /* min-height: 100vh; */
     height: 100%;
     gap: 40px;
     position: relative;
@@ -246,6 +246,8 @@ const MyConcept = styled.section`
 `
 
 export default function Concept() {
+  const { data: session } = useSession();
+
   return (
     <MyConcept id ='concept' className='section-concept'>
     <div className='concept'/>
@@ -258,12 +260,13 @@ export default function Concept() {
                     <span> les habitudes de vos clients changent &nbsp;</span>
                     et &nbsp; <span>vous souhaitez vous réinventez ?</span>
                 </p>
-                <div className='btn-join'>
-                    <Button link='/contact' name='btn-join' color='white'>
-                        Rejoignez le projet
-                    </Button>
-                </div>
-                
+                {!session && (
+                    <div className='btn-join'>
+                        <Button link='/signup' name='btn-join' color='white'>
+                            Rejoignez le projet
+                        </Button>
+                    </div>
+                )}
                 <p className='caption'>
                     <span> Ensemble vous créerez les espaces culinaires de demain ! &nbsp;</span>
                     En collaboration avec l’artisans de votre choix, lui aussi vous 

@@ -3,7 +3,7 @@ import Button from '@/components/globalComponents/button'
 import { useState } from 'react';
 
 const MyFaq = styled.section`
-position: relative;
+    position: relative;
     margin-bottom: 90px;
     background-image: url('/img/landing/questionMark.webp');
     background-size: 150px 152.98px;
@@ -16,7 +16,6 @@ position: relative;
         color: #333333;
         margin: 8% 0 96px 10%;
     }
-
     .subContainer{
         .containerFaq{
             height: 100%;
@@ -37,7 +36,7 @@ position: relative;
                     display: flex;
                     align-items: center;
                     justify-content: space-between;
-                    padding: 0 16px 0 16px;
+                    padding:16px;
                     font-family: "Poppins-ExtraBold";
                     font-size: 15px;
                     text-transform: uppercase;
@@ -59,7 +58,7 @@ position: relative;
                     display: flex;
                     align-items: center;
                     justify-content: space-between;
-                    padding: 0 16px 0 16px;
+                    padding: 16px ;
                     font-size: 19px;
                 }
             }
@@ -92,7 +91,6 @@ position: relative;
             }
         }
     }
-
     @media (max-width: 900px) {
         background-image: none;
         .headerOne{
@@ -105,46 +103,42 @@ position: relative;
         .socialMedia{
             gap: 23%;
         }
-}
-
-@media (max-width: 760px) {
-    .headerOne{
-        font-size: 28px;
     }
-}
+    @media (max-width: 760px) {
+        .headerOne{
+            font-size: 28px;
+        }
+    }
 `
 
 export default function Faq() {
 
-    const qas= [
+    const qas = [
         {
-            question : 'Pourquoi père adagio ?',
-            answer : `Chez père adagio on est fan des inconnus, c'est une référence au père ducasse. Adagio c'est surtout parce qu'avec nous votre affaire se développe dans le calme et la sérénité.`
+            question: 'Pourquoi père adagio ?',
+            answer: `Chez père adagio on est fan des inconnus, c'est une référence au père ducasse. Adagio c'est surtout parce qu'avec nous votre affaire se développe dans le calme et la sérénité.`
         },
         {
-            question : 'Quand le père adagio a été fondé ?',
-            answer : 'Le père adagio a été fondée en juin 2022 par 15 collaborateurs.'
+            question: 'Quand le père adagio a été fondé ?',
+            answer: 'Le père adagio a été fondée en juin 2022 par 15 collaborateurs.'
         },
         {
-            question : `Dans l'avenir vous souhaitez étendre votre offre aux commerçants (hors artisanat) ?`,
-            answer : `Ce n'est pas dans nos projet pour l'instant, mais comme le dit le celebre dicton "never say never", donc actuellement et pendant plusieurs années nous nous impliquerons cœurs et âmes uniquement pour les artisans`
-        },
-        {
-            question : 'Vous vous présentez ?',
-            answer : 'Réponse...',
-        },
+            question: `Dans l'avenir vous souhaitez étendre votre offre aux commerçants (hors artisanat) ?`,
+            answer: `Ce n'est pas dans nos projet pour l'instant, mais comme le dit le celebre dicton "never say never", donc actuellement et pendant plusieurs années nous nous impliquerons cœurs et âmes uniquement pour les artisans`
+        }
     ]
+
 
 
     const [tab, setTab] = useState([false, false, false, false, false, false]);
 
     const toggle = (i) => {
         const tempTab = [].concat(tab)
-        tempTab[i] =!tab[i]
-        setTab(tempTab) 
+        tempTab[i] = !tab[i]
+        setTab(tempTab)
     }
-        
-    return(
+
+    return (
         <MyFaq id="faq" className='mainContainer'>
             <h2 className='headerOne'>Vous avez des questions ?</h2>
             <div className='subContainer'>
@@ -154,28 +148,26 @@ export default function Faq() {
                             <article className='faq' id={index} key={index}>
                                 <div className='faq-question' onClick={() => toggle(index)}>
                                     <h3>{qa.question}</h3>
-                                    <svg className={tab[index] ? 'svg' :'svgTrun'} xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#F195BA" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-                                </div>  
+                                    <svg className={tab[index] ? 'svg' : 'svgTrun'} xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#F195BA" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9" /></svg>
+                                </div>
                                 {
                                     tab[index] &&
                                     <div className='answer' >
                                         <p>
                                             {qa.answer}
                                         </p>
-                                    </div>     
+                                    </div>
                                 }
-                                              
                             </article>
                         ))
                     }
                 </div>
-
                 <div className='txtFaq'>
                     <p>Vous avez d&#x27;autres <span className='spanFaq'>questions</span> ?</p>
                 </div>
 
                 <div className='btn-contact-us'>
-                    <Button  name="btn-contact-us" color='violet' link='/contact'>On prend contact !</Button>
+                    <Button name="btn-contact-us" color='violet' link='mailto:bonjour.utopia@gmail.com'>On prend contact !</Button>
                 </div>
             </div>
         </MyFaq>
