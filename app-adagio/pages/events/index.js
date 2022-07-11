@@ -11,6 +11,8 @@ import { useEffect } from "react";
 import axios from "axios";
 import prisma from "/lib/prisma";
 import styled from 'styled-components'
+import { MyMainLoading } from "pages/spots";
+import { useRouter } from "next/router";
 
   // _________________________________________________________STYLES_________________________________________________________
    export const MyMain = styled.main`
@@ -230,18 +232,33 @@ import styled from 'styled-components'
     `;
 
 export default function Events({ events}) {
-  // console.log("events_____________", events);
-  // get userConnected from localStorage
+  const router = useRouter();
+  const session = useSession();
 
   // _________________________________________________________LOGIC_________________________________________________________
   const [userConnected, setUserConnected] = useState(
     useEffect(() => {
-      var user = JSON.parse(
-        window.localStorage.getItem("userConnected")
-      );
-      setUserConnected(user);
-  }, [])
+        var user = JSON.parse(
+          window.localStorage.getItem("userConnected")
+        );
+        if (user == null) {
+          router.push("/accueil");
+        }
+        setUserConnected(user);
+
+            // get all spots
+    // get all spots
+        const getAllSpots = () => { 
+            axios.get("/api/spot/getAllSpots")
+            .then(res => {
+                setSpots(res.data);
+            })
+        }
+        getAllSpots();
+  }, [router, session])
   );
+
+  console.log("userConnected", userConnected);
 
   const [spots, setSpots] = useState([]);
   const {
@@ -249,18 +266,6 @@ export default function Events({ events}) {
     handleSubmit,
     formState: { errors, isSubmitted },
   } = useForm();
-
-  useEffect(() => {
-    // get all spots
-    const getAllSpots = () => { 
-        axios.get("/api/spot/getAllSpots")
-        .then(res => {
-            setSpots(res.data);
-        })
-    }
-    getAllSpots();
-    }, []);
-
     // create spot fonction
     const createEvent = async (data) => {
         try {
@@ -292,9 +297,11 @@ export default function Events({ events}) {
               {
                 duration: 3000,
               }
-            );
+            ).then(() => {
             // then reload the page
-            window.location.reload();
+              window.location.reload();
+            }
+            );
           } catch (error) {
             console.log("error :", error);
           }
@@ -302,7 +309,7 @@ export default function Events({ events}) {
 
   return (
     // is user connected ?
-    userConnected ? (
+    session && session.data != null ? (
       <>
         <HeaderBlue>
           <h1>les évènements</h1>
@@ -388,10 +395,15 @@ export default function Events({ events}) {
         </div>
       </>
     ) : (
-      <div>
-        <h1>Vous devez vous connecter pour accéder à cette page</h1>
-        <button onClick={() => signIn()}>Connexion</button>
+      <MyMainLoading>
+      <div className="loading-container">
+        <div className="main">
+          <div className="loader">
+            CHARGEMENT...
+          </div>
+        </div>
       </div>
+    </MyMainLoading>
     )
   );
 

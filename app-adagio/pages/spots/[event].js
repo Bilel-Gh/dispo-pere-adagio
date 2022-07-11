@@ -20,12 +20,12 @@ export default function Event({ events }) {
       const session = useSession();
       const [userConnected, setUserConnected] = useState(
           useEffect(() => {
-            if (!session || session.data == null) {
-              router.push("/accueil");
-            } else {
               var user = JSON.parse(
                 window.localStorage.getItem("userConnected")
               );
+              if (user == null) {
+                router.push("/accueil");
+              }
               setUserConnected(user);
               const getAllSpots = () => { 
                 const eventId = router.query.event;
@@ -35,7 +35,6 @@ export default function Event({ events }) {
                 })
             }
             getAllSpots();
-            }
         }, [router, session, router.query])
         );
     
@@ -108,7 +107,7 @@ export default function Event({ events }) {
                     <Link key={index} href={`/spots/oneSpot/${spot.id}`}>
                       {/* if 10 - spot.user.length == 0 className MyItem disabled*/}
                       <MyItem className={
-                          (10 - spot.users.length) == 0
+                          (5 - spot.users.length) == 0
                             ? "card-spot disabled"
                             : "card-spot"
                         }>
@@ -119,9 +118,9 @@ export default function Event({ events }) {
                           <p className="eventStatus">{spot.users.length} inscrits </p>
                           <p className="eventStatusRemain"> 
                             {/* if spot.user.length > 0 */}
-                            {(10 - spot.users.length) > 0 ? (
+                            {(5 - spot.users.length) > 0 ? (
                               <>
-                                {10 - spot.users.length} places restantes
+                                {5 - spot.users.length} places restantes
                               </>
                             ) : (
                               <>
