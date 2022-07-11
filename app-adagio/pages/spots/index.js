@@ -44,14 +44,13 @@ export default function Spot({ events}) {
   const [userConnected, setUserConnected] = useState(
     
     useEffect(() => {
-      if (!session || session.data == null) {
-        router.push("/accueil");
-      } else {
         var user = JSON.parse(
           window.localStorage.getItem("userConnected")
         );
+        if (user == null) {
+          router.push("/accueil");
+        }
         setUserConnected(user);
-        
         const getAllSpots = () => { 
           axios.get("/api/spot/getAllSpots")
           .then(res => {
@@ -59,7 +58,6 @@ export default function Spot({ events}) {
           })
         }
         getAllSpots();
-      }
   }, [router, session])
   );
 

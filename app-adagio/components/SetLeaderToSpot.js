@@ -99,22 +99,22 @@ const isOneLeaderInSpot = () => {
   return false;
 }
 
-//  console.log("DATA10:", users);
+//  console.log("userLoged:", userLoged);
 
   return (
     <div className={styles.container}>
-      { !isOneLeaderInSpot() && userLoged != undefined ? (
-        userLoged.role === "ADMIN" ? (
+      { !isOneLeaderInSpot() ? (
+        // userLoged.role === ("ADMIN" || "USER") ? (
           <>
             <ButtonOrange onClick={() => setLeaderRandomlyToSpot(spotId)}>
               Assigner un leader au hasard
             </ButtonOrange>
           </>
-        ) : (
-          <>
-            <p>Vous n&apos;êtes pas autorisé à assigner un leader</p>
-          </>
-        )
+        // ) : (
+        //   <>
+        //     <p>Vous n&apos;êtes pas autorisé à assigner un leader</p>
+        //   </>
+        // )
       ) : null }
     </div>
   );

@@ -67,12 +67,12 @@ export default function Event({  }) {
 
       const [userConnected, setUserConnected] = useState();
       useEffect(() => {
-          if (!session || session.data == null) {
-            router.push("/accueil");
-          } else {
             var user = JSON.parse(
               window.localStorage.getItem("userConnected")
             );
+            if (user == null) {
+              router.push("/accueil");
+            }
             setUserConnected(user);
             const getOneSpot = () => { 
               const spotId = router.query.spotid;
@@ -82,7 +82,6 @@ export default function Event({  }) {
               })
           }
             getOneSpot();
-          }
       }, [router, session, router.query])
 
       // before loading the page if !session || session.data == null redirect to /accueil
