@@ -2,6 +2,8 @@ import styled from 'styled-components'
 import Newsletter from '@/components/globalComponents/newsletter'
 import Button from '@/components/globalComponents/button'
 import Link from 'next/link'
+import { getSession, useSession, signIn, signOut } from "next-auth/react";
+
 
 const MyFooter = styled.footer`
     width: 100%;
@@ -137,11 +139,7 @@ const MyFooter = styled.footer`
 
 export default function Footer() {
 
-    const scrollToSection = (id) => {
-        console.log(id)
-        const element = document.getElementById(id);
-        element.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"})
-    }
+  const { data: session } = useSession();
 
   return (
     <MyFooter id='footer' className='section-footer'>
@@ -175,7 +173,6 @@ export default function Footer() {
           <div className='footContainer-top_second'>
                 <h1>À Propos</h1>
                 <ul>
-                    <li><a href="#">Qui sommes-nous</a></li>
                     <li>
                         <Link href="/#concept" >
                             <a>Le concept</a>
@@ -189,22 +186,23 @@ export default function Footer() {
                 </ul>
           </div>
 
+          {session && (
           <div className='footContainer-top_third'>
               <h1>Le site</h1>
               <ul>
-                    <li><a href="#">Les prochains pop-up stores</a></li>
-                    <li>
-                        <Link href="/events" >
-                            <a>Les évènements</a>
-                        </Link>
-                    </li>
-                    <li>
-                        <Link href="/signup" >
-                            <a>Inscription</a>
-                        </Link>
-                    </li>
+                <li>
+                    <Link href="/spots" >
+                        <a>Les prochains pop-up stores</a>
+                    </Link>
+                </li>
+                <li>
+                    <Link href="/events" >
+                        <a>Les évènements</a>
+                    </Link>
+                </li>
               </ul>
           </div>
+        )}
           
           <div className='footContainer-top_fourth'>
               <div className='fourth-wrapper'>

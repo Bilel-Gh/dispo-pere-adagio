@@ -3,6 +3,8 @@ import styled from 'styled-components'
 import React, {useState, useEffect} from 'react'
 import CarouselEvent from '@/components/carouselEvent'
 import CarouselSpot from '@/components/carouselSpot'
+import prisma from "/lib/prisma";
+
 
 
 
@@ -233,7 +235,7 @@ const CurrentSpot = styled.section`
   }
 `
 
-export default function Accueil() {
+export default function Accueil({events}) {
 
   const [userConnected, setUserConnected] = useState(
     useEffect(() => {
@@ -243,6 +245,8 @@ export default function Accueil() {
       setUserConnected(user);
   }, [])
   );
+
+  console.log('eventssss', events)
 
   console.log('userConnected', userConnected)
   return (
@@ -270,7 +274,7 @@ export default function Accueil() {
           <p  className='descriptionEvent'>Les inscriptions pour ces prochains évènements ouvrent bientôt ! Ne manquez pas 
           la chance de faire <span>la fusion culinaire de vos rêves </span>avec Le Père Adagio.</p>
         </div>
-        <CarouselEvent/>
+        <CarouselEvent data={events}/>
         <div className='btn-allEvents'>
           <Button link='/events' name ='go-to-event' color='white-low'>Tous nos évènements</Button>
         </div>
@@ -296,3 +300,20 @@ export default function Accueil() {
     </MyAccueil>
   )
 }
+
+export const getServerSideProps = async ({ req }) => {
+  // if session is not null, user is connected
+  const events = await prisma.event.findMany({
+    include: {
+        spots: true,
+    },
+  });
+
+  return {
+    props: {
+      // if session is not null, user is connected
+      // userConnected: session ? userConnected : null,
+      events: JSON.parse(JSON.stringify(events)) ,
+    },
+  };
+};

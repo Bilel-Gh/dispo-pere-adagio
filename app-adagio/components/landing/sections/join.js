@@ -1,8 +1,9 @@
 import styled from 'styled-components'
+import {useSession} from "next-auth/react";
 import Button from '@/components/globalComponents/button'
 
 const MyJoin = styled.section`
-position: relative;
+    position: relative;
     .join{
         padding:10%;
         position: relative;
@@ -127,6 +128,9 @@ position: relative;
 
 export default function Join() {
 
+    const { data: session } = useSession();
+    
+
     return (
         <MyJoin id ='join' className='section-join'>
 
@@ -145,9 +149,11 @@ export default function Join() {
                         <span> artisan &nbsp;</span> ou petit 
                         <span> &nbsp; commerçant.</span>
                     </p>
-                    <Button name='join-us' link='/signup' color='white' >
+                    {!session && (
+                        <Button name='join-us' link='/signup' color='white' >
                         Nous rejoindre
                     </Button>
+                    )}
 
                     
                 </div>

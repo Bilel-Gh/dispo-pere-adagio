@@ -104,15 +104,6 @@ export default function Event({ events }) {
             </ButtonBack>
           </HeaderBlue>
           <div className={styles.container}>
-            <Head>
-              <title>Create Next App</title>
-              <meta
-                name="description"
-                content="Pere Adagio, l'application qui permet aux artisans de colaborer entre eux facilement"
-              />
-              <link rel="icon" href="/favicon.ico" />
-            </Head>
-      
             <MyMain>
               <ItemContainner> 
                   {spots.map((spot, index) => (

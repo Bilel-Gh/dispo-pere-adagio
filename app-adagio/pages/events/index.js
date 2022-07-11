@@ -28,10 +28,10 @@ import styled from 'styled-components'
   .formInfo{
     display: flex;
     width: 80%;
-    gap: 5%;
+    gap: 25px;
     margin: 0 auto;
     justify-content: center;
-    align-items: flex-end;
+    flex-wrap: wrap;
     div{
       display: flex; 
       flex-direction:column;
@@ -41,7 +41,7 @@ import styled from 'styled-components'
         color: #333333;
       }
       input, select{
-        width: 200px;
+        width: 230px;
         height: 44px;
         border: transparent;
         background-color: #F4F4F5;
@@ -108,14 +108,16 @@ import styled from 'styled-components'
       justify-content: center;
       align-items: center;
       h1{
-        color: #000;
+        color: #333333;
         text-align: center;
-        font-size: 44px;
+        font-size: 45px;
         margin: 0;
+        text-transform: uppercase;
         font-family: "Fascinate-Regular";
       }
       .p1 {
           background: #fff;
+          color: #333333;
           font-weight: bold;
           font-size: 20px;
           width: 215px;
@@ -127,27 +129,48 @@ import styled from 'styled-components'
           &::after {
               content: "pour vous";
               text-transform: initial;
-              font-size: 4vw;
+              font-size: 45px;
               z-index: 1;
               text-shadow:none;
-              color: #000;
+              color: #333333;
               width: fit-content;
               margin: 0;
-              font-family: "BrittanySignature";
+              font-family: "BrittanySignature"!important;
               font-weight: normal;
               position: absolute;
-              top: 53%;
+              top: 55%;
               left: 47%;
+              z-index: 0;
           }
+      }
+      @media (max-width: 900px) {
+        h1{
+            font-size: 40px!important;
+        }
+        .p1{
+          font-size: 18px;
+          width: 200px;
+          height: 45px;
+        }
+      }
+      @media (max-width: 600px) {
+        h1{
+            font-size: 35px!important;
+        }
+        .p1{
+          font-size: 18px;
+          width: 200px;
+          height: 45px;
+        }
       }
     `;
 
     export const ItemContainner = styled.div`
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      width: 80%;
-      grid-gap: 25px;
-
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      width: 90%;
       .disabled {
         opacity: 20%;
         pointer-events: none;
@@ -155,14 +178,14 @@ import styled from 'styled-components'
     `;
 
     export const MyItem = styled.div`
+      width: 300px;
       position: relative;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      justify-content: space-between;
       background: #FDFCF3;
       border-radius: 10px;
-      /* add shadow */
       box-shadow: 0px 0px 7px rgba(0, 0, 0, 15%);
       cursor: pointer;
       &:hover {
@@ -172,6 +195,7 @@ import styled from 'styled-components'
       img {
         width: 100%;
         height: 250px;
+        border-radius: 16px;
       }
 
       .p2 {
@@ -281,19 +305,11 @@ export default function Events({ events}) {
     userConnected ? (
       <>
         <HeaderBlue>
-          <h1>les événements</h1>
+          <h1>les évènements</h1>
           <p className="p1">disponibles</p>
         </HeaderBlue>
         {/* <div className="ABSOLUTE"> </div> */}
         <div className={styles.container}>
-          <Head>
-            <title>Create Next App</title>
-            <meta
-              name="description"
-              content="Pere Adagio, l'application qui permet aux artisans de colaborer entre eux facilement"
-            />
-            <link rel="icon" href="/favicon.ico" />
-          </Head>
 
           <MyMain>
             <ItemContainner>

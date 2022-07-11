@@ -15,7 +15,8 @@ const MyCard = styled.div`
     align-items: center; 
     justify-content: center;
     height: 185px;
-    background-color: #F195BA;
+    background-size: cover;
+    /* background-color: #F195BA; */
     border-radius: 16px;
     font-size: 20px;
     p{
@@ -71,15 +72,16 @@ const MyCard = styled.div`
 
 export default function CardSpot(props) {
   const {
-    name, descr,place,date, link
+    name, descr,place,date, link, img
 
   } = props
-
 
   return (
     <article className='section-card'>
       <MyCard>
-        <div className='image-card'></div>
+        <div className='image-card' style={{
+          backgroundImage:`url(${img})`
+        }}></div>
 
         <div className='description'>
           <h3 className='name-card'>

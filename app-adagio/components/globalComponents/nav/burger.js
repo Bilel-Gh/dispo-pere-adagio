@@ -279,9 +279,8 @@ const Burger = ({isOpen, setIsOpen}) => {
             {
               isOpen &&
               <div className='burgerOpen'>    
-
                   <figure onClick={() => setIsOpen(isOpen ? false : true)}>
-                    <img className='exit' src="img/landing/exit.svg" alt="exit"/>
+                      <img className='exit' src="img/landing/exit.svg" alt="exit"/>
                   </figure>  
                   <div className='burgerContent'>
                     { session ? (
@@ -321,6 +320,11 @@ const Burger = ({isOpen, setIsOpen}) => {
                       <>
                         <nav className='burgerNav'>
                           <ul>
+                          <li> 
+                            <Link href='/'>
+                              <a>Accueil</a>
+                            </Link>
+                          </li>
                             <li> 
                               <Link href='/#concept'>
                                 <a>Le concept</a>

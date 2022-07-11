@@ -3,6 +3,9 @@ import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import Carousel from 'react-elastic-carousel';
 import CardSpot from '@/components/globalComponents/cardSpot';
+import axios from "axios";
+import Card from '@/components/globalComponents/cardSpot'
+
 
 const MyCarouselEvent = styled.div`
 .caroussel{
@@ -20,7 +23,7 @@ const MyCarouselEvent = styled.div`
 `
 
 
-export default function CarousselEvent({}) {
+export default function CarousselEvent({events}) {
 
   const breakPoints = [
     { width: 1, itemsToShow: 1 },
@@ -28,60 +31,55 @@ export default function CarousselEvent({}) {
     { width: 768, itemsToShow: 3 },
     { width: 1200, itemsToShow: 4 },
   ];
+
+  const [spots, setSpots] = useState([]);
+
+  useEffect(() => {
+    // get all spots
+    const getAllSpots = () => { 
+        axios.get("/api/spot/getAllSpots")
+        .then(res => {
+            setSpots(res.data);
+        })
+    }
+    getAllSpots();
+    }, []);
   
   return (
 
     <MyCarouselEvent>
       <Carousel className='caroussel' breakPoints={breakPoints}>
-      <div>
-        <CardSpot
-        name='Nos pop-up spot'
-        descr='Le festival des Vieilles Charrues est un festival breton. Le festival est assez varié sur sa programmation musicale.'
-        date='Du 29 juin au 1e juillet 2022'
-        place='Hôtel de ville de Paris'
-        />
-      </div>
-      <div>
-        <CardSpot
-        name='Nos pop-up spot'
-        descr='Le festival des Vieilles Charrues est un festival breton. Le festival est assez varié sur sa programmation musicale.'
-        date='Du 29 juin au 1e juillet 2022'
-        place='Hôtel de ville de Paris'
-        />
-      </div>
-      <div>
-        <CardSpot
-        name='Nos pop-up spot'
-        descr='Le festival des Vieilles Charrues est un festival breton. Le festival est assez varié sur sa programmation musicale.'
-        date='Du 29 juin au 1e juillet 2022'
-        place='Hôtel de ville de Paris'
-        />
-      </div>
-      <div>
-        <CardSpot
-        name='Nos pop-up store'
-        descr='Le festival des Vieilles Charrues est un festival breton. Le festival est assez varié sur sa programmation musicale.'
-        date='Du 29 juin au 1e juillet 2022'
-        place='Hôtel de ville de Paris'
-        />
-      </div>
-      <div>
-        <CardSpot
-        name='Nos pop-up store'
-        descr='Le festival des Vieilles Charrues est un festival breton. Le festival est assez varié sur sa programmation musicale.'
-        date='Du 29 juin au 1e juillet 2022'
-        place='Hôtel de ville de Paris'
-        />
-      </div>
-      <div>
-        <CardSpot
-        name='Nos pop-up store'
-        descr='Le festival des Vieilles Charrues est un festival breton. Le festival est assez varié sur sa programmation musicale.'
-        date='Du 29 juin au 1e juillet 2022'
-        place='Hôtel de ville de Paris'
-        />
-      </div>
+      {spots.map((spot, index) => (
+        <Link href={`/spots/${spot.id}`} key={index}>
+        <a>
+          <Card
+            name={spot.name}
+            descr={spot.description}
+            place={spot.address}
+            img={spot.image}
+          />
+          </a>
+        </Link>
+      ))}
+        
     </Carousel> 
   </MyCarouselEvent>
   )
 }
+
+export const getServerSideProps = async ({ req }) => {
+  // if session is not null, user is connected
+  const events = await prisma.event.findMany({
+    include: {
+        spots: true,
+    },
+});
+
+  return {
+    props: {
+      // if session is not null, user is connected
+      // userConnected: session ? userConnected : null,
+      events: JSON.parse(JSON.stringify(events)) ,
+    },
+  };
+};
