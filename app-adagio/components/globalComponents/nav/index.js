@@ -33,13 +33,10 @@ export default function NavBar({}) {
   const [isOpen, setIsOpen] = useState(false)
   const router = useRouter()
 
-  console.log(router.asPath === '/accueil' ? 'oui' : 'non')
-
-
   return (
     <MyNav id='nav' className='section-nav' 
       style={{
-        position: router.asPath === '/accueil' && 'absolute'
+        position: router.asPath !== '/' && 'absolute'
       }}
     >
       <Burger isOpen={isOpen} setIsOpen={setIsOpen} />

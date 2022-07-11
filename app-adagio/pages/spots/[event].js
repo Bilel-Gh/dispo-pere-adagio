@@ -11,21 +11,23 @@ import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
 import prisma from "/lib/prisma";
-
 import UserOnSpot from "../../components/UserOnSpot";
 import SetLeaderToSpot from "../../components/SetLeaderToSpot";
-import ButtonRegisterToSpot from "../../components/ButtonRegisterToSpot";;
+import ButtonRegisterToSpot from "../../components/ButtonRegisterToSpot";
+import { MyMain, MySignupForm, HeaderBlue, ItemContainner, MyItem} from "./../events";
+import { ButtonBack } from "../spots/oneSpot/[spotid]";
+
 
 export default function Event({ events }) {
-    const router = useRouter();
-    const [userConnected, setUserConnected] = useState(
-        useEffect(() => {
-          var user = JSON.parse(
-            window.localStorage.getItem("userConnected")
-          );
-          setUserConnected(user);
-      }, [])
-      );
+      const router = useRouter();
+      const [userConnected, setUserConnected] = useState(
+          useEffect(() => {
+            var user = JSON.parse(
+              window.localStorage.getItem("userConnected")
+            );
+            setUserConnected(user);
+        }, [])
+        );
     
       const [spots, setSpots] = useState([]);
       const {
@@ -93,6 +95,14 @@ export default function Event({ events }) {
       return (  
         // is user connected ? 
         userConnected ? (
+          <>
+          <HeaderBlue>
+            <h1>les stands</h1>
+            <p className="p1">disponibles</p>
+            <ButtonBack>
+              <button className='btn' onClick={() => router.back()}>Retour</button>
+            </ButtonBack>
+          </HeaderBlue>
           <div className={styles.container}>
             <Head>
               <title>Create Next App</title>
@@ -103,69 +113,87 @@ export default function Event({ events }) {
               <link rel="icon" href="/favicon.ico" />
             </Head>
       
-            <main className={styles.main}>
-              {spots.map((spot, index) => (
-                  <div key={index}>
-                      <h1>{spot.name}</h1>
-                      {spot.users.length > 0 ? (
-                        <UserOnSpot userLoged={userConnected} spotId={spot.id} id={spot.id}/>
-                      ) : (
-                      <p>Aucun utilisateur sur ce spot</p>
-                      )}
-                      {/* button s'inscrire sur ce spot */}
-                        <ButtonRegisterToSpot spotId={spot.id} userLoged={userConnected} />
-                  </div>
-              ))}
+            <MyMain>
+              <ItemContainner> 
+                  {spots.map((spot, index) => (
+                    <Link key={index} href={`/spots/oneSpot/${spot.id}`}>
+                      {/* if 10 - spot.user.length == 0 className MyItem disabled*/}
+                      <MyItem className={
+                          (10 - spot.users.length) == 0
+                            ? "card-spot disabled"
+                            : "card-spot"
+                        }>
+                          <img src={spot.image} alt="event" />
+                          <h2>{spot.name}</h2>
+                          <p className="description">{spot.description}</p>
+                          <p>{spot.address}</p>
+                          <p className="eventStatus">{spot.users.length} inscrits </p>
+                          <p className="eventStatusRemain"> 
+                            {/* if spot.user.length > 0 */}
+                            {(10 - spot.users.length) > 0 ? (
+                              <>
+                                {10 - spot.users.length} places restantes
+                              </>
+                            ) : (
+                              <>
+                                complet
+                              </>
+                            )}
+                          </p>
+                      </MyItem>
+                    </Link>
+                  ))}
+              </ItemContainner>
               <Toaster />
               <br /><br />
-              <form onSubmit={handleSubmit(onSubmit)}>
-                  <label>
-                      Name:
-                      <input 
-                          type="text"
-                          id="nom"
-                          {...register("name")}
-                          required
-                          placeholder="Nom du spot"
-                      />
-                  </label>
-                  <label>
-                      Adresse:
-                      <input 
-                          type="text"
-                          id="adresse"
-                          {...register("address")}
-                          required
-                          placeholder="Adresse du spot"
-                      />
-                  </label>
-                  <label>
-                      EventId:
-                        <select {...register("eventId")}>
-                          {events.map((event, index) => (
-                            <option key={index} value={event.id}>
-                              {event.name}
-                            </option>
-                          ))}
-                        </select>
-                  </label>
-                  <button type="submit">Submit</button>
-              </form>
-            </main>
-      
-            <footer className={styles.footer}>
-              <a
-                href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Powered by{" "}
-                <span className={styles.logo}>
-                  <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-                </span>
-              </a>
-            </footer>
+              <MySignupForm onSubmit={handleSubmit(onSubmit)}>
+                <div className="formInfo"> 
+                  <div>
+                    <label>
+                        Name:
+                        <input 
+                            type="text"
+                            id="nom"
+                            {...register("name")}
+                            required
+                            placeholder="Nom du spot"
+                        />
+                    </label>
+                  </div>
+                  <div>
+                    <label>
+                        Adresse:
+                        <input 
+                            type="text"
+                            id="adresse"
+                            {...register("address")}
+                            required
+                            placeholder="Adresse du spot"
+                        />
+                    </label>
+                  </div>
+                  <div>
+                    <label>
+                        EventId:
+                          <select {...register("eventId")}>
+                            {events.map((event, index) => (
+                              <option key={index} value={event.id}>
+                                {event.name}
+                              </option>
+                            ))}
+                          </select>
+                    </label>
+                  </div>
+                  <div className='btnContainer'>
+                      <button className='btn' type="submit">
+                        créer
+                      </button>
+                  </div>
+                </div>
+              </MySignupForm>
+            </MyMain>
           </div>
+          </>
          ) : (
           <div>
             <h1>Vous devez vous connecter pour accéder à cette page</h1>

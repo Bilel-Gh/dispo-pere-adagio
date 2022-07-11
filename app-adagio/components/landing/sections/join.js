@@ -135,7 +135,7 @@ export default function Join() {
                     Vous nous rejoignez <br/>
                     dans l&#x27;aventure ? 
                 </h2>
-                <div className='joinContainer'>
+                <div className='joinContainer' disabled>
                     
                     <p>
                         Nous sommes en recherche constante de 
@@ -145,7 +145,7 @@ export default function Join() {
                         <span> artisan &nbsp;</span> ou petit 
                         <span> &nbsp; commerçant.</span>
                     </p>
-                    <Button link='mailto:bonjour.utopia@gmail.com' color='white'>
+                    <Button name='join-us' link='/signup' color='white' >
                         Nous rejoindre
                     </Button>
 

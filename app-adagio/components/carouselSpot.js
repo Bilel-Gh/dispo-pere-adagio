@@ -2,8 +2,7 @@ import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import Carousel from 'react-elastic-carousel';
-import CardEvent from '@/components/globalComponents/cardEventOne';
-
+import CardSpot from '@/components/globalComponents/cardSpot';
 
 const MyCarouselEvent = styled.div`
 .caroussel{
@@ -12,8 +11,9 @@ const MyCarouselEvent = styled.div`
     display: none;
   }
   .rec-arrow{
+    background-color: #eb5b2d21;
     :focus:enabled, :hover:enabled{
-      background-color: #F195BA;
+      background-color: #EB5B2D;
     }
   }
 }
@@ -34,61 +34,54 @@ export default function CarousselEvent({}) {
     <MyCarouselEvent>
       <Carousel className='caroussel' breakPoints={breakPoints}>
       <div>
-        <CardEvent
-        name='Nos pop-up store'
-        btn='Voir'
+        <CardSpot
+        name='Nos pop-up spot'
+        descr='Le festival des Vieilles Charrues est un festival breton. Le festival est assez varié sur sa programmation musicale.'
         date='Du 29 juin au 1e juillet 2022'
         place='Hôtel de ville de Paris'
-        link='/event'
         />
       </div>
       <div>
-        <CardEvent
-        name='Nos pop-up store'
-        btn='Voir'
+        <CardSpot
+        name='Nos pop-up spot'
+        descr='Le festival des Vieilles Charrues est un festival breton. Le festival est assez varié sur sa programmation musicale.'
         date='Du 29 juin au 1e juillet 2022'
         place='Hôtel de ville de Paris'
-        link='/event'
         />
       </div>
       <div>
-        <CardEvent
-        name='Nos pop-up store'
-        btn='Voir'
+        <CardSpot
+        name='Nos pop-up spot'
+        descr='Le festival des Vieilles Charrues est un festival breton. Le festival est assez varié sur sa programmation musicale.'
         date='Du 29 juin au 1e juillet 2022'
         place='Hôtel de ville de Paris'
-        link='/event'
         />
       </div>
       <div>
-        <CardEvent
+        <CardSpot
         name='Nos pop-up store'
-        btn='Voir'
+        descr='Le festival des Vieilles Charrues est un festival breton. Le festival est assez varié sur sa programmation musicale.'
         date='Du 29 juin au 1e juillet 2022'
         place='Hôtel de ville de Paris'
-        link='/event'
         />
       </div>
       <div>
-        <CardEvent
+        <CardSpot
         name='Nos pop-up store'
-        btn='Voir'
+        descr='Le festival des Vieilles Charrues est un festival breton. Le festival est assez varié sur sa programmation musicale.'
         date='Du 29 juin au 1e juillet 2022'
         place='Hôtel de ville de Paris'
-        link='/event'
         />
       </div>
       <div>
-        <CardEvent
+        <CardSpot
         name='Nos pop-up store'
-        btn='Voir'
+        descr='Le festival des Vieilles Charrues est un festival breton. Le festival est assez varié sur sa programmation musicale.'
         date='Du 29 juin au 1e juillet 2022'
         place='Hôtel de ville de Paris'
-        link='/event'
         />
       </div>
     </Carousel> 
   </MyCarouselEvent>
   )
 }
-

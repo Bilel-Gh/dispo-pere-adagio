@@ -1,14 +1,15 @@
 import styled from 'styled-components'
-import NewsletterForm from '@/components/globalComponents/newsletter'
+import Newsletter from '@/components/globalComponents/newsletter'
+import Button from '@/components/globalComponents/button'
+import Link from 'next/link'
 
-const Foot = styled.footer`
+const MyFooter = styled.footer`
     width: 100%;
     background-color: #333333;
     padding: 60px 72px 20px;
     display: flex;
     flex-direction: column;
     font-family: 'Poppins-Regular';
-
         .footContainer-top,
         .footContainer-bottom{
             width: 100%;
@@ -33,7 +34,7 @@ const Foot = styled.footer`
                 cursor: pointer;
             }
             .footContainer-top_first{
-                width: 35%;
+                width: 30%;
                 figure{
                     margin: 0 0 1em 0;
                 }
@@ -62,11 +63,9 @@ const Foot = styled.footer`
                 button{
                     all: unset;
                     padding: 12px 24px;
-
                     display: flex;
                     justify-content: center;
                     align-items: center;
-
                     font-family: 'Poppins-ExtraBold';
                     font-size: 16px;
                     background: #EB5B2D;
@@ -88,7 +87,6 @@ const Foot = styled.footer`
                 }
             }
         }
-
         @media (max-width: 1149px) {
             .footContainer-top{
                 display: flex;
@@ -137,67 +135,110 @@ const Foot = styled.footer`
         }
 `
 
-export default function Footer(){
+export default function Footer() {
 
-    return (
-        <Foot className='footContainer'>
+    const scrollToSection = (id) => {
+        console.log(id)
+        const element = document.getElementById(id);
+        element.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"})
+    }
 
-            <div className='footContainer-top'>
-                <div className='footContainer-top_first'>
-                    <figure>
-                        <img src="/img/logoWhite.webp" width="143.01" height="80" alt='logo pa' />
-                    </figure>
-                    <div className='social-wrapper_responsive'>
-                        <img className='facebook' src='/img/fb.webp' alt='facebook icon'></img>
-                        <img className='instagram' src='/img/insta.webp' alt='instagram icon'></img>
-                        <img className='linkedin' src='/img/linkedin.webp' alt='linkedin icon'></img>
-                    </div>
-                    <p>
-                        Inscrivez-vous
-                        <br></br>
-                        à notre newsletter !
-                    </p>
-                    <NewsletterForm/>
-                </div>
+  return (
+    <MyFooter id='footer' className='section-footer'>
+      <div className='footContainer-top'>
+          <div className='footContainer-top_first'>
+              <figure>
+                  <img src="/img/landing/logoWhite.webp" width="143.01" height="80" alt='logo pa' />
+              </figure>
 
-                <div className='footContainer-top_second'>
-                    <h1>À Propos</h1>
-                    <ul>
-                        <li><a href="#">Qui sommes-nous</a></li>
-                        <li><a href="#">Le concept</a></li>
-                        <li><a href="#">Mentions légales & CGU</a></li>
-                    </ul>
-                </div>
+              <div className='social-wrapper_responsive'>
+                <Link  href='https://www.facebook.com/pereadagio'>
+                    <a>
+                        <img className='rs-facebook' src='/img/rs_fb.svg'  alt='facebook icon'></img>
+                    </a>
+                </Link>
+                <Link href='https://www.instagram.com/pereadagio/' >
+                    <a>
+                        <img className='rs-instagram' src='/img/rs_insta.svg'  alt='instagram icon'></img>
+                    </a>
+                </Link>
+                <Link  href='https://www.linkedin.com/company/p%C3%A8re-adagio/'>
+                    <a>
+                        <img className='rs-linkedin' src='/img/rs_linkedin.svg' alt='linkedin icon'></img>
+                    </a>
+                </Link>
+              </div>
 
-                <div className='footContainer-top_third'>
-                    <h1>Le site</h1>
-                    <ul>
-                        <li><a href="#">Les prochains pop-up stores</a></li>
-                        <li><a href="#">Les évènements</a></li>
-                        <li><a href="#">Inscription</a></li>
-                    </ul>
-                </div>
-                
-                <div className='footContainer-top_fourth'>
-                    <div className='fourth-wrapper'>
-                        <h1>Besoin d'aide ?</h1>
-                        <button className='button'>
-                            <a href='#'>Écrivez-nous !</a>
-                        </button>
-                    </div>
-                </div>
-            </div>
+              <Newsletter/>
+          </div>
 
-            <div className='footContainer-bottom'>
-                <a href='#'>©Copyright-UTOPIA</a>
+          <div className='footContainer-top_second'>
+                <h1>À Propos</h1>
+                <ul>
+                    <li><a href="#">Qui sommes-nous</a></li>
+                    <li>
+                        <Link href="/#concept" >
+                            <a>Le concept</a>
+                        </Link>
+                    </li>
+                    <li>
+                        <Link href="/doc/mentionsLegales.pdf" >
+                            <a target="_blank">Mentions légales & CGU</a>
+                        </Link>
+                    </li>
+                </ul>
+          </div>
 
-                <div className='social-wrapper'>
-                    <img className='facebook' src='/img/fb.webp' alt='facebook icon'></img>
-                    <img className='instagram' src='/img/insta.webp' alt='instagram icon'></img>
-                    <img className='linkedin' src='/img/linkedin.webp' alt='linkedin icon'></img>
-                </div>
-            </div>
+          <div className='footContainer-top_third'>
+              <h1>Le site</h1>
+              <ul>
+                    <li><a href="#">Les prochains pop-up stores</a></li>
+                    <li>
+                        <Link href="/events" >
+                            <a>Les évènements</a>
+                        </Link>
+                    </li>
+                    <li>
+                        <Link href="/signup" >
+                            <a>Inscription</a>
+                        </Link>
+                    </li>
+              </ul>
+          </div>
+          
+          <div className='footContainer-top_fourth'>
+              <div className='fourth-wrapper'>
+                  <h1>Besoin d&#x27;aide ?</h1>
+                  <Button color='orange' link='mailto:bonjour.utopia@gmail.com' name='btn-contact-footer'>
+                      Écrivez-nous !
+                  </Button>
+              </div>
+          </div>
+      </div>
 
-        </Foot>
-    )
-}    
+      <div className='footContainer-bottom'>
+          <a href='#'>©Copyright-UTOPIA</a>
+
+          <div className='social-wrapper'>
+            <Link  href='https://www.facebook.com/pereadagio'>
+                <a>
+                    <img className='rs-facebook' src='/img/rs_fb.svg'  alt='facebook icon'></img>
+                </a>
+            </Link>
+            <Link href='https://www.instagram.com/pereadagio/' >
+                    <a>
+                        <img className='rs-instagram' src='/img/rs_insta.svg'  alt='instagram icon'></img>
+                    </a>
+                </Link>
+                <Link  href='https://www.linkedin.com/company/p%C3%A8re-adagio/'>
+                    <a>
+                        <img className='rs-linkedin' src='/img/rs_linkedin.svg' alt='linkedin icon'></img>
+                    </a>
+                </Link>
+           
+          </div>
+      </div>
+
+    </MyFooter>
+  )
+}

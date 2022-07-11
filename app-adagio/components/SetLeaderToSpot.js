@@ -8,25 +8,29 @@ import Link from "next/link";
 import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
-// const { PrismaClient } = require("@prisma/client");
-// const prisma = new PrismaClient();
+import styled from "styled-components";
+
+export const ButtonOrange = styled.button`
+  background: #EB5B2D;
+  border: 2px solid #EB5B2D;
+  border-radius: 8px;
+  color: #fff;
+  margin-right: 15px;
+  height: 40px;
+  margin-top: 20px;
+  font-family: "Poppins-Regular";
+  &:hover {
+    background: #fff;
+    color: #EB5B2D;
+    border: 2px solid #EB5B2D;
+    cursor: pointer;
+  }
+`
 
 export default function SetLeaderToSpot({ spotId, userLoged }) {
-  // console.log("userLoged:", userLoged);
-  // console.log("spotId SetLeaderToSpot:", spotId );
-  // const [userConnected, setUserConnected] = useState();
-  //   useEffect(() => {
-  //     var userConnected = JSON.parse(
-  //       window.localStorage.getItem("userConnected")
-  //     );
-  //     // if userConnected is null, redirect to sign in
-  //     if (userConnected === null) {
-  //       window.location.href = "/signin";
-  //     }
-  //     setUserConnected(userConnected);
-  // }, [])
   const [usersOnSpotStatus, setUsersOnSpotStatus] = useState([]);
   const statusOfUser = async (spotId) => {
+    spotId ? (
     axios.post(`/api/userOnSpot/getStatusOfOneUserOnSpot`, {
           userId: userLoged.id,
           spotId: spotId,
@@ -38,6 +42,9 @@ export default function SetLeaderToSpot({ spotId, userLoged }) {
           toast.error("pas de status pour cet utilisateur");
       }
       )
+    ) : (
+      console.log("no spotId")
+    )
   }
   statusOfUser(spotId);
   console.log("statusOfUser_________:", usersOnSpotStatus);
@@ -102,26 +109,16 @@ const isOneLeaderInSpot = () => {
       { !isOneLeaderInSpot() && userLoged != undefined ? (
         userLoged.role === "ADMIN" ? (
           <>
-            <button onClick={() => setLeaderRandomlyToSpot(spotId)}>
-              Assigner un leader au spot
-            </button>
+            <ButtonOrange onClick={() => setLeaderRandomlyToSpot(spotId)}>
+              Assigner un leader au hasard
+            </ButtonOrange>
           </>
         ) : (
           <>
             <p>Vous n&apos;êtes pas autorisé à assigner un leader</p>
           </>
         )
-      ) : (
-        userLoged && usersOnSpotStatus != "LEADER" ? (
-          <button>
-            Vous netes pas leader
-          </button>
-        ) : (
-          <button>
-            tu est un leader
-          </button>
-        )
-      )}
+      ) : null }
     </div>
   );
 }

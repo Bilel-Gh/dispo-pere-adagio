@@ -11,7 +11,10 @@ export default async function handler(req, res) {
         const user = await prisma.spot.findUnique({
             where: {
                 id: parseInt(id),
-            }
+            },
+            include: {
+                users: true,
+            },
         });
         res.status(200).json(user)
         } catch (error) {

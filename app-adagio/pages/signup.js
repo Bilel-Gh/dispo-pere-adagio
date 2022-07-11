@@ -7,16 +7,18 @@ import * as bcrypt from "bcryptjs";
 import { useState } from "react";
 import { useEffect } from "react";
 import prisma from '/lib/prisma'
+import Link from "next/link";
+
 
 
 const MySignup = styled.section`
-  height: 100vh;
+  padding: 110px 30px 30px 30px;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   /* background: linear-gradient(to right, #FDFCF3 65%, #F195BA 0); */
   .mainInscription{
-    /* width: 65%; */
     width: 65%;
     margin: 0 auto;
     display: flex;
@@ -102,7 +104,7 @@ const MySignupForm = styled.form`
   .conditions{
     font-family: 'Poppins-Regular';
     margin: 10px;
-    span{
+    a{
       /* font-family: 'Poppins-ExtraBold'; */
       font-weight: 600;
       text-decoration: underline;
@@ -189,8 +191,6 @@ export default function Home({ jobs, emails }) {
     });
   };
 
-  // console.log("userConnected FDSFQSDF:", userConnected);
-
   return (
     <div id='signup' className='section-signup'>
       <MySignup className='main'>
@@ -264,9 +264,12 @@ export default function Home({ jobs, emails }) {
                   </select>
                 </p>
                 <div className='conditions'>
-                <input type="checkbox" id="scales" name="scales"/>
+                <input type="checkbox" />
                 <label>
-                  J’accepte les <span>conditions générales d’utilisation</span>
+                  J’accepte les &nbsp;
+                  <Link href="/doc/CGU.pdf" >
+                      <a target="_blank"> conditions générales d’utilisation</a>
+                  </Link>
                 </label>
               </div>
               </div>

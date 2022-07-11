@@ -10,7 +10,9 @@ export default function Home({ userConnected }) {
   // put userConnected 
   if (typeof window !== "undefined") {
     // Client-side-only code
-    window.localStorage.setItem("userConnected", JSON.stringify(userConnected));
+    window.localStorage.setItem("userConnected", JSON.stringify(
+      { ...userConnected, password: undefined }
+    ));
   }
   const { data: session } = useSession();
   // console.log("session :", session);

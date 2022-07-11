@@ -12,7 +12,7 @@ const NavDesktop = styled.nav`
     justify-content: space-between;
     figure{
         margin: 0;
-        .logoDesktop{
+        .logo-desktop{
             height: 69px;
             width: 122px;
         }
@@ -38,7 +38,7 @@ const NavDesktop = styled.nav`
         .navItemConnexion{
           font-family: "Poppins-ExtraBold";
         }
-        .navItemInscription{
+        .btn-login{
           text-transform: initial!important;
         }
         .navItemUser{
@@ -49,7 +49,32 @@ const NavDesktop = styled.nav`
           color: #FDFCF3;
           font-family: 'Poppins-Regular';
           border: none;
+          cursor: pointer;
+          /* on hover show disconnect button */
         }
+        .disconnectButton {
+          display: none;
+          width: 136px;
+          background: #333333;
+          border-radius: 1000px;
+          padding: 8px;
+          color: #FDFCF3;
+          font-family: 'Poppins-Regular';
+          border: none;
+          cursor: pointer;
+        }
+        .hoverDiv{ 
+          &:hover{
+            .disconnectButton {
+              display: block;
+            }
+            /* deplacer .navItemButon vers le bas de 10px */
+            .navItemUser{
+              margin-top: 30px;
+            }
+          }
+        }
+
         @media (max-width: 1100px) {
             gap: 20px;
         }
@@ -145,6 +170,7 @@ width: 100%;
 const Burger = ({isOpen, setIsOpen}) => {
   const router = useRouter()
 
+  const { data: session } = useSession();
 
   const [userConnected, setUserConnected] = useState(
     useEffect(() => {
@@ -154,6 +180,12 @@ const Burger = ({isOpen, setIsOpen}) => {
       setUserConnected(user);
   }, [])
   )
+
+  const logOut = () =>{
+    console.log('logout')
+    // router.push('/')
+    signOut()
+  }
 
 
     const [isMobile, setIsMobile] = useState(false)
@@ -170,7 +202,7 @@ const Burger = ({isOpen, setIsOpen}) => {
 
     const scrollToSection = (id) => {
       const element = document.getElementById(id);
-      element.scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"})
+      element.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"})
     }
 
     return (
@@ -206,8 +238,8 @@ const Burger = ({isOpen, setIsOpen}) => {
                     </nav>
                   
                     <div className='btn'>
-                        <Button className='navItemInscription' link='/signin' color='white'>Connexion</Button>
-                        <Button className='navItemInscription' link='/login' color='black'>Inscription</Button>
+                        <button className='btn-login' href='/login' color='white'>Connexion</button>
+                        <button className='btn-signup' href='/signup' color='black'>Inscription</button>
                     </div>
 
                     <div className='social'>
@@ -218,7 +250,7 @@ const Burger = ({isOpen, setIsOpen}) => {
                           <img src='/img/landing/instaBlack.svg' alt="icon instagram"/>
                         </a>
                         <a href="https://www.youtube.com/channel/UCBFPQC4zt_I0oVBIMBWaCYw">
-                          <img src='/img/landing/inkedinBlack.svg' alt="icon linkedin "/>
+                          <img src='/img/landing/linkedinBlack.svg' alt="icon linkedin "/>
                         </a>
                     </div>
                   </div>
@@ -234,16 +266,16 @@ const Burger = ({isOpen, setIsOpen}) => {
           <Link href='/'>
           <a>
             <figure>
-              <img className='logoDesktop' src= {router.asPath === '/' ?  'img/landing/logo.webp' : 'img/landing/logoWhite.webp'} alt="logo"/>
+              <img className='logo-desktop' src= {router.asPath === '/' ?  'img/landing/logo.webp' : 'img/landing/logoWhite.webp'} alt="logo"/>
             </figure>
           </a>
           </Link>
 
         {
           
-          userConnected ? (
+          session ? (
 
-            <ul className='nav'>
+            <ul className='nav' style={{color: router.asPath === '/accueil' && 'white' }}>
               <li className='navItem'>
                 <Link href='/accueil'>
                   <a>
@@ -252,21 +284,37 @@ const Burger = ({isOpen, setIsOpen}) => {
                 </Link>
                
               </li>
-              <li onClick={() => scrollToSection('data')} className='navItem'>Les prochains évènements</li>
-              <li onClick={() => scrollToSection('faq')} className='navItem'>Evenements</li>
+              <li className='navItem'>
+                <Link href='/events'>
+                  <a>
+                  Les évènements
+                  </a>
+                </Link>
+              </li>
+              <li className='navItem'>
+                <Link href='/spot'>
+                  <a>
+                  Les stands
+                  </a>
+                </Link>
+              </li>
               <li onClick={() => scrollToSection('faq')} className='navItem'>Blog</li>
-              <button className='navItemUser'>{userConnected.firstname}</ button>
+              <div className='hoverDiv'> 
+                <button className='navItemUser'>{userConnected.firstname}</button>
+                <button className='disconnectButton' onClick={() => signOut()}>Déconnexion</button>
+              </div>
             </ul>
-          
-            
-            
           ): (
             <ul className='nav'>
               <li onClick={() => scrollToSection('concept')} className='navItem'>Le concept</li>
               <li onClick={() => scrollToSection('data')} className='navItem'>En quelques chiffres</li>
               <li onClick={() => scrollToSection('faq')} className='navItem'>Faq</li>
-              <button onClick={() => signIn()}>Connexion</button>
-              <Button className='navItemInscription' link='/signup' color='black'>Inscription</Button>
+              <button onClick={() => signIn()} className='btn-login' >Connexion</button>
+              <Link href='/signup'>
+                <a>
+                  <button className='btn-signup'>Inscription</button>
+                </a>
+              </Link>
             </ul>
             
           )

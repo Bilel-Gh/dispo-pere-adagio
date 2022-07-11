@@ -8,19 +8,80 @@ import Link from "next/link";
 import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
-// const { PrismaClient } = require("@prisma/client");
-// const prisma = new PrismaClient();
+import { MyMain, MySignupForm, HeaderBlue, ItemContainner, MyItem} from "../pages/events";
+import styled from 'styled-components'
+
+const UserContainner = styled.div`
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    grid-gap: 25px;
+`
+
+const MyUser = styled.div`
+  border: solid 1px grey;
+  min-width: 370px;
+  height: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9px;
+
+  > div {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 90%;
+    padding: 0 20px;
+    .info-container {
+      margin-right: 20px;
+      width: 90px;
+      p {
+        margin: 10px 0;
+      }
+    }
+    .button-accepte {
+      height: 30px;
+      background: #EB5B2D;
+      border: 2px solid #EB5B2D;
+      border-radius: 8px;
+      color: #fff;
+      margin-right: 15px;
+      &:hover {
+        background: #fff;
+        color: #EB5B2D;
+        border: 2px solid #EB5B2D;
+        cursor: pointer;
+      }
+    }
+
+    .button-refuse {
+      height: 30px;
+      background: #A1A1AA;
+      border: 2px solid #A1A1AA;
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      margin-right: 15px;
+      &:hover {
+        background: #fff;
+        color: #A1A1AA;
+        border: 2px solid #A1A1AA;
+        cursor: pointer;
+      }
+    }
+  }
+  img {
+    width: 65px;
+    height: 65px;
+    border: solid;
+    border-radius: 50px;
+    margin-left: 20px;
+  }
+
+`
 
 export default function UserOnSpot({ id, userLoged, }) {
-  // console.log("spotId UserOnSpot:", id);
-  // const [userConnected, setUserConnected] = useState(
-  //   useEffect(() => {
-  //     var userConnected = JSON.parse(
-  //       window.localStorage.getItem("userConnected")
-  //     );
-  //     setUserConnected(userConnected);
-  // }, [])
-  // );
 
   const [usersOnSpotData, setUsersOnSpotData] = useState([]);
   // const [usersStatus, setUsersStatus] = useState([]);
@@ -39,17 +100,22 @@ console.log("usersOnSpotData_____________:", usersOnSpotData);
 
 const [usersOnSpotStatus, setUsersOnSpotStatus] = useState([]);
 const statusOfUser = async (id) => {
-  axios.post(`/api/userOnSpot/getStatusOfOneUserOnSpot`, {
-        userId: userLoged.id,
-        spotId: id,
-    }).then(res => {
-        setUsersOnSpotStatus(res.data);
-    }
-    ).catch(err => {
-        console.log("err", err);
-        toast.error("pas de status pour cet utilisateur");
-    }
-    )
+  id ? (
+    axios.post(`/api/userOnSpot/getStatusOfOneUserOnSpot`, {
+          userId: userLoged.id,
+          spotId: id,
+      }).then(res => {
+          setUsersOnSpotStatus(res.data);
+      }
+      ).catch(err => {
+          console.log("err", err);
+          toast.error("pas de status pour cet utilisateur");
+      }
+      )
+
+  ) : (
+    console.log("no spotId")
+  )
 }
 statusOfUser(id);
 
@@ -92,50 +158,55 @@ const refuseUserOnSpot = async (userId, spotId) => {
 
   return (
     <div className='container'>
-      <div>
+      <UserContainner>
         {usersOnSpotData.map(userOnSpotData => (
           <>  {
             userOnSpotData.user && 
-          <div className={userOnSpotData.userStatus.toLowerCase()} key={userOnSpotData.id}>
-            <p>{userOnSpotData.user.email}</p>
-            <p>----</p>
-            <p>{userOnSpotData.userStatus}</p>
-            {
-              usersOnSpotStatus === "LEADER" ? (
-                userOnSpotData.user.id === userLoged.id ? null : (
-                  userOnSpotData.userStatus === "ACCEPTED" ? (
-                    <> 
-                      <button onClick={() => refuseUserOnSpot(userOnSpotData.userId, userOnSpotData.spotId)}>
-                        Refuse User
-                      </button>
-                    </>
-                  ) : (
-                    userOnSpotData.userStatus === "REFUSED" ? (
-                      <>
-                        <button onClick={() => acceptUserOnSpot(userOnSpotData.userId, userOnSpotData.spotId)}>
-                          accepte User
+            <MyUser>
+            <img src={userOnSpotData.user.image} alt="avatar" />
+          <div key={userOnSpotData.id}>
+            <div className="info-container"> 
+              <p>{userOnSpotData.user.firstname}</p>
+              <p>{userOnSpotData.user.job.name}</p>
+              <p className={userOnSpotData.userStatus.toLowerCase()}>{ userOnSpotData.userStatus === "PENDING" ? "en attente" : (userOnSpotData.userStatus === "ACCEPTED" ? "accepté" : (userOnSpotData.userStatus === "REFUSED" ? "refusé" : "leader"))}</p>
+            </div>
+              {
+                usersOnSpotStatus === "LEADER" ? (
+                  userOnSpotData.user.id === userLoged.id ? null : (
+                    userOnSpotData.userStatus === "ACCEPTED" ? (
+                      <> 
+                        <button className="button-refuse" onClick={() => refuseUserOnSpot(userOnSpotData.userId, userOnSpotData.spotId)}>
+                          Refuse User
                         </button>
                       </>
                     ) : (
-              <>
-                <button onClick={() => acceptUserOnSpot(userOnSpotData.userId, userOnSpotData.spotId)}>
-                  accepte User
-                </button>
-                <button onClick={() => refuseUserOnSpot(userOnSpotData.userId, userOnSpotData.spotId)}>
-                  Refuse User
-                </button>
-              </>
+                      userOnSpotData.userStatus === "REFUSED" ? (
+                        <>
+                          <button className="button-accepte" onClick={() => acceptUserOnSpot(userOnSpotData.userId, userOnSpotData.spotId)}>
+                            accepte User
+                          </button>
+                        </>
+                      ) : (
+                <>
+                  <button className="button-accepte" onClick={() => acceptUserOnSpot(userOnSpotData.userId, userOnSpotData.spotId)}>
+                    accepte User
+                  </button>
+                  <button className="button-refuse" onClick={() => refuseUserOnSpot(userOnSpotData.userId, userOnSpotData.spotId)}>
+                    Refuse User
+                  </button>
+                </>
+                      )
                     )
                   )
-                )
-            ) : null 
-            } 
+              ) : null 
+              } 
           </div>
+            </MyUser>
           }
 
           </>
         ))}
-      </div>
+      </UserContainner>
     </div>
   );
 }
