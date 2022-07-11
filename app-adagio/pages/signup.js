@@ -8,7 +8,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import prisma from '/lib/prisma'
 import Link from "next/link";
-
+import { useRouter } from "next/router";
 
 
 const MySignup = styled.section`
@@ -120,16 +120,28 @@ const MySignupForm = styled.form`
 
 `
 
-export default function Home({ jobs, emails }) {
-  const [userConnected, setUserConnected] = useState(
-    useEffect(() => {
-      var user = JSON.parse(
-        window.localStorage.getItem("userConnected")
-      );
-      setUserConnected(user);
-  }, [])
-  );
+export default function Home({ jobs, emails, userLoged }) {
   const { data: session } = useSession();
+  const router = useRouter();
+  if (typeof window !== "undefined") {
+    // Client-side-only code
+    window.localStorage.setItem("userConnected", JSON.stringify(
+      { ...userLoged, password: undefined }
+    ));
+  }
+  const [userConnected, setUserConnected] = useState();
+
+  useEffect(() => {
+    if ( session && session.data !== null) {
+      router.push("/accueil");
+    } else {
+    var user = JSON.parse(
+      window.localStorage.getItem("userConnected")
+    );
+    setUserConnected(user);
+    }
+  }, [router, session])
+
   const {
     register,
     handleSubmit,
@@ -292,7 +304,10 @@ export default function Home({ jobs, emails }) {
         {session ? (
           <>
             Vous etes connecté en temps que {userConnected.firstname} <br /><br />
-            <button onClick={() => signOut()}>Déconnexion</button>
+            {/* button redirect to accueil */}
+            <Link href="/accueil">
+              <button>Accueil</button>
+            </Link>
           </>
         ) : (
           <div  className='mainConnexion' style={{display: 'none'}} >
@@ -306,7 +321,19 @@ export default function Home({ jobs, emails }) {
 }
 
 export const getServerSideProps = async ({ req }) => {
+  const session = await getSession({ req });
   const jobs = await prisma.job.findMany();
+  // if session is not null, user is connected
+
+  const userLoged = await prisma.user.findUnique({
+    where: {
+      // if session is not null, user is connected
+      id: session ? parseInt(session.id) : 0,
+    },
+    include: {
+        spots: true,
+    },
+  });
   const emails = await prisma.user.findMany({
     select: {
       email: true,
@@ -316,6 +343,7 @@ export const getServerSideProps = async ({ req }) => {
     props: {
       jobs,
       emails,
+      userLoged,
       // // if session is not null, user is connected
       // userConnected: session ? userConnected : null,
     },

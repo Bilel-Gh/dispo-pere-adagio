@@ -1,29 +1,38 @@
-import Head from "next/head";
-import Image from "next/image";
-import styles from "../../styles/Home.module.css";
 import { useForm } from "react-hook-form";
 import toast, { Toaster } from "react-hot-toast";
 import { getSession, useSession, signIn, signOut } from "next-auth/react";
-import Link from "next/link";
-// import * as bcrypt from "bcryptjs";
 import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
 import prisma from "/lib/prisma";
-
+import { useRouter } from "next/router";
 import UserOnSpot from "../../components/UserOnSpot";
-import SetLeaderToSpot from "../../components/SetLeaderToSpot";
 import ButtonRegisterToSpot from "../../components/ButtonRegisterToSpot";
 
 export default function Spot({ events}) {
+  const router = useRouter();
+  const session = useSession();
   // get userConnected from localStorage
   const [userConnected, setUserConnected] = useState(
+    
     useEffect(() => {
-      var user = JSON.parse(
-        window.localStorage.getItem("userConnected")
-      );
-      setUserConnected(user);
-  }, [])
+      if (!session || session.data == null) {
+        router.push("/accueil");
+      } else {
+        var user = JSON.parse(
+          window.localStorage.getItem("userConnected")
+        );
+        setUserConnected(user);
+        
+        const getAllSpots = () => { 
+          axios.get("/api/spot/getAllSpots")
+          .then(res => {
+              setSpots(res.data);
+          })
+        }
+        getAllSpots();
+      }
+  }, [router, session])
   );
 
   const [spots, setSpots] = useState([]);
@@ -32,17 +41,6 @@ export default function Spot({ events}) {
     handleSubmit,
     formState: { errors, isSubmitted },
   } = useForm();
-
-  useEffect(() => {
-    // get all spots
-    const getAllSpots = () => { 
-        axios.get("/api/spot/getAllSpots")
-        .then(res => {
-            setSpots(res.data);
-        })
-    }
-    getAllSpots();
-    }, []);
 
     // create spot fonction
     const createSpot = async (data) => {
@@ -89,7 +87,7 @@ export default function Spot({ events}) {
 
   return (  
     // is user connected ? 
-    userConnected ? (
+    session && session.data != null  ? (
       <div className='container'>
         <main className='main'>
           {spots.map((spot, index) => (
@@ -141,12 +139,7 @@ export default function Spot({ events}) {
           </form>
         </main>
       </div>
-     ) : (
-      <div>
-        <h1>Vous devez vous connecter pour accéder à cette page</h1>
-        <button onClick={() => signIn()}>Connexion</button>
-      </div>
-    )
+     ) : null
 )
 
 };

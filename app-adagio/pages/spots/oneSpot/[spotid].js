@@ -1,17 +1,14 @@
 import { useRouter } from "next/router";
 import Head from "next/head";
-import Image from "next/image";
 import styles from "../../../styles/Home.module.css";
 import { useForm } from "react-hook-form";
 import toast, { Toaster } from "react-hot-toast";
 import { getSession, useSession, signIn, signOut } from "next-auth/react";
-import Link from "next/link";
 // import * as bcrypt from "bcryptjs";
 import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
 import UserOnSpot from "../../../components/UserOnSpot";
-import SetLeaderToSpot from "../../../components/SetLeaderToSpot";
 import ButtonRegisterToSpot from "../../../components/ButtonRegisterToSpot";
 import { MyMain, MySignupForm, HeaderBlue, ItemContainner, MyItem} from "../../events";
 import styled from "styled-components";
@@ -66,14 +63,31 @@ export const MySpot = styled.div`
 
 export default function Event({  }) {
       const router = useRouter();
-      const [userConnected, setUserConnected] = useState(
-          useEffect(() => {
+      const session = useSession();
+
+      const [userConnected, setUserConnected] = useState();
+      useEffect(() => {
+          if (!session || session.data == null) {
+            router.push("/accueil");
+          } else {
             var user = JSON.parse(
               window.localStorage.getItem("userConnected")
             );
             setUserConnected(user);
-        }, [])
-        );
+            const getOneSpot = () => { 
+              const spotId = router.query.spotid;
+              axios.get(`/api/spot/${spotId}`)
+              .then(res => {
+                  setSpot(res.data);
+              })
+          }
+            getOneSpot();
+          }
+      }, [router, session, router.query])
+
+      // before loading the page if !session || session.data == null redirect to /accueil
+
+
     
       const [spot, setSpot] = useState([]);
       const {
@@ -82,23 +96,16 @@ export default function Event({  }) {
         formState: { errors, isSubmitted },
       } = useForm();
     
-      useEffect(() => {
-        // get all spots
-        const getOneSpot = () => { 
-            const spotId = router.query.spotid;
-            axios.get(`/api/spot/${spotId}`)
-            .then(res => {
-                setSpot(res.data);
-            })
-        }
-        getOneSpot();
-        }, [router.query]);
+      // useEffect(() => {
+      //   // get all spots
+
+      //   }, [router.query]);
 
         console.log(spot);
     
       return (  
         // is user connected ? 
-        userConnected ? (
+        session && session.data != null ? (
           <>
           <HeaderBlue>
             <h1>votre stand</h1>
@@ -133,11 +140,6 @@ export default function Event({  }) {
             </MyMain>
           </div>
           </>
-         ) : (
-          <div>
-            <h1>Vous devez vous connecter pour accéder à cette page</h1>
-            <button onClick={() => signIn()}>Connexion</button>
-          </div>
-        )
+         ) : null
     )
 }

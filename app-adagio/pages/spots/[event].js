@@ -1,6 +1,5 @@
 import { useRouter } from "next/router";
 import Head from "next/head";
-import Image from "next/image";
 import styles from "../../styles/Home.module.css";
 import { useForm } from "react-hook-form";
 import toast, { Toaster } from "react-hot-toast";
@@ -11,22 +10,32 @@ import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
 import prisma from "/lib/prisma";
-import UserOnSpot from "../../components/UserOnSpot";
-import SetLeaderToSpot from "../../components/SetLeaderToSpot";
-import ButtonRegisterToSpot from "../../components/ButtonRegisterToSpot";
 import { MyMain, MySignupForm, HeaderBlue, ItemContainner, MyItem} from "./../events";
 import { ButtonBack } from "../spots/oneSpot/[spotid]";
 
 
 export default function Event({ events }) {
       const router = useRouter();
+      const session = useSession();
       const [userConnected, setUserConnected] = useState(
           useEffect(() => {
-            var user = JSON.parse(
-              window.localStorage.getItem("userConnected")
-            );
-            setUserConnected(user);
-        }, [])
+            if (!session || session.data == null) {
+              router.push("/accueil");
+            } else {
+              var user = JSON.parse(
+                window.localStorage.getItem("userConnected")
+              );
+              setUserConnected(user);
+              const getAllSpots = () => { 
+                const eventId = router.query.event;
+                axios.get(`/api/spot/getAllSpotsByEventId/${eventId}`)
+                .then(res => {
+                    setSpots(res.data);
+                })
+            }
+            getAllSpots();
+            }
+        }, [router, session, router.query])
         );
     
       const [spots, setSpots] = useState([]);
@@ -35,18 +44,6 @@ export default function Event({ events }) {
         handleSubmit,
         formState: { errors, isSubmitted },
       } = useForm();
-    
-      useEffect(() => {
-        // get all spots
-        const getAllSpots = () => { 
-            const eventId = router.query.event;
-            axios.get(`/api/spot/getAllSpotsByEventId/${eventId}`)
-            .then(res => {
-                setSpots(res.data);
-            })
-        }
-        getAllSpots();
-        }, [router.query]);
     
         // create spot fonction
         const createSpot = async (data) => {
@@ -94,7 +91,7 @@ export default function Event({ events }) {
     
       return (  
         // is user connected ? 
-        userConnected ? (
+        session && session.data != null ? (
           <>
           <HeaderBlue>
             <h1>les stands</h1>
