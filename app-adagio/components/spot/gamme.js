@@ -241,7 +241,6 @@ export default function Gamme({}) {
   ]
 
   const switchFormule = (i) => {
-    console.log(i)
     switch(i){
       case 0:
         return "Chambre Froide"

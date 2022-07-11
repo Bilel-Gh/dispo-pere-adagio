@@ -236,11 +236,6 @@ const Burger = ({isOpen, setIsOpen}) => {
   }, [])
   )
 
-  const logOut = () =>{
-    console.log('logout')
-    // router.push('/')
-    signOut()
-  }
 
 
     const [isMobile, setIsMobile] = useState(false)
@@ -255,10 +250,6 @@ const Burger = ({isOpen, setIsOpen}) => {
         width > 830 ? setIsMobile(false) : setIsMobile(true)
     }, [width, isMobile]);
 
-    const scrollToSection = (id) => {
-      const element = document.getElementById(id);
-      element.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"})
-    }
 
     return (
       <>

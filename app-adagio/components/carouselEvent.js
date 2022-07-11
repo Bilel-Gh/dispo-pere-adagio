@@ -62,7 +62,6 @@ export default function CarousselEvent({data}) {
           <CardEvent key={index}
             name={evt.name}
             descr={evt.description}
-            place={evt.address}
             date={`Du ${evt.dateStart} au ${evt.dateEnd}`}
             img={evt.image}
             link={`/spots/${evt.id}`}
