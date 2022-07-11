@@ -80,7 +80,8 @@ const MyAccueil = styled.section`
     .main{
       article{
         .title{
-          :nth-child(1) {
+          span{
+            :nth-child(1) {
             font-size: 50px;
           }
           :nth-child(2) {
@@ -89,6 +90,8 @@ const MyAccueil = styled.section`
           :nth-child(3) {
             font-size: 65px;
           }
+          }
+          
         }
         .description{
           font-size: 15px;
@@ -103,7 +106,6 @@ const MyAccueil = styled.section`
 `
 const CurrentEvent = styled.section`
   background-color:#EB5B2D;
-  /* height: 90vh; */
   padding: 5% 0%;
   position: relative;
   .clockStickers{
@@ -304,7 +306,7 @@ export default function Accueil({events}) {
       <CurrentSpot>
         <div className='vectorStickers' />
         <div className='titleContainer'>
-          <h2 className='title'>Les ouvertures imminitentes !</h2>
+          <h2 className='title'>Les derniers évènements à ne pas rater !</h2>
           <p  className='descriptionSpot'>
             C’est en ce moment même que les inscritpions se déroulent. Choisissez parmis le nombreux 
             choix de lieu, l’endroit ou vous souhaitez faire découvrir vôtre spécialité !

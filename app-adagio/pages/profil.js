@@ -1,7 +1,4 @@
 import styled from 'styled-components'
-import Header from '@/components/globalComponents/nav'
-import Button from '@/components/globalComponents/button'
-import Footer from '@/components/globalComponents/footer'
 import React, {useState, useEffect} from 'react'
 import { getSession, useSession, signIn, signOut } from "next-auth/react";
 
@@ -131,9 +128,10 @@ const Suivi = styled.section`
         display: flex;
         justify-content: space-between;
         flex-wrap: wrap;
+        gap: 20px;
         .card{
             width: 47%;
-            height: 400px;
+            height: 320px;
             border: 2px solid #EB5B2D;
             border-radius: 12px;
             position: relative;
@@ -141,26 +139,24 @@ const Suivi = styled.section`
                 background-color: #EB5B2D;
                 border-radius: 10px 10px 0 0;
                 padding: 0.7em;
-                margin-bottom: 0.8em;
             }
             .card-info{
                 width: 100%;
-                height: 6vh;
                 border-bottom: 1px solid #E4E4E7;
                 display: flex;
+                padding: 16px 12px;
                 figure{
                     width: fit-content;
-                    margin: 0 1em 0.8em 0.6em;
+                    margin-right: 1.2em;
                     img{
-                        max-width: 115.06px;
-                        max-height: 76px;
+                        width: 115.06px;
                     }
                 }
-                div{
+                .card-info_text{
+                    height: 76px;
                     display: flex;
                     justify-content: space-between;
                     flex-direction: column;
-                    margin-bottom: 0.8em;
                     .xsmall-bold_span{
                         color: #71717A;
                     }
@@ -204,6 +200,20 @@ const Suivi = styled.section`
                     justify-content: center;
                     align-items: center;
                 }
+            }
+        }
+    }
+
+    @media (max-width: 910px) {
+        .title{
+            text-align: center;
+        }
+        .suivi-card{
+            display: flex;
+            flex-wrap: wrap;
+            .card{
+                width: 100%;
+                margin: 30px 0 ;
             }
         }
     }
@@ -321,8 +331,8 @@ export default function Profil() {
                                     <img src='/img/dispo/profileCard.webp'></img>
                                 </figure>
                                 <div className='card-info_text'>
-                                    <p className='xsmall-bold'>We Love Green</p>
-                                    <p className='xsmall-bold'><span className='xsmall-bold_span'>Food Truck Premium</span></p>
+                                    <p className='xsmall-bold'>Nom de l&#x27;évènement</p>
+                                    <p className='xsmall-bold'><span className='xsmall-bold_span'>Nom du stand</span></p>
                                     <p className='xsmall'><span className='xsmall_span'>Vendredi 8 Septembre 2022</span></p>
                                     <p className='xsmall'><span className='xsmall_span'>Vincennes 94300</span></p>
                                 </div>

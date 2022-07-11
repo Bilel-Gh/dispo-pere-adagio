@@ -3,7 +3,7 @@ import Button from '@/components/globalComponents/button'
 import { useState } from 'react';
 
 const MyFaq = styled.section`
-position: relative;
+    position: relative;
     margin-bottom: 90px;
     background-image: url('/img/landing/questionMark.webp');
     background-size: 150px 152.98px;
@@ -16,7 +16,6 @@ position: relative;
         color: #333333;
         margin: 8% 0 96px 10%;
     }
-
     .subContainer{
         .containerFaq{
             height: 100%;
@@ -37,7 +36,7 @@ position: relative;
                     display: flex;
                     align-items: center;
                     justify-content: space-between;
-                    padding: 0 16px 0 16px;
+                    padding:16px;
                     font-family: "Poppins-ExtraBold";
                     font-size: 15px;
                     text-transform: uppercase;
@@ -59,7 +58,7 @@ position: relative;
                     display: flex;
                     align-items: center;
                     justify-content: space-between;
-                    padding: 0 16px 0 16px;
+                    padding: 16px ;
                     font-size: 19px;
                 }
             }
@@ -92,7 +91,6 @@ position: relative;
             }
         }
     }
-
     @media (max-width: 900px) {
         background-image: none;
         .headerOne{
@@ -105,13 +103,12 @@ position: relative;
         .socialMedia{
             gap: 23%;
         }
-}
-
-@media (max-width: 760px) {
-    .headerOne{
-        font-size: 28px;
     }
-}
+    @media (max-width: 760px) {
+        .headerOne{
+            font-size: 28px;
+        }
+    }
 `
 
 export default function Faq() {
@@ -161,12 +158,10 @@ export default function Faq() {
                                         </p>
                                     </div>
                                 }
-
                             </article>
                         ))
                     }
                 </div>
-
                 <div className='txtFaq'>
                     <p>Vous avez d&#x27;autres <span className='spanFaq'>questions</span> ?</p>
                 </div>

@@ -30,8 +30,6 @@ export default function CarousselEvent({data}) {
     { width: 1200, itemsToShow: 4 },
   ];
 
-  console.log('data', data)
-  
   return (
 
     <MyCarouselEvent>

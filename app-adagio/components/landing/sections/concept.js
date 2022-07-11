@@ -8,7 +8,6 @@ const MyConcept = styled.section`
     padding: 10% 8%;
     display: flex;
     flex-direction: column;
-    /* min-height: 100vh; */
     height: 100%;
     gap: 40px;
     position: relative;

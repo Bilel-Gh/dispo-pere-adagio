@@ -26,49 +26,7 @@ export default function Home({ userConnected }) {
 
   return (
     <div className='container'>
-      <Head>
-      
-      </Head>
       <Landing/>
-
-      {<main className='main'>
-        {!session ? (
-          <>
-            <h1>Inscrivez vous !</h1>
-            <Link href="/login">
-              <button className='btn' type="submit">
-                {"s'inscrire"}
-              </button>
-            </Link>{" "}
-            <br />
-          </>
-        ) : (
-          <>
-            <h1> Bienvenue !</h1>
-          </>
-        )}
-        {session ? (
-          <>
-            Vous etes connecté en temps que {userConnected.firstname} <br />
-            <br />
-            button go to /spot 
-            <Link href="/spot">
-              <button className='btn'>
-                {"aller sur les spots"}
-              </button>
-            </Link>{" "}
-            <br />
-             button logout 
-            <button onClick={() => signOut()}>Déconnexion</button>
-          </>
-        ) : (
-          <>
-            Connectez vous <br />
-            <br />
-            <button onClick={() => signIn()}>Connexion</button>
-          </>
-        )}
-        </main> }
     </div>
   );
 }

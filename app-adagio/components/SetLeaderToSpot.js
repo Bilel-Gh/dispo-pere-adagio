@@ -61,9 +61,6 @@ export default function SetLeaderToSpot({ spotId, userLoged }) {
     getAllSpots();
 }, [spotId]);
 
-  // console.log("DATA99:", usersOnSpotData);
-
-
 const setLeaderRandomlyToSpot = async (spotId) => {
   try { 
     axios.post(`/api/userOnSpot/getRandomUserOnSpot`, {

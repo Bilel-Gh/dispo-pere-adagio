@@ -2,9 +2,8 @@ import styled from 'styled-components'
 import Button from '@/components/globalComponents/button'
 
 const MyDatas = styled.section`
-        background-color:#FDFCF3 ;
-
-  height: 100%;
+    background-color:#FDFCF3 ;
+    height: 100%;
     display: flex;
     flex-direction: column;
     .mainTitle{
@@ -41,8 +40,6 @@ const MyDatas = styled.section`
                 .jobImg{
                     z-index: 1;
                     height: auto;
-                    // width: 343px;
-
                     width: 100%;
                 }
                 .jobData{
@@ -55,7 +52,6 @@ const MyDatas = styled.section`
                 .jobText{
                     margin : 0;
                     font-family: 'Poppins-ExtraBold';
-                    // font-style: italic;
                     color: #333333;
                     font-size: 19px;
                     text-align: center;
@@ -85,9 +81,9 @@ const MyDatas = styled.section`
                 }
             }
         }
-}
+    }
 
-@media (max-width: 900px) {
+    @media (max-width: 900px) {
         .mainTitle{
             .title{
                 font-size: 35px;
@@ -110,10 +106,10 @@ const MyDatas = styled.section`
                 }
             }
         }
-}
+    }
 
 
-@media (max-width: 850px) {
+    @media (max-width: 850px) {
         .mainTitle{
             background-position: 70% 100%;
         }
@@ -145,9 +141,9 @@ const MyDatas = styled.section`
                 }
             }
         }
-}
+    }
 
-@media (max-width: 760px) {
+    @media (max-width: 760px) {
         .mainTitle{
             .title{
                 font-size: 28px;
@@ -157,9 +153,9 @@ const MyDatas = styled.section`
             background-image: none;
         }
 
-}
+    }
 
-@media (max-width: 600px) {
+    @media (max-width: 600px) {
 
         gap: 0px;
         padding: 40px 0px;
@@ -225,7 +221,7 @@ const MyDatas = styled.section`
                 }
             }
         }
-}
+    }
 `
 
 export default function Datas() {

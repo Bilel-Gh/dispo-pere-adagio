@@ -16,7 +16,6 @@ const MyCard = styled.div`
     justify-content: center;
     height: 185px;
     background-size: cover;
-    /* background-color: #F195BA; */
     border-radius: 16px;
     font-size: 20px;
     p{
@@ -66,8 +65,10 @@ const MyCard = styled.div`
       margin-top: 5%;
     }
   }
-  
-    
+@media (max-width: 500px) {
+  width: initial;
+
+}
 `
 
 export default function CardSpot(props) {
@@ -82,7 +83,6 @@ export default function CardSpot(props) {
         <div className='image-card' style={{
           backgroundImage:`url(${img})`
         }}></div>
-
         <div className='description'>
           <h3 className='name-card'>
             {name}
@@ -96,17 +96,8 @@ export default function CardSpot(props) {
           <h4 className='date-card'>
             {date}
           </h4>
-          
         </div>
-        
-       
-        
       </MyCard>
-
-
-
-
     </article>
-
   )
 }

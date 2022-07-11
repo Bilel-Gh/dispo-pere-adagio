@@ -1,7 +1,5 @@
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
 import styled from 'styled-components'
-
 
 const MyBtn = styled.div`
   .btn{
@@ -17,9 +15,10 @@ const MyBtn = styled.div`
     justify-content: center; 
     font-family: "Poppins-ExtraBold";
     justify-content: center;
+    text-align: center;
     width:100% ;
     font-weight:'bold'
-}
+  }
 
 .violet{
     background-color:#9F9FED; 

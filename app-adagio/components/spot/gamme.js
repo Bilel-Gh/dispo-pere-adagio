@@ -4,14 +4,11 @@ import styled from 'styled-components'
 
 
 const MyGamme = styled.section`
-    background: #FFFFFF;
-    padding: 0% 5% 5% 5%;
-
+  background: #FFFFFF;
+  padding: 0% 5% 5% 5%;
   .gammeContainer{
     padding: 72px 72px 50px 72px;
-
     .titleContainer{
-
       color: #333333;
       flex-direction: column;
       align-items: center;

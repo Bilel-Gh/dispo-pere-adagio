@@ -19,6 +19,7 @@ const Home = styled.section`
         display: flex;
         padding: 5% 5% 0% 5%;
         height: 60vh;
+        gap: 15px;
         justify-content: space-between;
         align-items: flex-end;
         .title{
@@ -116,7 +117,7 @@ const Home = styled.section`
     .homeContainer{
       .main{
         background-image: none;
-        flex-direction: column; //none
+        flex-direction: column; 
         .title, .info{
           width: 100%;
         }

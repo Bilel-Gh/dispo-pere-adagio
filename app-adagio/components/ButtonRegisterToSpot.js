@@ -34,8 +34,6 @@ export default function ButtonRegisterToSpot({ spotId, userLoged }) {
   }
   isUserOnSpot(spotId);
 
-  // console.log("usersOnSpot_________:", usersOnSpot);
-
   return (
     <div className={styles.container}>
       {userLoged ? (

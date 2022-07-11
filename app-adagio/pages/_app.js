@@ -2,7 +2,7 @@ import { SessionProvider } from 'next-auth/react'
 import { createGlobalStyle } from 'styled-components';
 import Nav from '@/components/globalComponents/nav'
 import Footer from '@/components/globalComponents/footer'
-import '../styles/globals.css' // à supprimer
+import '../styles/globals.css'
 import React, { useEffect } from 'react';
 import TagManager from 'react-gtm-module';
 import Head from 'next/head';

@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import Button from '@/components/globalComponents/button'
 import { getSession, useSession, signIn, signOut } from "next-auth/react";
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 const NavDesktop = styled.nav`
- display: flex;
+    display: flex;
     width: 100%;
     align-items: center;
     justify-content: space-between;
@@ -61,7 +60,6 @@ const NavDesktop = styled.nav`
         font-family: 'Poppins-Regular';
         border: none;
         cursor: pointer;
-        /* on hover show disconnect button */
       }
       .disconnectButton {
         display: none;
@@ -79,13 +77,11 @@ const NavDesktop = styled.nav`
           .disconnectButton {
             display: block;
           }
-          /* deplacer .navItemButon vers le bas de 10px */
           .navItemUser{
             margin-top: 30px;
           }
         }
       }
-
       @media (max-width: 1100px) {
           gap: 20px;
       }
@@ -111,7 +107,6 @@ const NavMobile = styled.nav`
       }
     }
   }
-    
   .close{
     z-index: 1;
     position: absolute;
@@ -198,7 +193,6 @@ const NavMobile = styled.nav`
         font-family: 'Poppins-Regular';
         border: none;
         cursor: pointer;
-        /* on hover show disconnect button */
       }
       .disconnectButton {
         width: 136px;
@@ -210,7 +204,6 @@ const NavMobile = styled.nav`
         border: none;
         cursor: pointer;
       }
-      
       .social{
           display: flex;
           gap: 30px;
@@ -351,13 +344,13 @@ const Burger = ({ isOpen, setIsOpen }) => {
                     )}
 
                     <div className='social'>
-                      <a href="https://www.linkedin.com/company/sens-positif/about/?viewAsMember=true">
+                      <a href="https://m.facebook.com/pereadagio">
                         <img src='/img/landing/fbBlack.svg' alt="icon facebook" />
                       </a>
                       <a href="https://www.instagram.com/pereadagio/">
                         <img src='/img/landing/instaBlack.svg' alt="icon instagram" />
                       </a>
-                      <a href="https://www.youtube.com/channel/UCBFPQC4zt_I0oVBIMBWaCYw">
+                      <a href="https://www.linkedin.com/mwlite/company/p%C3%A8re-adagio">
                         <img src='/img/landing/linkedinBlack.svg' alt="icon linkedin " />
                       </a>
                     </div>
@@ -374,7 +367,7 @@ const Burger = ({ isOpen, setIsOpen }) => {
             <Link href='/'>
               <a>
                 <figure>
-                  <img className='logo-desktop' src={(router.asPath === '/' || router.asPath === '/profil' || router.asPath.includes('/#')) ? 'img/landing/logo.webp' : 'img/landing/logoWhite.webp'} alt="logo" />
+                  <img className='logo-desktop' src={(router.asPath === '/' || router.asPath === '/signup' || router.asPath === '/profil' || router.asPath.includes('/#')) ? 'img/landing/logo.webp' : 'img/landing/logoWhite.webp'} alt="logo" />
                 </figure>
               </a>
             </Link>
@@ -439,18 +432,10 @@ const Burger = ({ isOpen, setIsOpen }) => {
 
               )
             }
-
-
-
           </NavDesktop>
         )
-
-
       }
-
-
     </>
-
   );
 }
 
