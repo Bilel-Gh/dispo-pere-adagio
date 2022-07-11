@@ -374,7 +374,7 @@ const Burger = ({isOpen, setIsOpen}) => {
           <Link href='/'>
           <a>
             <figure>
-              <img className='logo-desktop' src= {(router.asPath === '/' || router.asPath.includes('/#'))  ?    'img/landing/logo.webp': 'img/landing/logoWhite.webp' } alt="logo"/>
+              <img className='logo-desktop' src= {(router.asPath === '/' || router.asPath === '/profil' || router.asPath.includes('/#'))  ?    'img/landing/logo.webp': 'img/landing/logoWhite.webp' } alt="logo"/>
             </figure>
           </a>
           </Link>
