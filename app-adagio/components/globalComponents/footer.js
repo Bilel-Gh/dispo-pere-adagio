@@ -147,19 +147,16 @@ export default function Footer(){
                     <figure>
                         <img src="/img/logoWhite.webp" width="143.01" height="80" alt='logo pa' />
                     </figure>
-
                     <div className='social-wrapper_responsive'>
                         <img className='facebook' src='/img/fb.webp' alt='facebook icon'></img>
                         <img className='instagram' src='/img/insta.webp' alt='instagram icon'></img>
                         <img className='linkedin' src='/img/linkedin.webp' alt='linkedin icon'></img>
                     </div>
-
                     <p>
                         Inscrivez-vous
                         <br></br>
                         à notre newsletter !
                     </p>
-
                     <NewsletterForm/>
                 </div>
 

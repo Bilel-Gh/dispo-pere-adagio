@@ -1,7 +1,5 @@
 html,
 body {
-  padding: 0;
-  margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
@@ -13,6 +11,8 @@ a {
 
 * {
   box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
 
 .pending, .notassigned {
@@ -33,4 +33,111 @@ a {
 .refused {
   color: red;
   display: flex;
+}
+
+/* Headings */
+
+.H1 {
+  font-family: 'Poppins-ExtraBold';
+  font-size: 64px;
+  line-height: 76px;
+}
+.H2 {
+  font-family: 'Poppins-ExtraBold';
+  font-size: 60px;
+  line-height: 72px;
+}
+.H3 {
+  font-family: 'Poppins-ExtraBold';
+  font-size: 44px;
+  line-height: 56px;
+}
+.H4 {
+  font-family: 'Poppins-ExtraBold';
+  font-size: 36px;
+  line-height: 48px;
+}
+.H5 {
+  font-family: 'Poppins-ExtraBold';
+  font-size: 32px;
+  line-height: 40px;
+}
+.H6 {
+  font-family: 'Poppins-ExtraBold';
+  font-size: 24px;
+  line-height: 36px;
+}
+
+/* Mobile Headings */
+
+@media (max-width: 500px) {
+  .H1 {
+    font-family: 'Poppins-ExtraBold';
+    font-size: 44px;
+    line-height: 56px;
+  }
+  .H2 {
+    font-family: 'Poppins-ExtraBold';
+    font-size: 40px;
+    line-height: 52px;
+  }
+  .H3 {
+    font-family: 'Poppins-ExtraBold';
+    font-size: 36px;
+    line-height: 48px;
+  }
+  .H4 {
+    font-family: 'Poppins-ExtraBold';
+    font-size: 32px;
+    line-height: 44px;
+  }
+  .H5 {
+    font-family: 'Poppins-ExtraBold';
+    font-size: 28px;
+    line-height: 40px;
+  }
+  .H6 {
+    font-family: 'Poppins-ExtraBold';
+    font-size: 24px;
+    line-height: 36px;
+  }
+}
+
+/* Content */
+
+.content-medium{
+  font-family: 'Poppins-Regular';
+  color: #333333;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.form-label{
+  font-family: 'Poppins-ExtraBold';
+  color: white;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.tags-actif{
+  font-family: 'Poppins-Extrabold';
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.tags-default{
+  font-family: 'Poppins-Regular';
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.xsmall-bold{
+  font-family: 'Poppins-ExtraBold';
+  font-size: 12px;
+  line-height: 16px;
+}
+.xsmall{
+  font-family: 'Poppins-Regular';
+  font-size: 12px;
+  line-height: 16px;
 }

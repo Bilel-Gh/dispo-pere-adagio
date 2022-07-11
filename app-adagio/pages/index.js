@@ -33,7 +33,7 @@ export default function Home({ userConnected }) {
       </Head>
       <Landing/>
 
-      {/*<main className='main'>
+      {<main className='main'>
         {!session ? (
           <>
             <h1>Inscrivez vous !</h1>
@@ -70,7 +70,7 @@ export default function Home({ userConnected }) {
             <button onClick={() => signIn()}>Connexion</button>
           </>
         )}
-        </main> */}
+        </main> }
     </div>
   );
 }
