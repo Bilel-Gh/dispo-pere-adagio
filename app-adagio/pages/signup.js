@@ -288,7 +288,7 @@ export default function Home({ jobs, emails, userLoged }) {
               </div>
               <div className='btnContainer'  >
                 <button className='btn' type="submit">
-                  Envoyer
+                  S'inscrire
                 </button>
               </div>
               
