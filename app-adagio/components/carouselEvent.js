@@ -23,19 +23,6 @@ const MyCarouselEvent = styled.div`
 
 export default function CarousselEvent({data}) {
 
-  // const [allEvents, setAllEvents] = useState([]);
-
-  // useEffect(() => {
-  //   // get all spots
-  //   const getAllEvents = () => { 
-  //     axios.get("/api/spot/getAllSpots")
-  //     .then(res => {
-  //       setAllEvents(res.data);
-  //     })
-  //   }
-  //   getAllEvents();
-  // }, []);
-
   const breakPoints = [
     { width: 1, itemsToShow: 1 },
     { width: 550, itemsToShow: 2 },
@@ -49,15 +36,6 @@ export default function CarousselEvent({data}) {
 
     <MyCarouselEvent>
       <Carousel className='caroussel' breakPoints={breakPoints}>
-      <div>
-        <CardEvent
-        name='Nos pop-upkdhgsjhf store'
-        btn='Voir'
-        date='Du 29 juin au 1e juillet 2022'
-        place='Hôtel de ville de Paris'
-        link='/event'
-        />
-      </div>
       {data.map((evt, index) => (
           <CardEvent key={index}
             name={evt.name}

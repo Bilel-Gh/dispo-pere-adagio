@@ -116,23 +116,19 @@ position: relative;
 
 export default function Faq() {
 
-    const qas= [
+    const qas = [
         {
-            question : 'Pourquoi père adagio ?',
-            answer : `Chez père adagio on est fan des inconnus, c'est une référence au père ducasse. Adagio c'est surtout parce qu'avec nous votre affaire se développe dans le calme et la sérénité.`
+            question: 'Pourquoi père adagio ?',
+            answer: `Chez père adagio on est fan des inconnus, c'est une référence au père ducasse. Adagio c'est surtout parce qu'avec nous votre affaire se développe dans le calme et la sérénité.`
         },
         {
-            question : 'Quand le père adagio a été fondé ?',
-            answer : 'Le père adagio a été fondée en juin 2022 par 15 collaborateurs.'
+            question: 'Quand le père adagio a été fondé ?',
+            answer: 'Le père adagio a été fondée en juin 2022 par 15 collaborateurs.'
         },
         {
-            question : `Dans l'avenir vous souhaitez étendre votre offre aux commerçants (hors artisanat) ?`,
-            answer : `Ce n'est pas dans nos projet pour l'instant, mais comme le dit le celebre dicton "never say never", donc actuellement et pendant plusieurs années nous nous impliquerons cœurs et âmes uniquement pour les artisans`
-        },
-        {
-            question : 'Vous vous présentez ?',
-            answer : 'Réponse...',
-        },
+            question: `Dans l'avenir vous souhaitez étendre votre offre aux commerçants (hors artisanat) ?`,
+            answer: `Ce n'est pas dans nos projet pour l'instant, mais comme le dit le celebre dicton "never say never", donc actuellement et pendant plusieurs années nous nous impliquerons cœurs et âmes uniquement pour les artisans`
+        }
     ]
 
 
@@ -141,11 +137,11 @@ export default function Faq() {
 
     const toggle = (i) => {
         const tempTab = [].concat(tab)
-        tempTab[i] =!tab[i]
-        setTab(tempTab) 
+        tempTab[i] = !tab[i]
+        setTab(tempTab)
     }
-        
-    return(
+
+    return (
         <MyFaq id="faq" className='mainContainer'>
             <h2 className='headerOne'>Vous avez des questions ?</h2>
             <div className='subContainer'>
@@ -155,17 +151,17 @@ export default function Faq() {
                             <article className='faq' id={index} key={index}>
                                 <div className='faq-question' onClick={() => toggle(index)}>
                                     <h3>{qa.question}</h3>
-                                    <svg className={tab[index] ? 'svg' :'svgTrun'} xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#F195BA" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-                                </div>  
+                                    <svg className={tab[index] ? 'svg' : 'svgTrun'} xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#F195BA" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9" /></svg>
+                                </div>
                                 {
                                     tab[index] &&
                                     <div className='answer' >
                                         <p>
                                             {qa.answer}
                                         </p>
-                                    </div>     
+                                    </div>
                                 }
-                                              
+
                             </article>
                         ))
                     }
@@ -176,7 +172,7 @@ export default function Faq() {
                 </div>
 
                 <div className='btn-contact-us'>
-                    <Button  name="btn-contact-us" color='violet' link='mailto:bonjour.utopia@gmail.com'>On prend contact !</Button>
+                    <Button name="btn-contact-us" color='violet' link='mailto:bonjour.utopia@gmail.com'>On prend contact !</Button>
                 </div>
             </div>
         </MyFaq>

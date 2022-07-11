@@ -5,9 +5,6 @@ import CarouselEvent from '@/components/carouselEvent'
 import CarouselSpot from '@/components/carouselSpot'
 import prisma from "/lib/prisma";
 
-
-
-
 const MyAccueil = styled.section`
   .main{
     background-image: url(img/dispo/bgCooker.webp);
@@ -17,6 +14,7 @@ const MyAccueil = styled.section`
     display: flex;
     align-items: center;
     padding: 10%;
+    gap: 15px;
     article{
     display: flex;
     flex-direction:column;
@@ -77,6 +75,29 @@ const MyAccueil = styled.section`
     }
   }
   }
+
+  @media (max-width: 500px) {
+    .main{
+      article{
+        .title{
+          :nth-child(1) {
+            font-size: 50px;
+          }
+          :nth-child(2) {
+            font-size: 22px;
+          }
+          :nth-child(3) {
+            font-size: 65px;
+          }
+        }
+        .description{
+          font-size: 15px;
+          margin: 10px 0px;
+        }
+      }
+    }
+  }
+  
   
 
 `

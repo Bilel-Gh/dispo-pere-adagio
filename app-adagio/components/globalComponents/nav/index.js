@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import Burger from './burger'
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
@@ -28,15 +28,15 @@ const MyNav = styled.header`
   }
 `
 
-export default function NavBar({}) {
+export default function NavBar({ }) {
   // console.table(window.localStorage.userConnected)
   const [isOpen, setIsOpen] = useState(false)
   const router = useRouter()
 
   return (
-    <MyNav id='nav' className='section-nav' 
+    <MyNav id='nav' className='section-nav'
       style={{
-        position: (router.asPath === '/' || router.asPath.includes('/#')) ? 'initial': 'absolute'
+        position: (router.asPath === '/' || router.asPath.includes('/#')) ? 'initial' : 'absolute'
       }}
     >
       <Burger isOpen={isOpen} setIsOpen={setIsOpen} />

@@ -66,6 +66,7 @@ const MyBtn = styled.div`
     }
 }
 .orange{
+    text-align: center;
     background-color:#EB5B2D; 
     text-transform: initial;
     color:#FDFCF3; 

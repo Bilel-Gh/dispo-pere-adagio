@@ -288,7 +288,7 @@ const Burger = ({ isOpen, setIsOpen }) => {
                               </Link>
                             </li>
                             <li className='navItem'>
-                              <Link href='/spot'>
+                              <Link href='/spots'>
                                 <a>
                                   Les stands
                                 </a>
@@ -397,7 +397,7 @@ const Burger = ({ isOpen, setIsOpen }) => {
                     </Link>
                   </li>
                   <li className='navItem'>
-                    <Link href='/spot'>
+                    <Link href='/spots'>
                       <a>
                         Les stands
                       </a>

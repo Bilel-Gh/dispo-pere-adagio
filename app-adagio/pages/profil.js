@@ -315,33 +315,6 @@ export default function Profil() {
                         <article className='card'>
                             <div className='card-h2'>
                                 <h2 className='form-label'>Suivi de votre demande</h2>
-                            </div>            
-                            <div className='card-info'>
-                                <figure>
-                                    <img src='/img/dispo/profileCard.webp'></img>
-                                </figure>
-                                <div className='card-info_text'>
-                                    <p className='xsmall-bold'>We Love Green</p>
-                                    <p className='xsmall-bold'><span className='xsmall-bold_span'>Food Truck Premium</span></p>
-                                    <p className='xsmall'><span className='xsmall_span'>Vendredi 8 Septembre 2022</span></p>
-                                    <p className='xsmall'><span className='xsmall_span'>Vincennes 94300</span></p>
-                                </div>
-                            </div>
-                            <div className='card-confirm'>
-                                <figure className='card-confirm_img'>
-                                    <img src='/img/dispo/icon.svg' alt='icon'></img>
-                                </figure>
-                                <p>Candidature envoyée</p>
-                            </div>
-
-                            <div className='card-footer'>
-                                <button>En attente du tirage au sort</button>
-                            </div>
-                        </article>
-
-                        <article className='card'>
-                            <div className='card-h2'>
-                                <h2 className='form-label'>Suivi de votre demande</h2>
                             </div>
                             <div className='card-info'>
                                 <figure>
